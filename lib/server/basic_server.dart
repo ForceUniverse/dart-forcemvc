@@ -18,6 +18,7 @@ class WebServer {
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) {
     this.port = port;
     this.wsPath = wsPath;
+    this._completer = new Completer.sync();
     if (host!=null) {
       this.bind_address = host;
     }
@@ -29,7 +30,6 @@ class WebServer {
   }
   
   Future start([WebSocketHandler handleWs]) {
-    this._completer = new Completer.sync();
     HttpServer.bind(bind_address, port).then((server) { 
         _onStart(server, handleWs);
         _completer.complete(const []);

@@ -10,6 +10,22 @@ Serverside MVC based implementation for Dart. Easy to setup and part of the dart
 
 Use a server with dart very easily, create controllers with annotations ...
 
+First you will setup a new server.
+
+	WebServer server = new WebServer(wsPath: wsPath, port: port, host: host, buildPath: buildPath);
+	
+Then you use the on method to handle http requests.
+
+	server.on(url, (req) { /* logic */ }, method: "GET");
+	
+You can also use the annotation RequestMapping in a dart object
+
+	@RequestMapping(value: "/someurl", method: "GET")
+	
+Then you register that object on the WebServer object.
+
+	server.register(someObjectWithRequestMappingAnnotations)
+
 More info will follow in the coming days!
 
 #### TODO ####
