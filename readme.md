@@ -2,7 +2,7 @@
 
 ![LOGO!](https://raw.github.com/jorishermans/dart-force/master/resources/dart_force_logo.jpg)
 
-A realtime web framework for dart.
+Part of the Dart Force Framework.
 
 Serverside MVC based implementation for Dart. Easy to setup and part of the dart force framework!
 
