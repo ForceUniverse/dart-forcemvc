@@ -43,12 +43,14 @@ If you'd like to contribute back to the core, you can [fork this repository](htt
 
 If you are new to Git or GitHub, please read [this guide](https://help.github.com/) first.
 
+#### Dart Force ####
+
+Realtime web framework for dart that uses force MVC [source code](https://github.com/jorishermans/dart-force)
+
 #### Twitter ####
 
 Follow us on twitter https://twitter.com/usethedartforce
 
-#### Dart Force ####
+#### Google+ ####
 
-Realtime web framework for dart that uses force MVC
-
-[source code](https://github.com/jorishermans/dart-force)
+Follow us on [google+](https://plus.google.com/111406188246677273707)
