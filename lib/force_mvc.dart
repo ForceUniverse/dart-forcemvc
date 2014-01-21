@@ -11,5 +11,6 @@ import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 part 'server/basic_server.dart';
 part 'server/force_mvc_typedefs.dart';
 part 'server/force_request_method.dart';
+part 'server/force_model.dart';
 
 part 'annotations/force_request_mapping.dart';

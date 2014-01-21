@@ -2,7 +2,15 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.0.2 ####
+#### Pub version 0.0.5 ####
+
+Introduction of the model
+
+#### Pub version 0.0.4 ####
+
+Update version of uuid
+
+#### Pub version 0.0.3 ####
 
 Adding RequestMethod class into the project
 

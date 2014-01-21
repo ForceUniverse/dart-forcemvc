@@ -40,7 +40,18 @@ class WebServer {
   void on(String url, ControllerHandler controllerHandler, {method: "GET"}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       controllerHandler(req);
+       Model model = new Model();
+       String view = controllerHandler(req, model);
+       if (view != null) {
+         // template rendering
+         resolveRendering(req, model, view);
+       } else {
+         req.response
+         ..statusCode = 200
+         ..headers.contentType = new ContentType("application", "json", charset: "utf-8")
+         ..write(model.getData())
+           ..close();
+       }
      });
    }); 
   }
@@ -54,19 +65,36 @@ class WebServer {
             (dm) => dm is MethodMirror && dm.isRegularMethod);
     decls.forEach((MethodMirror mm) {
       if (mm.metadata.isNotEmpty) {
-        var request = mm.metadata.first.reflectee;
-        if (request is RequestMapping) {
-          log.info("just a simple receiver method on -> $request");
-          String name = (MirrorSystem.getName(mm.simpleName));
-          Symbol memberName = mm.simpleName;
-          
-          on(request.value, (HttpRequest req) {
-            log.info("execute this please!");
-            InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req]);
-          }); 
+        // var request = mm.metadata.first.reflectee;
+        for (var im in mm.metadata) {
+          if (im is RequestMapping) {
+            var request = im;
+            log.info("just a simple receiver method on -> $request");
+            String name = (MirrorSystem.getName(mm.simpleName));
+            Symbol memberName = mm.simpleName;
+            
+            on(request.value, (HttpRequest req, Model model) {
+              log.info("execute this please!");
+              InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
+              
+              if (res.hasReflectee) {
+                var view = res.reflectee;
+                if (view is String) {
+                  return view;
+                }
+                else {
+                  return null;
+                }
+              }
+            });
+          }
         }
       }
     });
+  }
+  
+  void resolveRendering(HttpRequest req, Model model, String view) {
+    
   }
   
   void _onStart(server, [WebSocketHandler handleWs]) {
