@@ -8,7 +8,9 @@ import 'package:http_server/http_server.dart' as http_server;
 import 'package:route/server.dart' show Router;
 import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 
-part 'server/basic_server.dart';
+import 'package:mustache4dart/mustache4dart.dart';
+
+part 'server/web_server.dart';
 part 'server/force_mvc_typedefs.dart';
 part 'server/force_request_method.dart';
 part 'server/force_model.dart';

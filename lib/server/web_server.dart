@@ -44,13 +44,9 @@ class WebServer {
        String view = controllerHandler(req, model);
        if (view != null) {
          // template rendering
-         resolveRendering(req, model, view);
+         _send_template(req, model, view);
        } else {
-         req.response
-         ..statusCode = 200
-         ..headers.contentType = new ContentType("application", "json", charset: "utf-8")
-         ..write(model.getData())
-           ..close();
+         _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), model.getData());
        }
      });
    }); 
@@ -69,7 +65,7 @@ class WebServer {
         for (var im in mm.metadata) {
           if (im is RequestMapping) {
             var request = im;
-            log.info("just a simple receiver method on -> $request");
+            log.info("just a simple requestMapping method on -> $request");
             String name = (MirrorSystem.getName(mm.simpleName));
             Symbol memberName = mm.simpleName;
             
@@ -93,8 +89,22 @@ class WebServer {
     });
   }
   
-  void resolveRendering(HttpRequest req, Model model, String view) {
-    
+  void _send_template(HttpRequest req, Model model, String view) {
+    var file = new File("../views/$view.html");
+    file.readAsBytes().then((data) {
+      var template = new String.fromCharCodes(data);
+      
+      var result = render(template, model);
+      _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
+    });
+  }
+  
+  void _send_response(HttpResponse response, ContentType contentType, String result) {
+    response
+    ..statusCode = 200
+    ..headers.contentType = contentType
+    ..write(result)
+      ..close();
   }
   
   void _onStart(server, [WebSocketHandler handleWs]) {
