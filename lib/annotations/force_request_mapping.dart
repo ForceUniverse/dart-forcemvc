@@ -4,7 +4,7 @@ class RequestMapping {
   
   final String value;
   final String method;
-  const RequestMapping({this.value: "", this.method:"GET"});
+  const RequestMapping(this.value, this.method);
 
   String toString() => "$value -> $method";
   
