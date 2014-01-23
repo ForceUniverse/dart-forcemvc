@@ -1,8 +1,8 @@
 part of dart_force_mvc_lib;
 
-class WebServer {
+class WebServer extends SimpleWebServer {
   
-  final Logger log = new Logger('BasicServer');
+  final Logger log = new Logger('WebServer');
   
   Router router;
   String startPage = 'index.html';
@@ -15,27 +15,7 @@ class WebServer {
   
   Completer _completer;
   
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) {
-    this.port = port;
-    this.wsPath = wsPath;
-    this._completer = new Completer.sync();
-    if (host!=null) {
-      this.bind_address = host;
-    }
-    buildDir = Platform.script.resolve(buildPath).toFilePath();
-    if (!new Directory(buildDir).existsSync()) {
-      log.severe("The 'build/' directory was not found. Please run 'pub build'.");
-      return;
-    } 
-  }
-  
-  Future start([WebSocketHandler handleWs]) {
-    HttpServer.bind(bind_address, port).then((server) { 
-        _onStart(server, handleWs);
-        _completer.complete(const []);
-      });
-    return _completer.future;
-  }
+  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super();
   
   void on(String url, ControllerHandler controllerHandler, {method: "GET"}) {
    _completer.future.whenComplete(() {
@@ -105,6 +85,11 @@ class WebServer {
     ..headers.contentType = contentType
     ..write(result)
       ..close();
+  }
+  
+  void serveFile(String fileName, HttpRequest request) {
+    Uri fileUri = Platform.script.resolve(fileName);
+    virDir.serveFile(new File(fileUri.toFilePath()), request);
   }
   
   void _onStart(server, [WebSocketHandler handleWs]) {
