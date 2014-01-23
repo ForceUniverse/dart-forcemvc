@@ -15,6 +15,10 @@ class SimpleWebServer {
   Completer _completer;
   
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) {
+    init(wsPath, port, host, buildPath);
+  }
+  
+  void init(wsPath, port, host, buildPath) {
     this.port = port;
     this.wsPath = wsPath;
     this._completer = new Completer.sync();

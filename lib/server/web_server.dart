@@ -15,7 +15,9 @@ class WebServer extends SimpleWebServer {
   
   Completer _completer;
   
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super();
+  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super() {
+    init(wsPath, port, host, buildPath);
+  }
   
   void on(String url, ControllerHandler controllerHandler, {method: "GET"}) {
    _completer.future.whenComplete(() {
