@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.0.6 ####
+
+Fixing issue with annotations of RequestMapping
+
 #### Pub version 0.0.5 ####
 
 Introducing Simple Web Server
