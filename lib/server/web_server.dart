@@ -47,8 +47,8 @@ class WebServer extends SimpleWebServer {
         if (mm.metadata.isNotEmpty) {
           // var request = mm.metadata.first.reflectee;
           for (var im in mm.metadata) {
-            if (im is RequestMapping) {
-              var request = im;
+            if (im.reflectee is RequestMapping) {
+              var request = im.reflectee;
               log.info("just a simple requestMapping method on -> $request");
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
