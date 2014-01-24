@@ -4,6 +4,10 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.0.5 ####
 
+Introducing Simple Web Server
+
+#### Pub version 0.0.5 ####
+
 Introduction of the model
 
 #### Pub version 0.0.4 ####

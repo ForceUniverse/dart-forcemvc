@@ -39,36 +39,39 @@ class WebServer extends SimpleWebServer {
     ClassMirror MyClassMirror = myClassInstanceMirror.type;
    
     Iterable<DeclarationMirror> decls =
-        MyClassMirror.declarations.values.where(
-            (dm) => dm is MethodMirror && dm.isRegularMethod);
-    decls.forEach((MethodMirror mm) {
-      if (mm.metadata.isNotEmpty) {
-        // var request = mm.metadata.first.reflectee;
-        for (var im in mm.metadata) {
-          if (im is RequestMapping) {
-            var request = im;
-            log.info("just a simple requestMapping method on -> $request");
-            String name = (MirrorSystem.getName(mm.simpleName));
-            Symbol memberName = mm.simpleName;
-            
-            on(request.value, (HttpRequest req, Model model) {
-              log.info("execute this please!");
-              InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
+        MyClassMirror.declarations.values;
+    
+    for (DeclarationMirror dclMirror in decls) {
+      if (dclMirror is MethodMirror) {
+        MethodMirror mm = dclMirror;
+        if (mm.metadata.isNotEmpty) {
+          // var request = mm.metadata.first.reflectee;
+          for (var im in mm.metadata) {
+            if (im is RequestMapping) {
+              var request = im;
+              log.info("just a simple requestMapping method on -> $request");
+              String name = (MirrorSystem.getName(mm.simpleName));
+              Symbol memberName = mm.simpleName;
               
-              if (res.hasReflectee) {
-                var view = res.reflectee;
-                if (view is String) {
-                  return view;
+              on(request.value, (HttpRequest req, Model model) {
+                log.info("execute this please!");
+                InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
+                
+                if (res.hasReflectee) {
+                  var view = res.reflectee;
+                  if (view is String) {
+                    return view;
+                  }
+                  else {
+                    return null;
+                  }
                 }
-                else {
-                  return null;
-                }
-              }
-            });
+              });
+            }
           }
         }
       }
-    });
+    };
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
