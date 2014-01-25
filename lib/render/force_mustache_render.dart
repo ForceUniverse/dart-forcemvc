@@ -5,6 +5,7 @@ class MustacheRender extends ForceViewRender {
   String _render_impl(String source, model) {
     var template = mustache.parse(source);
     var output = template.renderString(model);
+    return output;
   }
   
 }

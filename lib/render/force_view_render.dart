@@ -8,7 +8,7 @@ abstract class ForceViewRender {
     file.readAsBytes().then((data) {
       var template = new String.fromCharCodes(data);
       
-      var result = render(template, model);
+      var result = _render_impl(template, model);
       
       completer.complete(result);
     });
