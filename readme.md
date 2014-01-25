@@ -31,8 +31,6 @@ More info will follow in the coming days!
 #### TODO ####
 
 - get more annotations and options for sending the response back
-- adding support for templates
-- adding support for a model
 - writing tests
 
 ### Notes to Contributors ###

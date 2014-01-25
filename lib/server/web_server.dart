@@ -58,7 +58,6 @@ class WebServer extends SimpleWebServer {
               Symbol memberName = mm.simpleName;
               
               on(request.value, (HttpRequest req, Model model) {
-                log.info("execute this please!");
                 InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
                 
                 if (res.hasReflectee) {
