@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.0.6 ####
+#### Pub version 0.0.6 & 0.0.7 ####
 
 Fixing issue with annotations of RequestMapping
 

@@ -79,7 +79,7 @@ class WebServer extends SimpleWebServer {
     file.readAsBytes().then((data) {
       var template = new String.fromCharCodes(data);
       
-      var result = render(template, model);
+      var result = render(template, model.getData());
       _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
     });
   }
