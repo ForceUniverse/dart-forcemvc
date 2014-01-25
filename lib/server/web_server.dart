@@ -5,6 +5,8 @@ class WebServer extends SimpleWebServer {
   final Logger log = new Logger('WebServer');
   
   Router router;
+  ForceViewRender viewRender;
+  
   String startPage = 'index.html';
   
   var wsPath;
@@ -17,6 +19,7 @@ class WebServer extends SimpleWebServer {
   
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super() {
     init(wsPath, port, host, buildPath);
+    this.viewRender = new MustacheRender();
   }
   
   void on(String url, ControllerHandler controllerHandler, {method: "GET"}) {
@@ -75,11 +78,7 @@ class WebServer extends SimpleWebServer {
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
-    var file = new File("../views/$view.html");
-    file.readAsBytes().then((data) {
-      var template = new String.fromCharCodes(data);
-      
-      var result = render(template, model.getData());
+    this.viewRender.render(view, model.getData()).then((String result) {
       _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
     });
   }
