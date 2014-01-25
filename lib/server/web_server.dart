@@ -31,7 +31,8 @@ class WebServer extends SimpleWebServer {
          // template rendering
          _send_template(req, model, view);
        } else {
-         _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), model.getData());
+         String data = JSON.encode(model.getData());
+         _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
        }
      });
    }); 
