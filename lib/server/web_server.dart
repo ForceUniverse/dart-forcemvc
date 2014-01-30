@@ -22,11 +22,11 @@ class WebServer extends SimpleWebServer {
     this.viewRender = new MustacheRender();
   }
   
-  void on(String url, ControllerHandler controllerHandler, {method: "GET"}) {
+  void on(String url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
        Model model = new Model();
-       String view = controllerHandler(req, model);
+       String view = controllerHandler(new ForceRequest(req), model);
        if (view != null) {
          // template rendering
          _send_template(req, model, view);
@@ -57,7 +57,7 @@ class WebServer extends SimpleWebServer {
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
               
-              on(request.value, (HttpRequest req, Model model) {
+              on(request.value, (ForceRequest req, Model model) {
                 InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
                 
                 if (res.hasReflectee) {

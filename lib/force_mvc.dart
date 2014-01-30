@@ -16,6 +16,7 @@ part 'server/simple_web_server.dart';
 part 'server/force_mvc_typedefs.dart';
 part 'server/force_request_method.dart';
 part 'server/force_model.dart';
+part 'server/force_request.dart';
 
 //render
 part 'render/force_view_render.dart';
