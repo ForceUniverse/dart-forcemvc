@@ -2,6 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.0 ####
+
+Adding renderer and model to the mvc part of it. 
+Adding mustache as a new dependency for the rendering part.
+
 #### Pub version 0.0.6 & 0.0.7 ####
 
 Fixing issue with annotations of RequestMapping
