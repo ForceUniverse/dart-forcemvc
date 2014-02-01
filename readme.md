@@ -16,17 +16,22 @@ First you will setup a new server.
 	
 Then you use the on method to handle http requests.
 
-	server.on(url, (req) { /* logic */ }, method: "GET");
+	server.on(url, (ForceRequest req, Model model) { /* logic */ }, method: "GET");
 	
 You can also use the annotation RequestMapping in a dart object
 
 	@RequestMapping(value: "/someurl", method: "GET")
+	void index(ForceRequest req, Model model)
 	
 Then you register that object on the WebServer object.
 
 	server.register(someObjectWithRequestMappingAnnotations)
 
-More info will follow in the coming days!
+#### ForceRequest ####
+
+ForceRequest is an abstraction for HttpRequest
+
+	forceRequest.postData().then((data) => print(data));
 
 #### Example ####
 

@@ -4,6 +4,10 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.1.0 ####
 
+Adding an abstraction ForceRequest, a wrapper around httprequest.
+
+#### Pub version 0.1.0 ####
+
 Adding renderer and model to the mvc part of it. 
 Adding mustache as a new dependency for the rendering part.
 
