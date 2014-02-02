@@ -73,8 +73,13 @@ class WebServer extends SimpleWebServer {
           for (MirrorValue mv in mirrorValues) {
             // execute all ! ! !
             on(mv.value, (ForceRequest req, Model model) {
-              for (MirrorModel mirrorModel in mirrorModels) {
-                model.addAttribute(mirrorModel.name, mirrorModel.value);
+              for (MirrorValue mvModel in mirrorModels) {
+                
+                InstanceMirror res = myClassInstanceMirror.invoke(mvModel.memberName, []);
+                
+                if (res.hasReflectee) {
+                  model.addAttribute(mvModel.value, res.reflectee);
+                }
               }
               InstanceMirror res = myClassInstanceMirror.invoke(mv.memberName, [req, model]);
               
