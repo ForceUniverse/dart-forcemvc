@@ -46,7 +46,7 @@ class WebServer extends SimpleWebServer {
         MyClassMirror.declarations.values;
     
     List<MirrorValue> mirrorValues = new List<MirrorValue>();
-    List<MirrorModel> mirrorModels = new List<MirrorModel>();
+    List<MirrorValue> mirrorModels = new List<MirrorValue>();
     
     for (DeclarationMirror dclMirror in decls) {
       if (dclMirror is MethodMirror) {
@@ -64,8 +64,9 @@ class WebServer extends SimpleWebServer {
             } else if (im.reflectee is ModelAttribute) {
               var modelAttribute = im.reflectee;
               String name = (MirrorSystem.getName(mm.simpleName));
+              Symbol memberName = mm.simpleName;
               
-              mirrorModels.add(new MirrorModel(name, modelAttribute.value));
+              mirrorModels.add(new MirrorValue(modelAttribute.value, memberName));
             } 
           }
           
