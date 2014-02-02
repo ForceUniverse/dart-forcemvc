@@ -45,6 +45,9 @@ class WebServer extends SimpleWebServer {
     Iterable<DeclarationMirror> decls =
         MyClassMirror.declarations.values;
     
+    List<MirrorValue> mirrorValues = new List<MirrorValue>();
+    List<MirrorModel> mirrorModels = new List<MirrorModel>();
+    
     for (DeclarationMirror dclMirror in decls) {
       if (dclMirror is MethodMirror) {
         MethodMirror mm = dclMirror;
@@ -57,20 +60,33 @@ class WebServer extends SimpleWebServer {
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
               
-              on(request.value, (ForceRequest req, Model model) {
-                InstanceMirror res = myClassInstanceMirror.invoke(memberName, [req, model]);
-                
-                if (res.hasReflectee) {
-                  var view = res.reflectee;
-                  if (view is String) {
-                    return view;
-                  }
-                  else {
-                    return null;
-                  }
+              mirrorValues.add(new MirrorValue(request.value, memberName));
+            } else if (im.reflectee is ModelAttribute) {
+              var modelAttribute = im.reflectee;
+              String name = (MirrorSystem.getName(mm.simpleName));
+              
+              mirrorModels.add(new MirrorModel(name, modelAttribute.value));
+            } 
+          }
+          
+          for (MirrorValue mv in mirrorValues) {
+            // execute all ! ! !
+            on(mv.value, (ForceRequest req, Model model) {
+              for (MirrorModel mirrorModel in mirrorModels) {
+                model.addAttribute(mirrorModel.name, mirrorModel.value);
+              }
+              InstanceMirror res = myClassInstanceMirror.invoke(mv.memberName, [req, model]);
+              
+              if (res.hasReflectee) {
+                var view = res.reflectee;
+                if (view is String) {
+                  return view;
                 }
-              });
-            }
+                else {
+                  return null;
+                }
+              }
+            });
           }
         }
       }
