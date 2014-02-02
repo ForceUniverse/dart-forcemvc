@@ -26,4 +26,3 @@ part 'annotations/force_request_mapping.dart';
 part 'annotations/force_model_attribute.dart';
 
 part 'domain/force_mirror_value.dart';
-part 'domain/force_mirror_model.dart';
