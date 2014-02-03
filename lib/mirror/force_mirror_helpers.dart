@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 class MirrorHelpers {
   
-  List<MirrorValue> getMirrorValues(Object obj, Type clazz) {
+  static List<MirrorValue> getMirrorValues(Object obj, Type clazz) {
     InstanceMirror instanceMirror = reflect(obj);
     ClassMirror MyClassMirror = instanceMirror.type;
    

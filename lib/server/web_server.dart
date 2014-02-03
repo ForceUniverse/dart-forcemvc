@@ -39,38 +39,10 @@ class WebServer extends SimpleWebServer {
   }
   
   void register(Object obj) {
-    InstanceMirror instanceMirror = reflect(obj);
-    ClassMirror MyClassMirror = instanceMirror.type;
-   
-    Iterable<DeclarationMirror> decls =
-        MyClassMirror.declarations.values;
-    
-    List<MirrorValue> mirrorValues = new List<MirrorValue>();
-    List<MirrorValue> mirrorModels = new List<MirrorValue>();
-    
-    for (DeclarationMirror dclMirror in decls) {
-      if (dclMirror is MethodMirror) {
-        MethodMirror mm = dclMirror;
-        if (mm.metadata.isNotEmpty) {
-          // var request = mm.metadata.first.reflectee;
-          for (var im in mm.metadata) {
-            if (im.reflectee is RequestMapping) {
-              var request = im.reflectee;
-              log.info("just a simple requestMapping method on -> $request");
-              String name = (MirrorSystem.getName(mm.simpleName));
-              Symbol memberName = mm.simpleName;
-              
-              mirrorValues.add(new MirrorValue(request.value, memberName, instanceMirror));
-            } else if (im.reflectee is ModelAttribute) {
-              var modelAttribute = im.reflectee;
-              String name = (MirrorSystem.getName(mm.simpleName));
-              Symbol memberName = mm.simpleName;
-              
-              mirrorModels.add(new MirrorValue(modelAttribute.value, memberName, instanceMirror));
-            } 
-          }
+      List<MirrorValue> mirrorValues = MirrorHelpers.getMirrorValues(obj, RequestMapping);
+      List<MirrorValue> mirrorModels = MirrorHelpers.getMirrorValues(obj, ModelAttribute);
           
-          for (MirrorValue mv in mirrorValues) {
+      for (MirrorValue mv in mirrorValues) {
             // execute all ! ! !
             on(mv.value, (ForceRequest req, Model model) {
               for (MirrorValue mvModel in mirrorModels) {
@@ -93,10 +65,7 @@ class WebServer extends SimpleWebServer {
                 }
               }
             });
-          }
-        }
       }
-    };
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
