@@ -39,8 +39,8 @@ class WebServer extends SimpleWebServer {
   }
   
   void register(Object obj) {
-    InstanceMirror myClassInstanceMirror = reflect(obj);
-    ClassMirror MyClassMirror = myClassInstanceMirror.type;
+    InstanceMirror instanceMirror = reflect(obj);
+    ClassMirror MyClassMirror = instanceMirror.type;
    
     Iterable<DeclarationMirror> decls =
         MyClassMirror.declarations.values;
@@ -60,13 +60,13 @@ class WebServer extends SimpleWebServer {
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
               
-              mirrorValues.add(new MirrorValue(request.value, memberName));
+              mirrorValues.add(new MirrorValue(request.value, memberName, instanceMirror));
             } else if (im.reflectee is ModelAttribute) {
               var modelAttribute = im.reflectee;
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
               
-              mirrorModels.add(new MirrorValue(modelAttribute.value, memberName));
+              mirrorModels.add(new MirrorValue(modelAttribute.value, memberName, instanceMirror));
             } 
           }
           
@@ -75,13 +75,13 @@ class WebServer extends SimpleWebServer {
             on(mv.value, (ForceRequest req, Model model) {
               for (MirrorValue mvModel in mirrorModels) {
                 
-                InstanceMirror res = myClassInstanceMirror.invoke(mvModel.memberName, []);
+                InstanceMirror res = mvModel.instanceMirror.invoke(mvModel.memberName, []);
                 
                 if (res.hasReflectee) {
                   model.addAttribute(mvModel.value, res.reflectee);
                 }
               }
-              InstanceMirror res = myClassInstanceMirror.invoke(mv.memberName, [req, model]);
+              InstanceMirror res = mv.instanceMirror.invoke(mv.memberName, [req, model]);
               
               if (res.hasReflectee) {
                 var view = res.reflectee;

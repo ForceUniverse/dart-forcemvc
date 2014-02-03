@@ -4,7 +4,8 @@ class MirrorValue {
   
   String value;
   Symbol memberName;
-  MirrorValue(this.value, this.memberName);
+  InstanceMirror instanceMirror;
+  MirrorValue(this.value, this.memberName, this.instanceMirror);
 
   String toString() => "$value - $memberName";
   

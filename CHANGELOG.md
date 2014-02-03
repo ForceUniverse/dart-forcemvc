@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.2 ####
+
+Adding the ModelAttribute annotation into the mvc framework.
+
 #### Pub version 0.1.0 ####
 
 Adding an abstraction ForceRequest, a wrapper around httprequest.

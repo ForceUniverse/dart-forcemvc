@@ -23,6 +23,14 @@ You can also use the annotation RequestMapping in a dart object
 	@RequestMapping(value: "/someurl", method: "GET")
 	void index(ForceRequest req, Model model)
 	
+You can also use the annotation @ModelAttribute to add an object to all the scopes in the methods.
+An @ModelAttribute on a method argument indicates the argument should be retrieved from the model. If not present in the model, the argument should be instantiated first and then added to the model. Once present in the model, the argument's fields should be populated from all request parameters that have matching names.
+
+	@ModelAttribute("someValue")
+	String someName() {
+		return mv.getValue();
+	}
+	
 Then you register that object on the WebServer object.
 
 	server.register(someObjectWithRequestMappingAnnotations)

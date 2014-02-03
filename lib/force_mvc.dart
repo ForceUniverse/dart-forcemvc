@@ -25,4 +25,5 @@ part 'render/force_mustache_render.dart';
 part 'annotations/force_request_mapping.dart';
 part 'annotations/force_model_attribute.dart';
 
-part 'domain/force_mirror_value.dart';
+part 'mirror/force_mirror_value.dart';
+part 'mirror/force_mirror_helpers.dart';
