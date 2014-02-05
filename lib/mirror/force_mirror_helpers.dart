@@ -1,8 +1,8 @@
 part of dart_force_mvc_lib;
 
-class MirrorHelpers {
+class MirrorHelpers<T> {
   
-  static List<MirrorValue> getMirrorValues(Object obj, Type clazz) {
+  List<MirrorValue<T>> getMirrorValues(Object obj) {
     InstanceMirror instanceMirror = reflect(obj);
     ClassMirror MyClassMirror = instanceMirror.type;
    
@@ -17,12 +17,12 @@ class MirrorHelpers {
         if (mm.metadata.isNotEmpty) {
           // var request = mm.metadata.first.reflectee;
           for (var im in mm.metadata) {
-            if (im.reflectee is Type) {
+            if (im.reflectee is T) {
               var request = im.reflectee;
               String name = (MirrorSystem.getName(mm.simpleName));
               Symbol memberName = mm.simpleName;
               
-              mirrorValues.add(new MirrorValue(request.value, memberName, instanceMirror));
+              mirrorValues.add(new MirrorValue<T>(request, memberName, instanceMirror));
             }
           }
         }

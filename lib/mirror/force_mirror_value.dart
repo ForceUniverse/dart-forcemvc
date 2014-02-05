@@ -1,12 +1,13 @@
 part of dart_force_mvc_lib;
 
-class MirrorValue {
+class MirrorValue<T> {
   
-  String value;
   Symbol memberName;
   InstanceMirror instanceMirror;
-  MirrorValue(this.value, this.memberName, this.instanceMirror);
+  T mirror;
+  
+  MirrorValue(this.mirror, this.memberName, this.instanceMirror);
 
-  String toString() => "$value - $memberName";
+  String toString() => "$mirror - $memberName";
   
 }

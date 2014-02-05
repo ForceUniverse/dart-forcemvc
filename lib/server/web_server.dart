@@ -39,18 +39,18 @@ class WebServer extends SimpleWebServer {
   }
   
   void register(Object obj) {
-      List<MirrorValue> mirrorValues = MirrorHelpers.getMirrorValues(obj, RequestMapping);
-      List<MirrorValue> mirrorModels = MirrorHelpers.getMirrorValues(obj, ModelAttribute);
+      List<MirrorValue<RequestMapping>> mirrorValues = new MirrorHelpers<RequestMapping>().getMirrorValues(obj);
+      List<MirrorValue<ModelAttribute>> mirrorModels = new MirrorHelpers<ModelAttribute>().getMirrorValues(obj);
           
       for (MirrorValue mv in mirrorValues) {
             // execute all ! ! !
-            on(mv.value, (ForceRequest req, Model model) {
+            on(mv.mirror.value, (ForceRequest req, Model model) {
               for (MirrorValue mvModel in mirrorModels) {
                 
                 InstanceMirror res = mvModel.instanceMirror.invoke(mvModel.memberName, []);
                 
                 if (res.hasReflectee) {
-                  model.addAttribute(mvModel.value, res.reflectee);
+                  model.addAttribute(mvModel.mirror.value, res.reflectee);
                 }
               }
               InstanceMirror res = mv.instanceMirror.invoke(mv.memberName, [req, model]);
