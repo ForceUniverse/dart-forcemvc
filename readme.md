@@ -8,7 +8,7 @@ Serverside MVC based implementation for Dart. Easy to setup and part of the dart
 
 #### Walkthrough ####
 
-Use a server with dart very easily, create controllers with annotations ...
+Use a server with dart very easily, create controllers with annotations ... similar to spring mvc.
 
 First you will setup a new server.
 

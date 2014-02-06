@@ -11,6 +11,8 @@ import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 
 import 'package:mustache/mustache.dart' as mustache;
 
+import 'package:forcemirrors/force_mirrors.dart';
+
 part 'server/web_server.dart';
 part 'server/simple_web_server.dart';
 part 'server/force_mvc_typedefs.dart';
@@ -24,6 +26,3 @@ part 'render/force_mustache_render.dart';
 
 part 'annotations/force_request_mapping.dart';
 part 'annotations/force_model_attribute.dart';
-
-part 'mirror/force_mirror_value.dart';
-part 'mirror/force_mirror_helpers.dart';

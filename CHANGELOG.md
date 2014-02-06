@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.2+3 ####
+
+Solving issue with dependency management
+
+#### Pub version 0.1.2+2 ####
+
+Add dependency to forcemirrors.
+
 #### Pub version 0.1.2+1 ####
 
 Adding tests for mirrorhelpers and refactor code to improve annotation handling.
