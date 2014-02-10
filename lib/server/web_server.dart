@@ -47,13 +47,13 @@ class WebServer extends SimpleWebServer {
             on(mv.object.value, (ForceRequest req, Model model) {
               for (MetaDataValue mvModel in mirrorModels) {
                 
-                InstanceMirror res = mvModel.instanceMirror.invoke(mvModel.memberName, []);
+                InstanceMirror res = mvModel.invoke([]);
                 
                 if (res.hasReflectee) {
                   model.addAttribute(mvModel.object.value, res.reflectee);
                 }
               }
-              InstanceMirror res = mv.instanceMirror.invoke(mv.memberName, [req, model]);
+              InstanceMirror res = mv.invoke([req, model]);
               
               if (res.hasReflectee) {
                 var view = res.reflectee;

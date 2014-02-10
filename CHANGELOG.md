@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.2+4 & 0.1.2+5 ####
+
+Adding an improvement of force mirrors invoke.
+
 #### Pub version 0.1.2+3 ####
 
 Solving issue with dependency management
