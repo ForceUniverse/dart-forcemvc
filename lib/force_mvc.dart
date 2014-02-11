@@ -26,3 +26,4 @@ part 'render/force_mustache_render.dart';
 
 part 'annotations/force_request_mapping.dart';
 part 'annotations/force_model_attribute.dart';
+part 'annotations/force_controller.dart';

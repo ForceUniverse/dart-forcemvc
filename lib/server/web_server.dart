@@ -20,6 +20,16 @@ class WebServer extends SimpleWebServer {
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super() {
     init(wsPath, port, host, buildPath);
     this.viewRender = new MustacheRender();
+    _scanning();
+  }
+  
+  void _scanning() {
+    Scanner<Controller, Object> classesHelper = new Scanner<Controller, Object>();
+    List<Object> classes = classesHelper.scan();
+    
+    for (var obj in classes) {
+      this.register(obj);
+    }
   }
   
   void on(String url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
