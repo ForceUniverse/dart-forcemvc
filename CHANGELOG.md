@@ -2,8 +2,9 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.1.2+4 & 0.1.2+5 ####
+#### Pub version 0.1.3 ####
 
+Updating dependency on force mirrors, it solves a bug with invocation.
 Controller scanning, so you don't need to register a class, just annotate it with @Controller.
 
 #### Pub version 0.1.2+4 & 0.1.2+5 ####
