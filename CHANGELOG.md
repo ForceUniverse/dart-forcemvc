@@ -4,6 +4,10 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.1.2+4 & 0.1.2+5 ####
 
+Controller scanning, so you don't need to register a class, just annotate it with @Controller.
+
+#### Pub version 0.1.2+4 & 0.1.2+5 ####
+
 Adding an improvement of force mirrors invoke.
 
 #### Pub version 0.1.2+3 ####

@@ -34,6 +34,13 @@ An @ModelAttribute on a method argument indicates the argument should be retriev
 Then you register that object on the WebServer object.
 
 	server.register(someObjectWithRequestMappingAnnotations)
+	
+Or you can annotate a class with @Controller and then it will be registered automatically in the force server.
+
+	@Controller
+	class SomeObject {
+	
+	}
 
 #### ForceRequest ####
 
