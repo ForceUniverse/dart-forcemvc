@@ -59,13 +59,13 @@ class WebServer extends SimpleWebServer {
                 
                 InstanceMirror res = mvModel.invoke([]);
                 
-                if (res.hasReflectee) {
+                if (res != null && res.hasReflectee) {
                   model.addAttribute(mvModel.object.value, res.reflectee);
                 }
               }
               InstanceMirror res = mv.invoke([req, model]);
               
-              if (res.hasReflectee) {
+              if (res != null && res.hasReflectee) {
                 var view = res.reflectee;
                 if (view is String) {
                   return view;
