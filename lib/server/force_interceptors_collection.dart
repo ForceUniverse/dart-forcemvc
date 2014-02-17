@@ -5,11 +5,11 @@ class InterceptorsCollection {
   List<HandlerInterceptor> interceptors = new List<HandlerInterceptor>();
   
   void add(HandlerInterceptor interceptor) {
-    interceptors.add(interceptor);
+    this.interceptors.add(interceptor);
   }
   
   void addAll(List<HandlerInterceptor> interceptors) {
-    interceptors.addAll(interceptors);
+    this.interceptors.addAll(interceptors);
   }
   
   void preHandle(ForceRequest req, Model model, Object handler) {
