@@ -47,6 +47,18 @@ Or you can annotate a class with @Controller and then it will be registered auto
 ForceRequest is an abstraction for HttpRequest
 
 	forceRequest.postData().then((data) => print(data));
+	
+#### Interceptors ####
+
+You can define inteceptors as follow, the framework will pick up all the HandlerInterceptor classes or implementations.
+
+	class RandomInterceptor implements HandlerInterceptor {
+  
+	  bool preHandle(ForceRequest req, Model model, Object handler) { return true; }
+	  void postHandle(ForceRequest req, Model model, Object handler) {}
+	  void afterCompletion(ForceRequest req, Model model, Object handler) {}
+	  
+	}
 
 #### Example ####
 
