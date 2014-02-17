@@ -16,6 +16,7 @@ class WebServer extends SimpleWebServer {
   var bind_address = InternetAddress.ANY_IP_V6;
   
   Completer _completer;
+  InterceptorsCollection interceptors = new InterceptorsCollection();
   
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super() {
     init(wsPath, port, host, buildPath);
@@ -30,13 +31,22 @@ class WebServer extends SimpleWebServer {
     for (var obj in classes) {
       this.register(obj);
     }
+    
+    // search for interceptors
+    ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
+    List<HandlerInterceptor> interceptorList = searcher.scan();
+    
+    interceptors.addAll(interceptorList);
   }
   
   void on(String url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
        Model model = new Model();
-       String view = controllerHandler(new ForceRequest(req), model);
+       ForceRequest forceRequest = new ForceRequest(req);
+       interceptors.preHandle(forceRequest, model, this);
+       String view = controllerHandler(forceRequest, model);
+       interceptors.postHandle(forceRequest, model, this);
        if (view != null) {
          // template rendering
          _send_template(req, model, view);
@@ -44,6 +54,7 @@ class WebServer extends SimpleWebServer {
          String data = JSON.encode(model.getData());
          _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
        }
+       interceptors.afterCompletion(forceRequest, model, this);
      });
    }); 
   }

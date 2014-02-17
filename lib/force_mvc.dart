@@ -20,6 +20,7 @@ part 'server/force_request_method.dart';
 part 'server/force_model.dart';
 part 'server/force_request.dart';
 part 'server/force_handler_interceptor.dart';
+part 'server/force_interceptors_collection.dart';
 
 //render
 part 'render/force_view_render.dart';
