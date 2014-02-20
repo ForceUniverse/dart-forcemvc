@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http_server/http_server.dart' as http_server;
-import 'package:route/server.dart' show Router;
+import 'package:route/server.dart' show Router, UrlPattern;
 import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 
 import 'package:mustache/mustache.dart' as mustache;

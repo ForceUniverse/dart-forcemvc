@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.5 ####
+
+Serving .dart files much easier, putting it in the framework itself.
+
+#### Pub version 0.1.4 ####
+
+Adding interceptors to the game, so you can write interceptor classes to intercept a request.
+
 #### Pub version 0.1.3 ####
 
 Updating dependency on force mirrors, it solves a bug with invocation.

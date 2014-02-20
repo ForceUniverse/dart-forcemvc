@@ -141,6 +141,16 @@ class WebServer extends SimpleWebServer {
 
       // Serve everything not routed elsewhere through the virtual directory.
       virDir.serve(router.defaultStream);
+      
+      _dartFilesServing();
   }
   
+  void _dartFilesServing() {
+    var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:dart)');
+    router.serve(pattern).listen((request) {
+      var path = request.uri.path;
+      
+      serveFile("../web/$path", request);
+    });
+  }
 }
