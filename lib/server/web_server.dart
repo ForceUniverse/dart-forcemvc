@@ -65,7 +65,8 @@ class WebServer extends SimpleWebServer {
           
       for (MetaDataValue mv in mirrorValues) {
             // execute all ! ! !
-            on(mv.object.value, (ForceRequest req, Model model) {
+            
+        on(mv.object.value, (ForceRequest req, Model model) {
               for (MetaDataValue mvModel in mirrorModels) {
                 
                 InstanceMirror res = mvModel.invoke([]);
