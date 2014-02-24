@@ -3,7 +3,9 @@ part of dart_force_mvc_lib;
 class PathAnalyzer {
   
   String _path;
-  String _route;
+  String route = "";
+  String expression = "([/|.|\w|\s])";
+  
   List<String> variables;
   
   PathAnalyzer(this._path);
@@ -21,11 +23,11 @@ class PathAnalyzer {
       } else if (ch == "}") {
         capture = false;
         variables.add(variable);
-        _route = "$_route([/|.|\w|\s])";
+        route = "$route$expression";
       } else if (capture) {
         variable = "$variable$ch";
       } else {
-        _route = "$_route$ch";
+        route = "$route$ch";
       }
     }
   }
