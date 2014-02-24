@@ -4,7 +4,6 @@ author: Joris Hermans <hermansj@gmail.com>
 description: A serverside mvc framework
 homepage: https://github.com/jorishermans/dart-forcemvc
 dependencies:
-  unittest: '>=0.9.0 <0.9.1'
   http: '>=0.9.0 <0.10.0'
   http_server: '>=0.9.0 <0.10.0'
   logging: '>=0.9.0 <0.10.0'
@@ -12,3 +11,5 @@ dependencies:
   uuid: '0.2.2'
   mustache: '>=0.1.0 <0.2.0'
   forcemirrors: '0.1.6+1'
+dev_dependencies:
+  unittest: '>=0.9.0 <0.9.1'
