@@ -3,8 +3,11 @@ part of dart_force_mvc_lib;
 class ForceRequest {
   
   HttpRequest request;
+  Map<String, String> path_variables;
   
-  ForceRequest(this.request);
+  ForceRequest(this.request) {
+    path_variables = new Map<String, String>(); 
+  }
   
   Future<dynamic> postData() {
     Completer<dynamic> completer = new Completer<dynamic>();

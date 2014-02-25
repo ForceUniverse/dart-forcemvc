@@ -10,6 +10,6 @@ dependencies:
   route: '>=0.4.0 <0.5.0'
   uuid: '0.2.2'
   mustache: '>=0.1.0 <0.2.0'
-  forcemirrors: '0.1.6+1'
+  forcemirrors: '0.1.6+2'
 dev_dependencies:
   unittest: '>=0.9.0 <0.9.1'

@@ -39,7 +39,7 @@ class WebServer extends SimpleWebServer {
     interceptors.addAll(interceptorList);
   }
   
-  void on(String url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
+  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
        Model model = new Model();
@@ -65,16 +65,24 @@ class WebServer extends SimpleWebServer {
           
       for (MetaDataValue mv in mirrorValues) {
             // execute all ! ! !
-            
-        on(mv.object.value, (ForceRequest req, Model model) {
-              for (MetaDataValue mvModel in mirrorModels) {
+        PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
+        UrlPattern urlPattern = new UrlPattern(pathAnalyzer.route);
+        on(urlPattern, (ForceRequest req, Model model) {
+            // prepare model  
+            for (MetaDataValue mvModel in mirrorModels) {
                 
                 InstanceMirror res = mvModel.invoke([]);
                 
                 if (res != null && res.hasReflectee) {
                   model.addAttribute(mvModel.object.value, res.reflectee);
                 }
-              }
+            }
+            // search for path variables
+            for (var variable in pathAnalyzer.variables) { 
+              var value = urlPattern.parse(req.request.uri.path)[0];
+              req.path_variables[variable] = value;
+            }
+              
               InstanceMirror res = mv.invoke([req, model]);
               
               if (res != null && res.hasReflectee) {
