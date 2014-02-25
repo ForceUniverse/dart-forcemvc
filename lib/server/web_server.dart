@@ -78,9 +78,10 @@ class WebServer extends SimpleWebServer {
                 }
             }
             // search for path variables
-            for (var variable in pathAnalyzer.variables) { 
-              var value = urlPattern.parse(req.request.uri.path)[0];
-              req.path_variables[variable] = value;
+            for (var i = 0; pathAnalyzer.variables.length>i; i++) { 
+              var variableName = pathAnalyzer.variables[i], 
+                  value = urlPattern.parse(req.request.uri.path)[i];
+              req.path_variables[variableName] = value;
             }
               
               InstanceMirror res = mv.invoke([req, model]);
@@ -133,13 +134,13 @@ class WebServer extends SimpleWebServer {
       // Set up default handler. This will serve files from our 'build' directory.
       virDir = new http_server.VirtualDirectory(buildDir);
       // Disable jail-root, as packages are local sym-links.
-      virDir.jailRoot = false;
-      virDir.allowDirectoryListing = true;
-      virDir.directoryHandler = (dir, request) {
-        // Redirect directory-requests to index.html files.
-        var indexUri = new Uri.file(dir.path).resolve(startPage);
-        virDir.serveFile(new File(indexUri.toFilePath()), request);
-      };
+      virDir..jailRoot = false
+            ..allowDirectoryListing = true
+            ..directoryHandler = (dir, request) {
+              // Redirect directory-requests to index.html files.
+              var indexUri = new Uri.file(dir.path).resolve(startPage);
+              virDir.serveFile(new File(indexUri.toFilePath()), request);
+            };
 
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
