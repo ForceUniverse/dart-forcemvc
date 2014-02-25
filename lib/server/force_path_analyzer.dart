@@ -4,7 +4,7 @@ class PathAnalyzer {
   
   String _path;
   String route = "";
-  String expression = "([/|.|\w|\s])";
+  String expression = "([/|.|\w|\s]*)";
   
   List<String> variables;
   
