@@ -8,7 +8,9 @@ class PathAnalyzer {
   
   List<String> variables;
   
-  PathAnalyzer(this._path);
+  PathAnalyzer(this._path) {
+    analyze();
+  }
   
   void analyze() {
     variables = new List<String>();
