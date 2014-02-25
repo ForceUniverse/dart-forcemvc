@@ -4,7 +4,7 @@ class PathAnalyzer {
   
   String _path;
   String route = "";
-  String expression = "(\w+)";
+  String expression = "(\\w+)";
   
   List<String> variables;
   
