@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.7 ####
+
+Extend ForceRequest with getPostData and getPostParams to support post methods.
+
+#### Pub version 0.1.6 ####
+
+Adding path variables to the mvc part.
+
 #### Pub version 0.1.5 ####
 
 Serving .dart files much easier, putting it in the framework itself.

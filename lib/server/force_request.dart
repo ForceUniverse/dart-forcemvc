@@ -9,7 +9,23 @@ class ForceRequest {
     path_variables = new Map<String, String>(); 
   }
   
-  Future<dynamic> postData() {
+  List header(String name) => request.headers[name.toLowerCase()];
+
+  bool accepts(String type) =>
+      request.headers['accept'].where((name) => name.split(',').indexOf(type) ).length > 0;
+
+  bool isMime(String type) =>
+      request.headers['content-type'].where((value) => value == type).isNotEmpty;
+
+  bool get isForwarded => request.headers['x-forwarded-host'] != null;
+
+  List<Cookie> get cookies => request.cookies.map((Cookie cookie) {
+    cookie.name = Uri.decodeQueryComponent(cookie.name);
+    cookie.value = Uri.decodeQueryComponent(cookie.value);
+    return cookie;
+  });
+  
+  Future<dynamic> getPostData() {
     Completer<dynamic> completer = new Completer<dynamic>();
     this.request.listen((List<int> buffer) {
       // Return the data back to the client.
@@ -20,6 +36,19 @@ class ForceRequest {
       completer.complete(package);
     });
     return completer.future;
+  }
+  
+  Future<Map<String, String>> getPostParams({ Encoding enc: UTF8 }) {
+    Completer c = new Completer();
+    this.request.transform(const AsciiDecoder()).listen((content) {
+      final postParams = new Map.fromIterable(
+          content.split("&").map((kvs) => kvs.split("=")),
+          key: (kv) => Uri.decodeQueryComponent(kv[0], encoding: enc),
+          value: (kv) => Uri.decodeQueryComponent(kv[1], encoding: enc)
+      );
+      c.complete(postParams);
+    });
+    return c.future;
   }
   
 }

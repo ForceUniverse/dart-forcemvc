@@ -60,6 +60,17 @@ You can define inteceptors as follow, the framework will pick up all the Handler
 	  
 	}
 
+#### Path variables ####
+
+You can now use path variables in force mvc.
+
+	@RequestMapping(value: "/var/{var1}/other/{var2}", method: "GET")
+	void pathvariable(ForceRequest req, Model model)
+
+This is how you can access path variables.
+
+	req.path_variables['var1']
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example)
