@@ -2,6 +2,18 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.8 ####
+
+New ways of view rendering and getting the templates!
+
+#### Pub version 0.1.7+2 & 0.1.7+3 ####
+
+Cleanup code webserver. Solving an issue!
+
+#### Pub version 0.1.7+1 ####
+
+Updated this buildPath: '../build/web' to get it working in Dart 1.2
+
 #### Pub version 0.1.7 ####
 
 Extend ForceRequest with getPostData and getPostParams to support post methods.

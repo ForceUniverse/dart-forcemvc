@@ -4,7 +4,12 @@ abstract class ForceViewRender {
 
   Future<String> render(String view, model) {
     Completer<String> completer = new Completer<String>();
-    var file = new File("../views/$view.html");
+    var viewDir = Platform.script.resolve("../views/").toFilePath();
+    if (!new Directory(viewDir).existsSync()) {
+          //log.severe("The 'build/' directory was not found. Please run 'pub build'.");
+    }
+    var viewUri = new Uri.file(viewDir).resolve("$view.html");
+    var file = new File(viewUri.toFilePath());
     file.readAsBytes().then((data) {
       var template = new String.fromCharCodes(data);
       

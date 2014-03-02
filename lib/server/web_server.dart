@@ -18,7 +18,7 @@ class WebServer extends SimpleWebServer {
   Completer _completer;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) : super() {
+  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build/web/' }) : super() {
     init(wsPath, port, host, buildPath);
     this.viewRender = new MustacheRender();
     _scanning();
@@ -135,12 +135,12 @@ class WebServer extends SimpleWebServer {
       virDir = new http_server.VirtualDirectory(buildDir);
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
-            ..allowDirectoryListing = true
-            ..directoryHandler = (dir, request) {
-              // Redirect directory-requests to index.html files.
-              var indexUri = new Uri.file(dir.path).resolve(startPage);
-              virDir.serveFile(new File(indexUri.toFilePath()), request);
-            };
+            ..allowDirectoryListing = true;
+      virDir.directoryHandler = (dir, request) {
+          // Redirect directory-requests to index.html files.
+          var indexUri = new Uri.file(dir.path).resolve(startPage);
+          virDir.serveFile(new File(indexUri.toFilePath()), request);
+      };
 
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
