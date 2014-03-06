@@ -83,7 +83,26 @@ class WebServer extends SimpleWebServer {
                   value = urlPattern.parse(req.request.uri.path)[i];
               req.path_variables[variableName] = value;
             }
-              
+             
+            // -- create method from this later on --
+            List<dynamic> positionalArguments = new List<dynamic>();
+            for (ParameterMirror pm in mv.parameters) {
+             String name = pm.simpleName.toString();
+             if (pm.type is Model || name == 'model') {
+               positionalArguments.add(model);
+             } else if (pm.type is ForceRequest || name == 'req') {
+               positionalArguments.add(req);
+             } else {
+               if (req.path_variables[name] != null) {
+                 positionalArguments.add(name);
+               }
+             }
+            }
+            if (positionalArguments.isEmpty && mv.parameters.length == 2) {
+              positionalArguments = [req, model];
+            }
+            // -- v --
+            
               InstanceMirror res = mv.invoke([req, model]);
               
               if (res != null && res.hasReflectee) {
