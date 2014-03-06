@@ -95,7 +95,7 @@ class WebServer extends SimpleWebServer {
                positionalArguments.add(req);
              } else {
                if (req.path_variables[name] != null) {
-                 positionalArguments.add(name);
+                 positionalArguments.add(req.path_variables[name]);
                }
              }
             }
