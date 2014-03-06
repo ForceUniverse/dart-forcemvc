@@ -103,7 +103,7 @@ class WebServer extends SimpleWebServer {
             }
             // -- v --
             
-              InstanceMirror res = mv.invoke([req, model]);
+              InstanceMirror res = mv.invoke(positionalArguments);
               
               if (res != null && res.hasReflectee) {
                 var view = res.reflectee;
