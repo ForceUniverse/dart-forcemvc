@@ -87,7 +87,8 @@ class WebServer extends SimpleWebServer {
             // -- create method from this later on --
             List<dynamic> positionalArguments = new List<dynamic>();
             for (ParameterMirror pm in mv.parameters) {
-             String name = pm.simpleName.toString();
+             String name = (MirrorSystem.getName(pm.simpleName));
+             
              if (pm.type is Model || name == 'model') {
                positionalArguments.add(model);
              } else if (pm.type is ForceRequest || name == 'req') {
