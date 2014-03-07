@@ -84,29 +84,11 @@ class WebServer extends SimpleWebServer {
               req.path_variables[variableName] = value;
             }
              
-            // -- create method from this later on --
-            List<dynamic> positionalArguments = new List<dynamic>();
-            for (ParameterMirror pm in mv.parameters) {
-             String name = (MirrorSystem.getName(pm.simpleName));
-             
-             if (pm.type is Model || name == 'model') {
-               positionalArguments.add(model);
-             } else if (pm.type is ForceRequest || name == 'req') {
-               positionalArguments.add(req);
-             } else {
-               if (req.path_variables[name] != null) {
-                 positionalArguments.add(req.path_variables[name]);
-               }
-             }
-            }
-            if (positionalArguments.isEmpty && mv.parameters.length == 2) {
-              positionalArguments = [req, model];
-            }
-            // -- v --
+            List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
             
-              InstanceMirror res = mv.invoke(positionalArguments);
+            InstanceMirror res = mv.invoke(positionalArguments);
               
-              if (res != null && res.hasReflectee) {
+            if (res != null && res.hasReflectee) {
                 var view = res.reflectee;
                 if (view is String) {
                   return view;
@@ -115,8 +97,31 @@ class WebServer extends SimpleWebServer {
                   return null;
                 }
               }
-            });
+           });
       }
+  }
+  
+  List<dynamic> _calculate_positionalArguments(MetaDataValue<RequestMapping> mv, Model model, ForceRequest req) {
+      // -- create method from this later on --
+      List<dynamic> positionalArguments = new List<dynamic>();
+      for (ParameterMirror pm in mv.parameters) {
+          String name = (MirrorSystem.getName(pm.simpleName));
+          
+          if (pm.type is Model || name == 'model') {
+            positionalArguments.add(model);
+          } else if (pm.type is ForceRequest || name == 'req') {
+            positionalArguments.add(req);
+          } else {
+            if (req.path_variables[name] != null) {
+              positionalArguments.add(req.path_variables[name]);
+            }
+          }
+      }
+      if (positionalArguments.isEmpty && mv.parameters.length == 2) {
+           positionalArguments = [req, model];
+      }
+      // -- v --
+      return positionalArguments;
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
