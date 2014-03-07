@@ -2,9 +2,13 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.8+1 ####
+
+Improved accesability of path variables.
+
 #### Pub version 0.1.8 ####
 
-New ways of view rendering and getting the templates!
+New ways of view rendering and getting the templates.
 
 #### Pub version 0.1.7+2 & 0.1.7+3 ####
 
