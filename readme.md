@@ -67,7 +67,7 @@ You can now use path variables in force mvc.
 	@RequestMapping(value: "/var/{var1}/other/{var2}", method: "GET")
 	void pathvariable(ForceRequest req, Model model, String var1, String var2)
 
-This is how you can access path variables.
+This is an alternative way how you can access path variables.
 
 	req.path_variables['var1']
 
