@@ -71,7 +71,7 @@ This is an alternative way how you can access path variables.
 
 	req.path_variables['var1']
 
-You can also use the annotation @PathVariable("name") to match the pathvariable.
+You can also use the annotation @PathVariable("name") to match the pathvariable, like below:
 
 	  @RequestMapping(value: "/var/{var1}/", method: "GET")
 	  String multivariable(req, Model model, @PathVariable("var1") variable) {}
