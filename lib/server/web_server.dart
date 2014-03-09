@@ -115,7 +115,7 @@ class WebServer extends SimpleWebServer {
               positionalArguments.add(req.path_variables[name]);
             } else {
              for ( InstanceMirror im  in pm.metadata ) {
-               if ( im.type is PathVariable ) {
+               if ( im.reflectee is PathVariable ) {
                  PathVariable pathVariable = im.reflectee;
                  if (req.path_variables[pathVariable.value] != null) {
                     positionalArguments.add(req.path_variables[pathVariable.value]);
