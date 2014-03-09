@@ -185,6 +185,7 @@ class WebServer extends SimpleWebServer {
       virDir.serve(router.defaultStream);
       
       _dartFilesServing();
+      _staticFilesServing();
   }
   
   void _dartFilesServing() {
@@ -195,4 +196,13 @@ class WebServer extends SimpleWebServer {
       serveFile("../web/$path", request);
     });
   }
+  
+  void _staticFilesServing() {
+      var pattern = new UrlPattern(r'/static/(\\w+)');
+      router.serve(pattern).listen((request) {
+        var path = request.uri.path;
+        
+        serveFile("../$path", request);
+      });
+    }
 }
