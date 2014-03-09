@@ -113,6 +113,15 @@ class WebServer extends SimpleWebServer {
           } else {
             if (req.path_variables[name] != null) {
               positionalArguments.add(req.path_variables[name]);
+            } else {
+             for ( InstanceMirror im  in pm.metadata ) {
+               if ( im.type is PathVariable ) {
+                 PathVariable pathVariable = im.reflectee;
+                 if (req.path_variables[pathVariable.value] != null) {
+                    positionalArguments.add(req.path_variables[pathVariable.value]);
+                 }
+               }
+             }
             }
           }
       }
