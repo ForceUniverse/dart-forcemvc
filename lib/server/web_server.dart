@@ -198,7 +198,7 @@ class WebServer extends SimpleWebServer {
   }
   
   void _staticFilesServing() {
-      var pattern = new UrlPattern(r'/static/(\\w+)');
+      var pattern = new UrlPattern(r'/static/(\\w|.|\\d)+');
       router.serve(pattern).listen((request) {
         var path = request.uri.path;
         
