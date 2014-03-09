@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.8+2 ####
+
+Static folder for serving static files to the client!
+
 #### Pub version 0.1.8+1 ####
 
 Improved accesability of path variables.
