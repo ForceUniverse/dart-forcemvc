@@ -64,12 +64,17 @@ You can define inteceptors as follow, the framework will pick up all the Handler
 
 You can now use path variables in force mvc.
 
-	@RequestMapping(value: "/var/{var1}/other/{var2}", method: "GET")
+	@RequestMapping(value: "/var/{var1}/other/{var2}/", method: "GET")
 	void pathvariable(ForceRequest req, Model model, String var1, String var2)
 
 This is an alternative way how you can access path variables.
 
 	req.path_variables['var1']
+
+You can also use the annotation @PathVariable("name") to match the pathvariable.
+
+	  @RequestMapping(value: "/var/{var1}/", method: "GET")
+	  String multivariable(req, Model model, @PathVariable("var1") variable) {}
 
 #### Example ####
 
