@@ -22,6 +22,7 @@ part 'server/force_request.dart';
 part 'server/force_handler_interceptor.dart';
 part 'server/force_interceptors_collection.dart';
 part 'server/force_path_analyzer.dart';
+part 'server/force_serving_files.dart';
 
 //render
 part 'render/force_view_render.dart';

@@ -1,6 +1,6 @@
 part of dart_force_mvc_lib;
 
-class WebServer extends SimpleWebServer {
+class WebServer extends SimpleWebServer with ServingFiles {
   
   final Logger log = new Logger('WebServer');
   
@@ -14,11 +14,12 @@ class WebServer extends SimpleWebServer {
   var buildDir;
   var virDir;
   var bind_address = InternetAddress.ANY_IP_V6;
+  var staticDir = 'static';
   
   Completer _completer;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build/web/' }) : super() {
+  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build/web/', this.staticDir: 'static'}) : super() {
     init(wsPath, port, host, buildPath);
     this.viewRender = new MustacheRender();
     _scanning();
@@ -145,11 +146,6 @@ class WebServer extends SimpleWebServer {
       ..close();
   }
   
-  void serveFile(String fileName, HttpRequest request) {
-    Uri fileUri = Platform.script.resolve(fileName);
-    virDir.serveFile(new File(fileUri.toFilePath()), request);
-  }
-  
   void _onStart(server, [WebSocketHandler handleWs]) {
       log.info("Search server is running on "
           "'http://${Platform.localHostname}:$port/'");
@@ -187,22 +183,5 @@ class WebServer extends SimpleWebServer {
       _dartFilesServing();
       _staticFilesServing();
   }
-  
-  void _dartFilesServing() {
-    var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:dart)');
-    router.serve(pattern).listen((request) {
-      var path = request.uri.path;
-      
-      serveFile("../web/$path", request);
-    });
-  }
-  
-  void _staticFilesServing() {
-      var pattern = new UrlPattern(r'/static/([/|.|\w|\s])*');
-      router.serve(pattern).listen((request) {
-        var path = request.uri.path;
-        
-        serveFile("../$path", request);
-      });
-    }
+
 }
