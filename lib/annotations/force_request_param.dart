@@ -3,9 +3,9 @@ part of dart_force_mvc_lib;
 class RequestParam {
   
   final String value;
-  final String defaultvalue;
-  const RequestParam({this.value: "", this.defaultvalue: ""});
+  final String defaultValue;
+  const RequestParam({this.value: "", this.defaultValue: ""});
 
-  String toString() => "$value -> - $defaultvalue";
+  String toString() => "$value -> - $defaultValue";
   
 }
