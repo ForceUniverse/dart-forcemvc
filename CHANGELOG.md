@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.9 ####
+
+Adding @RequestParam, so you can add this annotation to the controller class if you want to have easy access to querystring parameters.
+
 #### Pub version 0.1.8+3 ####
 
 Make static folder configurable and some small improvements on the regex expression.

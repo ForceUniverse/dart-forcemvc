@@ -32,3 +32,4 @@ part 'annotations/force_request_mapping.dart';
 part 'annotations/force_model_attribute.dart';
 part 'annotations/force_controller.dart';
 part 'annotations/force_path_variable.dart';
+part 'annotations/force_request_param.dart';

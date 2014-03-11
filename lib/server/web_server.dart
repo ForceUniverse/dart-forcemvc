@@ -122,6 +122,14 @@ class WebServer extends SimpleWebServer with ServingFiles {
                     positionalArguments.add(req.path_variables[pathVariable.value]);
                  }
                }
+               if ( im.reflectee is RequestParam) {
+                 RequestParam rp = im.reflectee;
+                 if (req.request.uri.queryParameters[rp.value] != null) {
+                   positionalArguments.add(req.request.uri.queryParameters[rp.value]);
+                 } else {
+                   positionalArguments.add(rp.defaultvalue);
+                 }
+               }
              }
             }
           }
