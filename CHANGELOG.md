@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.8+3 ####
+
+Make static folder configurable and some small improvements on the regex expression.
+
 #### Pub version 0.1.8+2 ####
 
 Static folder for serving static files to the client!
