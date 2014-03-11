@@ -21,7 +21,7 @@ class ServingFiles {
     }
     
     void _staticFilesServing() {
-        var pattern = new UrlPattern('/$staticDir/([/|.|-|_|\\w|\\s])*');
+        var pattern = new UrlPattern('/$staticDir/([/|.|\\-|_|\\w|\\s])*');
         router.serve(pattern).listen((request) {
           var path = request.uri.path;
           
