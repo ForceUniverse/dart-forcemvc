@@ -78,7 +78,7 @@ You can also use the annotation @PathVariable("name") to match the pathvariable,
 
 #### Example ####
 
-You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example)
+You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
 
 #### TODO ####
 
