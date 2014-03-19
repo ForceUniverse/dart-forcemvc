@@ -2,6 +2,18 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.9+3 ####
+
+Removing dependency on Uuid.
+
+#### Pub version 0.1.9+2 ####
+
+Add HttpSession & HttpHeaders in possible arguments in a controller method
+
+#### Pub version 0.1.9+1 ####
+
+Solve an issue with the code, please update!
+
 #### Pub version 0.1.9 ####
 
 Adding @RequestParam, so you can add this annotation to the controller class if you want to have easy access to querystring parameters.

@@ -111,6 +111,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
             positionalArguments.add(model);
           } else if (pm.type is ForceRequest || name == 'req') {
             positionalArguments.add(req);
+          } else if (pm.type is HttpSession || name == 'session') {
+            positionalArguments.add(req.request.session);
+          } else if (pm.type is HttpHeaders || name == 'headers') {
+            positionalArguments.add(req.request.headers);
           } else {
             if (req.path_variables[name] != null) {
               positionalArguments.add(req.path_variables[name]);
@@ -127,7 +131,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
                  if (req.request.uri.queryParameters[rp.value] != null) {
                    positionalArguments.add(req.request.uri.queryParameters[rp.value]);
                  } else {
-                   positionalArguments.add(rp.defaultvalue);
+                   positionalArguments.add(rp.defaultValue);
                  }
                }
              }
