@@ -50,7 +50,13 @@ class WebServer extends SimpleWebServer with ServingFiles {
        interceptors.postHandle(forceRequest, model, this);
        if (view != null) {
          // template rendering
-         _send_template(req, model, view);
+         if (view.startsWith("redirect:")) {
+            Uri location = Uri.parse(view.substring(9));
+            
+            req.response.redirect(location, status: 301);
+         } else {
+            _send_template(req, model, view);
+         }
        } else {
          String data = JSON.encode(model.getData());
          _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
