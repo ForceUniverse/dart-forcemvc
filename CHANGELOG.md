@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.10 ####
+
+Fixing in @RequestMapping, the method part!
+
+#### Pub version 0.1.9+4 ####
+
+Adding redirect functionality.
+
 #### Pub version 0.1.9+3 ####
 
 Removing dependency on Uuid.

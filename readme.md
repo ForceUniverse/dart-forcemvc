@@ -76,6 +76,16 @@ You can also use the annotation @PathVariable("name") to match the pathvariable,
 	  @RequestMapping(value: "/var/{var1}/", method: "GET")
 	  String multivariable(req, Model model, @PathVariable("var1") variable) {}
 
+#### Redirect ####
+
+You can instead of returning a view name, performing a redirect as follow:
+
+	@RequestMapping(value: "/redirect/")
+  	String redirect(req, Model model) {
+    	redirect++;
+    	return "redirect:/viewable/";
+  	}
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)

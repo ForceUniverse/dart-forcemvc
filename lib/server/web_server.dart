@@ -104,7 +104,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
                   return null;
                 }
               }
-           });
+           }, method: mv.object.method);
       }
   }
   
