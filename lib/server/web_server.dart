@@ -111,17 +111,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
             InstanceMirror res = mv.invoke(positionalArguments);
               
             if (res != null && res.hasReflectee) {
-                var view = res.reflectee;
-                if (view is String) {
-                  return view;
-                } else if (view is Future) {
-                  Future future = view;
-                  future.then((e) {
-                    return e;
-                  });
-                } else {
-                  return null;
-                }
+                return res.reflectee;
               }
            }, method: mv.object.method);
       }
