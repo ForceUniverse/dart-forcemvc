@@ -4,9 +4,11 @@ class ForceRequest {
   
   HttpRequest request;
   Map<String, String> path_variables;
+  Completer _asyncCallCompleter;
   
   ForceRequest(this.request) {
     path_variables = new Map<String, String>(); 
+    _asyncCallCompleter = new Completer();
   }
   
   List header(String name) => request.headers[name.toLowerCase()];
@@ -50,5 +52,11 @@ class ForceRequest {
     });
     return c.future;
   }
+  
+  void async(value) {
+    _asyncCallCompleter.complete(value);
+  }
+  
+  Future get asyncFuture => _asyncCallCompleter.future;
   
 }
