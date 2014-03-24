@@ -46,16 +46,22 @@ class WebServer extends SimpleWebServer with ServingFiles {
        Model model = new Model();
        ForceRequest forceRequest = new ForceRequest(req);
        interceptors.preHandle(forceRequest, model, this);
-       String view = controllerHandler(forceRequest, model);
+       var result = controllerHandler(forceRequest, model);
        interceptors.postHandle(forceRequest, model, this);
-       if (view != null) {
+       if (result != null) {
          // template rendering
-         if (view.startsWith("redirect:")) {
-            Uri location = Uri.parse(view.substring(9));
-            
-            req.response.redirect(location, status: 301);
-         } else {
-            _send_template(req, model, view);
+         if (result is String) {  
+          _resolveView(result, req, model);
+         } else if (result is Future) {
+           Future future = result;
+           future.then((e) {
+             if (e is String) {
+               _resolveView(e, req, model);
+             } else {
+               String data = JSON.encode(model.getData());
+               _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+             }
+           });
          }
        } else {
          String data = JSON.encode(model.getData());
@@ -64,6 +70,15 @@ class WebServer extends SimpleWebServer with ServingFiles {
        interceptors.afterCompletion(forceRequest, model, this);
      });
    }); 
+  }
+  
+  void _resolveView(String view, HttpRequest req, Model model) {
+    if (view.startsWith("redirect:")) {
+       Uri location = Uri.parse(view.substring(9));
+       req.response.redirect(location, status: 301);
+    } else {
+       _send_template(req, model, view);
+    }
   }
   
   void register(Object obj) {
