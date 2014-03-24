@@ -99,8 +99,12 @@ class WebServer extends SimpleWebServer with ServingFiles {
                 var view = res.reflectee;
                 if (view is String) {
                   return view;
-                }
-                else {
+                } else if (view is Future) {
+                  Future future = view;
+                  future.then((e) {
+                    return e;
+                  });
+                } else {
                   return null;
                 }
               }
