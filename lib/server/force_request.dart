@@ -40,6 +40,14 @@ class ForceRequest {
     return completer.future;
   }
   
+  Future<Map<String, String>> getPostRawData() {
+      Completer c = new Completer();
+      this.request.transform(const AsciiDecoder()).listen((content) {
+        c.complete(content);
+      });
+      return c.future;
+    }
+  
   Future<Map<String, String>> getPostParams({ Encoding enc: UTF8 }) {
     Completer c = new Completer();
     this.request.transform(const AsciiDecoder()).listen((content) {
