@@ -27,14 +27,14 @@ class ForceRequest {
     return cookie;
   });
   
-  Future<dynamic> getPostData() {
+  Future<dynamic> getPostData({ bool usejson: true }) {
     Completer<dynamic> completer = new Completer<dynamic>();
     this.request.listen((List<int> buffer) {
       // Return the data back to the client.
       String dataOnAString = new String.fromCharCodes(buffer);
       print(dataOnAString);
       
-      var package = JSON.decode(dataOnAString);
+      var package = usejson ? JSON.decode(dataOnAString) : dataOnAString;
       completer.complete(package);
     });
     return completer.future;

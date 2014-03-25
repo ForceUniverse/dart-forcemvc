@@ -85,6 +85,28 @@ You can instead of returning a view name, performing a redirect as follow:
     	redirect++;
     	return "redirect:/viewable/";
   	}
+  	
+#### Asynchronous Controller ####
+
+In the controller you can have asynchronous methods to handle for example POST methods much easier.
+
+On the ForceRequest object you have a method .async and his value is the return value that matters for the req.
+
+When a method is asynchrounous you must return req.asyncFuture.
+
+This is an example how you can use it.
+
+	@RequestMapping(value: "/post/", method: "POST")
+	Future countMethod(req, Model model) {
+	     req.getPostParams().then((map) {
+	       model.addAttribute("email", map["email"]);
+	       
+	       req.async(null);
+	     });
+	     model.addAttribute("status", "ok");
+	     
+	     return req.asyncFuture;
+	}
 
 #### Example ####
 

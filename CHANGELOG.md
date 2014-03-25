@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.11+1 ####
+
+Adapt getPostData to disable jsonifying the data!
+
+#### Pub version 0.1.11 ####
+
+Adding asynchronous requests to the possibilities now!
+
 #### Pub version 0.1.10 ####
 
 Fixing in @RequestMapping, the method part!
