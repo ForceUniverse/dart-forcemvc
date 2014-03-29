@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.11+3 ####
+
+Better logging for view rendering! 
+
 #### Pub version 0.1.11+2 ####
 
 Implement getPostRawData, so you can get the raw posted data!
