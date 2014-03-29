@@ -8,7 +8,7 @@ abstract class ForceViewRender {
   ForceViewRender() {
     viewDir = Platform.script.resolve("../views/").toFilePath();
     if (!new Directory(viewDir).existsSync()) {
-      log.severe("The 'view/' directory was not found. Please create a directory in your project with the name 'view'.");
+      log.severe("The 'views/' directory was not found. Please create a directory in your project with the name 'views'.");
     }
   }
   
