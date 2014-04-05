@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.13+1 ####
+
+Adding slashes in src="...", it will become src="/..." when needed of the template rendering is been performed!
+
+#### Pub version 0.1.13 ####
+
+Depend upon mustache4dart and not upon mustache anymore!
+
 #### Pub version 0.1.12+2 ####
 
 Small improvement on the view rendering part!

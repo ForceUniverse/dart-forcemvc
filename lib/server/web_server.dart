@@ -161,8 +161,16 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   void _send_template(HttpRequest req, Model model, String view) {
     this.viewRender.render(view, model.getData()).then((String result) {
-      _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
+      _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), _make_scripts_startwith_slash(result));
     });
+  }
+  
+  String _make_scripts_startwith_slash(String result) {
+    result = result.replaceAll("src=\"", "src=\"/");
+    result = result.replaceAll("src=\"/http:/", "src=\"http:/");
+    result = result.replaceAll("src='", "src='/");
+    result = result.replaceAll("src='/http:/", "src='http:/");
+    return result;
   }
   
   void _send_response(HttpResponse response, ContentType contentType, String result) {
