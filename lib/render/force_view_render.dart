@@ -11,7 +11,7 @@ abstract class ForceViewRender {
     if (!new Directory(viewDir).existsSync()) {
       log.severe("The 'views/' directory was not found.");
     }
-    buildDir = Platform.script.resolve("../build/").toFilePath();
+    buildDir = Platform.script.resolve("../build/web/").toFilePath();
     if (!new Directory(buildDir).existsSync()) {
         log.severe("The 'build/' directory was not found. Please create a directory in your project with the name 'views'.");
     }
@@ -29,6 +29,8 @@ abstract class ForceViewRender {
       file = new File(viewUri.toFilePath());
       if (file.existsSync()) {
         _readFile(file, completer, model);
+      } else {
+        completer.complete("");
       }
     }
     return completer.future;

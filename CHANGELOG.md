@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.12+2 ####
+
+Small improvement on the view rendering part!
+
+#### Pub version 0.1.12+1 ####
+
+Changed ../build/ folder to ../build/web/ 
+
 #### Pub version 0.1.12 ####
 
 Check also view, template files in the build folder, so after pub build in the web folder!
