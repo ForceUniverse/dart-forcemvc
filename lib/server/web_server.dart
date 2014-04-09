@@ -168,8 +168,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
   String _make_scripts_startwith_slash(String result) {
     result = result.replaceAll("src=\"", "src=\"/");
     result = result.replaceAll("src=\"/http:/", "src=\"http:/");
+    result = result.replaceAll("src=\"/../", "src=\"../");
     result = result.replaceAll("src='", "src='/");
     result = result.replaceAll("src='/http:/", "src='http:/");
+    result = result.replaceAll("src='/../", "src='../");
     return result;
   }
   

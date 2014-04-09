@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.1.13+1 ####
+#### Pub version 0.1.13+1 & 0.1.13+2 ####
 
 Adding slashes in src="...", it will become src="/..." when needed of the template rendering is been performed!
 
