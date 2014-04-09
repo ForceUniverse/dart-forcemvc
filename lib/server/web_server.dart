@@ -172,6 +172,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
     result = result.replaceAll("src='", "src='/");
     result = result.replaceAll("src='/http:/", "src='http:/");
     result = result.replaceAll("src='/../", "src='../");
+    result = result.replaceAll("src='//", "src='/");
+    result = result.replaceAll("src=\"//", "src=\"/");
     return result;
   }
   
