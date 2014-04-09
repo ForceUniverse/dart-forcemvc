@@ -9,6 +9,9 @@ import 'package:http_server/http_server.dart' as http_server;
 import 'package:route/server.dart' show Router, UrlPattern;
 import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/shelf_io.dart' as io;
+
 import 'package:mustache4dart/mustache4dart.dart';
 
 import 'package:forcemirrors/force_mirrors.dart';

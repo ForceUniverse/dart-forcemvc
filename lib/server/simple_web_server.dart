@@ -32,8 +32,8 @@ class SimpleWebServer {
     } 
   }
   
-  Future start([WebSocketHandler handleWs]) {
-    HttpServer.bind(bind_address, port).then((server) { 
+  Future start([handler, WebSocketHandler handleWs]) {
+    io.serve(handler, bind_address, port).then((server) {
         _onStart(server, handleWs);
         _completer.complete(const []);
       });
