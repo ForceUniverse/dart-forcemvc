@@ -27,7 +27,7 @@ class SimpleWebServer {
     }
     buildDir = Platform.script.resolve(buildPath).toFilePath();
     if (!new Directory(buildDir).existsSync()) {
-      log.severe("The 'build/' directory was not found. Please run 'pub build'.");
+      log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
       return;
     } 
   }
