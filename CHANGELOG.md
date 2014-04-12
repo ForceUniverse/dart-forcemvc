@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.1.13+5 ####
+
+Move transformation method to the view renderer!
+
 #### Pub version 0.1.13+4 ####
 
 More logging!

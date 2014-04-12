@@ -6,7 +6,19 @@ class MustacheRender extends ForceViewRender {
   
   String _render_impl(String template, model) {
       var output = render(template, model, delimiter: delimiter);
-      return output; 
+      return _transform(output); 
   }
+  
+  String _transform(String result) {
+      result = result.replaceAll("src=\"", "src=\"/");
+      result = result.replaceAll("src=\"/http:/", "src=\"http:/");
+      result = result.replaceAll("src=\"/../", "src=\"../");
+      result = result.replaceAll("src='", "src='/");
+      result = result.replaceAll("src='/http:/", "src='http:/");
+      result = result.replaceAll("src='/../", "src='../");
+      result = result.replaceAll("src='//", "src='/");
+      result = result.replaceAll("src=\"//", "src=\"/");
+      return result;
+    }
   
 }
