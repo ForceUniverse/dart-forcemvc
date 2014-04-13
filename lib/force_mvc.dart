@@ -25,7 +25,12 @@ part 'server/force_interceptors_collection.dart';
 part 'server/force_path_analyzer.dart';
 part 'server/force_serving_files.dart';
 
-//render
+// security
+part 'security/security_context_holder.dart';
+part 'security/security_strategy.dart';
+part 'security/no_security_strategy.dart';
+
+// render
 part 'render/force_view_render.dart';
 part 'render/force_mustache_render.dart';
 

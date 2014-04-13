@@ -8,6 +8,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
   ForceViewRender viewRender;
   ForceRegistry registry;
   
+  SecurityContextHolder _securityContext;
+  
   String startPage = 'index.html';
   
   var wsPath;
@@ -24,6 +26,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
     init(wsPath, port, host, buildPath);
     this.viewRender = new MustacheRender();
     this.registry = new ForceRegistry(this);
+    this._securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     _scanning();
   }
   
@@ -45,11 +48,19 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool auth: false}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (!auth) {
+       if (checkSecurity(auth)) {
          _resolveRequest(req, controllerHandler);
        }
      });
    }); 
+  }
+  
+  bool checkSecurity(auth) {
+    if (auth) {
+      return _security.checkAuthorization();
+    } else {
+      return true;
+    }
   }
   
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
