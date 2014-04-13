@@ -6,6 +6,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   Router router;
   ForceViewRender viewRender;
+  ForceRegistry registry;
   
   String startPage = 'index.html';
   
@@ -22,6 +23,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build/web/', this.staticDir: 'static'}) : super() {
     init(wsPath, port, host, buildPath);
     this.viewRender = new MustacheRender();
+    this.registry = new ForceRegistry(this);
     _scanning();
   }
   
@@ -40,36 +42,42 @@ class WebServer extends SimpleWebServer with ServingFiles {
     interceptors.addAll(interceptorList);
   }
   
-  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET}) {
+  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool auth: false}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       Model model = new Model();
-       ForceRequest forceRequest = new ForceRequest(req);
-       interceptors.preHandle(forceRequest, model, this);
-       var result = controllerHandler(forceRequest, model);
-       interceptors.postHandle(forceRequest, model, this);
-       if (result != null) {
-         // template rendering
-         if (result is String) {  
-          _resolveView(result, req, model);
-         } else if (result is Future) {
-           Future future = result;
-           future.then((e) {
-             if (e is String) {
-               _resolveView(e, req, model);
-             } else {
-               String data = JSON.encode(model.getData());
-               _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
-             }
-           });
-         }
-       } else {
-         String data = JSON.encode(model.getData());
-         _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+       if (!auth) {
+         _resolveRequest(req, controllerHandler);
        }
-       interceptors.afterCompletion(forceRequest, model, this);
      });
    }); 
+  }
+  
+  void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
+    Model model = new Model();
+    ForceRequest forceRequest = new ForceRequest(req);
+    interceptors.preHandle(forceRequest, model, this);
+    var result = controllerHandler(forceRequest, model);
+    interceptors.postHandle(forceRequest, model, this);
+    if (result != null) {
+       // template rendering
+       if (result is String) {  
+           _resolveView(result, req, model);
+       } else if (result is Future) {
+            Future future = result;
+            future.then((e) {
+              if (e is String) {
+                _resolveView(e, req, model);
+              } else {
+                String data = JSON.encode(model.getData());
+                _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+              }
+            });
+       }
+    } else {
+      String data = JSON.encode(model.getData());
+      _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+    }
+    interceptors.afterCompletion(forceRequest, model, this);
   }
   
   void _resolveView(String view, HttpRequest req, Model model) {
@@ -82,81 +90,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
   
   void register(Object obj) {
-      List<MetaDataValue<RequestMapping>> mirrorValues = new MetaDataHelper<RequestMapping>().getMirrorValues(obj);
-      List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj);
-          
-      for (MetaDataValue mv in mirrorValues) {
-            // execute all ! ! !
-        PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
-        UrlPattern urlPattern = new UrlPattern(pathAnalyzer.route);
-        on(urlPattern, (ForceRequest req, Model model) {
-            // prepare model  
-            for (MetaDataValue mvModel in mirrorModels) {
-                
-                InstanceMirror res = mvModel.invoke([]);
-                
-                if (res != null && res.hasReflectee) {
-                  model.addAttribute(mvModel.object.value, res.reflectee);
-                }
-            }
-            // search for path variables
-            for (var i = 0; pathAnalyzer.variables.length>i; i++) { 
-              var variableName = pathAnalyzer.variables[i], 
-                  value = urlPattern.parse(req.request.uri.path)[i];
-              req.path_variables[variableName] = value;
-            }
-             
-            List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
-            
-            InstanceMirror res = mv.invoke(positionalArguments);
-              
-            if (res != null && res.hasReflectee) {
-                return res.reflectee;
-              }
-           }, method: mv.object.method);
-      }
-  }
-  
-  List<dynamic> _calculate_positionalArguments(MetaDataValue<RequestMapping> mv, Model model, ForceRequest req) {
-      List<dynamic> positionalArguments = new List<dynamic>();
-      for (ParameterMirror pm in mv.parameters) {
-          String name = (MirrorSystem.getName(pm.simpleName));
-          
-          if (pm.type is Model || name == 'model') {
-            positionalArguments.add(model);
-          } else if (pm.type is ForceRequest || name == 'req') {
-            positionalArguments.add(req);
-          } else if (pm.type is HttpSession || name == 'session') {
-            positionalArguments.add(req.request.session);
-          } else if (pm.type is HttpHeaders || name == 'headers') {
-            positionalArguments.add(req.request.headers);
-          } else {
-            if (req.path_variables[name] != null) {
-              positionalArguments.add(req.path_variables[name]);
-            } else {
-             for ( InstanceMirror im  in pm.metadata ) {
-               if ( im.reflectee is PathVariable ) {
-                 PathVariable pathVariable = im.reflectee;
-                 if (req.path_variables[pathVariable.value] != null) {
-                    positionalArguments.add(req.path_variables[pathVariable.value]);
-                 }
-               }
-               if ( im.reflectee is RequestParam) {
-                 RequestParam rp = im.reflectee;
-                 if (req.request.uri.queryParameters[rp.value] != null) {
-                   positionalArguments.add(req.request.uri.queryParameters[rp.value]);
-                 } else {
-                   positionalArguments.add(rp.defaultValue);
-                 }
-               }
-             }
-            }
-          }
-      }
-      if (positionalArguments.isEmpty && mv.parameters.length == 2) {
-           positionalArguments = [req, model];
-      }
-      return positionalArguments;
+      this.registry.register(obj);
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
