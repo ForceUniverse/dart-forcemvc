@@ -48,16 +48,16 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool auth: false}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (checkSecurity(auth)) {
+       if (checkSecurity(req, auth)) {
          _resolveRequest(req, controllerHandler);
        }
      });
    }); 
   }
   
-  bool checkSecurity(auth) {
+  bool checkSecurity(HttpRequest req, auth) {
     if (auth) {
-      return _security.checkAuthorization();
+      return _securityContext.checkAuthorization(req);
     } else {
       return true;
     }
