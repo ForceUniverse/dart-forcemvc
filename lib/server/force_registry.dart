@@ -6,10 +6,22 @@ class ForceRegistry {
   
   ForceRegistry(this.webServer);
 
+  void scanning() {
+      Scanner<Controller, Object> classesHelper = new Scanner<Controller, Object>();
+      List<Object> classes = classesHelper.scan();
+      
+      for (var obj in classes) {
+        this.register(obj);
+      }
+  }
+  
   void register(Object obj) {
         List<MetaDataValue<RequestMapping>> mirrorValues = new MetaDataHelper<RequestMapping>().getMirrorValues(obj);
-        List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj);
-            
+        List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj); 
+        
+        AnnotationChecker<Authentication> annoChecker = new AnnotationChecker<Authentication>();
+        bool auth = annoChecker.hasOnClazz(obj);
+        
         for (MetaDataValue mv in mirrorValues) {
               // execute all ! ! !
           PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
@@ -38,7 +50,7 @@ class ForceRegistry {
               if (res != null && res.hasReflectee) {
                   return res.reflectee;
                 }
-             }, method: mv.object.method);
+             }, method: mv.object.method, authentication: auth);
         }
     }
     

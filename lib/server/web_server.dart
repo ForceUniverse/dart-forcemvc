@@ -31,12 +31,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
   
   void _scanning() {
-    Scanner<Controller, Object> classesHelper = new Scanner<Controller, Object>();
-    List<Object> classes = classesHelper.scan();
-    
-    for (var obj in classes) {
-      this.register(obj);
-    }
+    this.registry.scanning();
     
     // search for interceptors
     ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
@@ -45,10 +40,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
     interceptors.addAll(interceptorList);
   }
   
-  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool auth: false}) {
+  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool authentication: false}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (checkSecurity(req, auth)) {
+       if (checkSecurity(req, authentication)) {
          _resolveRequest(req, controllerHandler);
        } else {
          Uri location = _securityContext.redirectUri;
