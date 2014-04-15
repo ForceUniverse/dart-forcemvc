@@ -50,6 +50,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
      this.router.serve(url, method: method).listen((HttpRequest req) {
        if (checkSecurity(req, auth)) {
          _resolveRequest(req, controllerHandler);
+       } else {
+         Uri location = _securityContext.redirectUri;
+         req.response.redirect(location, status: 301);
        }
      });
    }); 
