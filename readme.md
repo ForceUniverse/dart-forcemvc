@@ -108,6 +108,30 @@ This is an example how you can use it.
 	     return req.asyncFuture;
 	}
 
+#### Authentication ####
+
+You can now add the annotation @Authentication() to a controller class.
+
+An authentication in force is following a strategy.
+You can set a strategy by extending the class SecurityStrategy.
+
+	class SessionStrategy extends SecurityStrategy {
+	  
+	  bool checkAuthorization(HttpRequest req) {
+	    HttpSession session = req.session;
+	    return (session["user"]!=null);
+	  }   
+	  
+	  Uri getRedirectUri(HttpRequest req) {
+	    var referer = req.uri.toString();
+	    return Uri.parse("/login/?referer=$referer");
+	  }
+	} 
+	
+And then add this strategy to the webserver.
+
+	server.strategy = new SessionStrategy();
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
