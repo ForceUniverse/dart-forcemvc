@@ -4,7 +4,7 @@ class NoSecurityStrategy extends SecurityStrategy {
   
   bool checkAuthorization(HttpRequest req) => true;   
   
-  Uri getRedirectUri() {
+  Uri getRedirectUri(HttpRequest req) {
     return Uri.parse("/");
   }
 }

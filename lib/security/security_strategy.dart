@@ -4,6 +4,6 @@ abstract class SecurityStrategy {
 
   bool checkAuthorization(HttpRequest req);
   
-  Uri getRedirectUri();
+  Uri getRedirectUri(HttpRequest req);
   
 }

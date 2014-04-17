@@ -46,8 +46,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
        if (checkSecurity(req, authentication)) {
          _resolveRequest(req, controllerHandler);
        } else {
-         Uri location = _securityContext.redirectUri;
-         location.queryParameters["originalUrl"] = req.uri.toString();
+         Uri location = _securityContext.redirectUri(req);
          req.response.redirect(location, status: 301);
        }
      });
