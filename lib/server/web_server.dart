@@ -154,5 +154,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
       _dartFilesServing();
       _staticFilesServing();
   }
-
+  
+  void set strategy(SecurityStrategy strategy) {
+    _securityContext.strategy = strategy;
+  }
 }
