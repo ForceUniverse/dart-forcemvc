@@ -1,7 +1,6 @@
 part of dart_force_mvc_lib;
 
 class WebServer extends SimpleWebServer with ServingFiles {
-  
   final Logger log = new Logger('WebServer');
   
   Router router;
@@ -9,31 +8,26 @@ class WebServer extends SimpleWebServer with ServingFiles {
   ForceRegistry registry;
   
   SecurityContextHolder _securityContext;
-  
-  String startPage = 'index.html';
-  
-  var wsPath;
-  var port;
-  var buildDir;
-  var virDir;
-  var bind_address = InternetAddress.ANY_IP_V6;
-  var staticDir = 'static';
-  
-  Completer _completer;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build/web/', this.staticDir: 'static'}) : super() {
-    init(wsPath, port, host, buildPath);
-    this.viewRender = new MustacheRender();
-    this.registry = new ForceRegistry(this);
-    this._securityContext = new SecurityContextHolder(new NoSecurityStrategy());
+  WebServer({host: null,         
+             port: 8080,
+             wsPath: '/ws',
+             clientFiles: '../build/web/',
+             clientServe: true,
+             views: null}) : 
+               super(host, port, wsPath, 
+                     clientFiles, clientServe) {
+    viewRender = new MustacheRender(views);
+    registry = new ForceRegistry(this);
+    _securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     _scanning();
   }
   
   void _scanning() {
     this.registry.scanning();
     
-    // search for interceptors
+    // Search for interceptors
     ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
     List<HandlerInterceptor> interceptorList = searcher.scan();
     
@@ -64,23 +58,24 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
     Model model = new Model();
     ForceRequest forceRequest = new ForceRequest(req);
+    
     interceptors.preHandle(forceRequest, model, this);
     var result = controllerHandler(forceRequest, model);
     interceptors.postHandle(forceRequest, model, this);
     if (result != null) {
        // template rendering
-       if (result is String) {  
-           _resolveView(result, req, model);
+       if (result is String) { 
+         _resolveView(result, req, model);
        } else if (result is Future) {
-            Future future = result;
-            future.then((e) {
-              if (e is String) {
-                _resolveView(e, req, model);
-              } else {
-                String data = JSON.encode(model.getData());
-                _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
-              }
-            });
+          Future future = result;
+          future.then((e) {
+            if (e is String) {
+              _resolveView(e, req, model);
+            } else {
+              String data = JSON.encode(model.getData());
+              _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+            }
+          });
        }
     } else {
       String data = JSON.encode(model.getData());
@@ -91,15 +86,15 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   void _resolveView(String view, HttpRequest req, Model model) {
     if (view.startsWith("redirect:")) {
-       Uri location = Uri.parse(view.substring(9));
-       req.response.redirect(location, status: 301);
+      Uri location = Uri.parse(view.substring(9));
+      req.response.redirect(location, status: 301);
     } else {
-       _send_template(req, model, view);
+      _send_template(req, model, view);
     }
   }
   
   void register(Object obj) {
-      this.registry.register(obj);
+    this.registry.register(obj);
   }
   
   void _send_template(HttpRequest req, Model model, String view) {
@@ -117,45 +112,24 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
   
   void _onStart(server, [WebSocketHandler handleWs]) {
-      log.info("Search server is running on "
-          "'http://${Platform.localHostname}:$port/'");
-      router = new Router(server);
+    log.info("Search server is running on "
+        "'http://${Platform.localHostname}:$port/'");
+    router = new Router(server);
 
-      // The client will connect using a WebSocket. Upgrade requests to '/ws' and
-      // forward them to 'handleWebSocket'.
-      if (handleWs!=null) {
-        router.serve(this.wsPath)
-          .transform(new WebSocketTransformer())
-            .listen(handleWs);
-      }
-      
-      // Set up default handler. This will serve files from our 'build' directory.
-      virDir = new http_server.VirtualDirectory(buildDir);
-      // Disable jail-root, as packages are local sym-links.
-      virDir..jailRoot = false
-            ..allowDirectoryListing = true;
-      virDir.directoryHandler = (dir, request) {
-          // Redirect directory-requests to index.html files.
-          var indexUri = new Uri.file(dir.path).resolve(startPage);
-          log.info("We serve $indexUri from the webserver!");
-          virDir.serveFile(new File(indexUri.toFilePath()), request);
-      };
-
-      // Add an error page handler.
-      virDir.errorPageHandler = (HttpRequest request) {
-        log.warning("Resource not found ${request.uri.path}");
-        request.response.statusCode = HttpStatus.NOT_FOUND;
-        request.response.close();
-      };
-
-      // Serve everything not routed elsewhere through the virtual directory.
-      virDir.serve(router.defaultStream);
-      
-      _dartFilesServing();
-      _staticFilesServing();
+    // The client will connect using a WebSocket. Upgrade requests to '/ws' and
+    // forward them to 'handleWebSocket'.
+    if (handleWs != null) {
+      router.serve(this.wsPath)
+        .transform(new WebSocketTransformer())
+          .listen(handleWs);
+    }
+    
+    // Serve dart and static files (if not explicitly disabled by clientServe) 
+    _serveClient(clientFiles, clientServe);
   }
   
   void set strategy(SecurityStrategy strategy) {
     _securityContext.strategy = strategy;
   }
 }
+

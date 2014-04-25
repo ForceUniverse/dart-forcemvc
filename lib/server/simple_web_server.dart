@@ -1,42 +1,53 @@
 part of dart_force_mvc_lib;
 
 class SimpleWebServer {
-  
   final Logger log = new Logger('SimpleServer');
   
   Router router;
   
-  var wsPath;
+  var host;
   var port;
-  var buildDir;
+  var wsPath;
+  var clientFiles;
+  var clientServe;
   var virDir;
   var bind_address = InternetAddress.ANY_IP_V6;
   
-  Completer _completer;
-  
-  WebServer({wsPath: '/ws', port: 8080, host: null, buildPath: '../build' }) {
-    init(wsPath, port, host, buildPath);
+  Completer _completer = new Completer.sync();
+
+  SimpleWebServer(this.host,    
+                  this.port,
+                  this.wsPath,
+                  this.clientFiles,
+                  this.clientServe) {
+    init();
   }
   
-  void init(wsPath, port, host, buildPath) {
-    this.port = port;
-    this.wsPath = wsPath;
-    this._completer = new Completer.sync();
-    if (host!=null) {
+  void init() {
+    if (host != null) {
       this.bind_address = host;
     }
-    buildDir = Platform.script.resolve(buildPath).toFilePath();
-    if (!new Directory(buildDir).existsSync()) {
-      log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
-      return;
-    } 
+    
+    // If we should serve client files, check that pub build has been run
+    if(clientServe == true) {
+      // Build dir of running server script 
+      var pathLen = Platform.script.pathSegments.length;
+      var buildDir = Platform.script.pathSegments.sublist(0, pathLen - 1).join("/");
+      buildDir = "${buildDir}/build";
+      
+      if (!new Directory(buildDir).existsSync()) {
+        log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
+        return;
+      }
+    }
   }
   
   Future start([WebSocketHandler handleWs]) {
     HttpServer.bind(bind_address, port).then((server) { 
-        _onStart(server, handleWs);
-        _completer.complete(const []);
-      });
+      _onStart(server, handleWs);
+      _completer.complete(const []);
+    });
+    
     return _completer.future;
   }
 
@@ -46,3 +57,4 @@ class SimpleWebServer {
  
   _onStart(server, [WebSocketHandler handleWs]) {}
 }
+
