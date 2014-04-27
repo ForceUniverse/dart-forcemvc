@@ -3,7 +3,7 @@ part of dart_force_mvc_lib;
 class MustacheRender extends ForceViewRender {
   Delimiter delimiter = new Delimiter('{{', '}}');
   
-  MustacheRender([String views]) : super(views);
+  MustacheRender([views = "../views/", clientServe = true]) : super(views, clientServe);
   
   String _render_impl(String template, model) {
     var output = render(template, model, delimiter: delimiter);

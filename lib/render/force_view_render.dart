@@ -3,10 +3,9 @@ part of dart_force_mvc_lib;
 abstract class ForceViewRender {
   final Logger log = new Logger('ForceViewRender');
   String views;
-  String clientFiles;
   bool clientServe;
   
-  ForceViewRender([this.views = "../views/", this.clientFiles, this.clientServe]) {
+  ForceViewRender([this.views, this.clientServe]) {
     // Check so that we have a server side views directory exists  
     views = Platform.script.resolve(views).toFilePath();
     

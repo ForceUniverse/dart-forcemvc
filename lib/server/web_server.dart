@@ -10,12 +10,12 @@ class WebServer extends SimpleWebServer with ServingFiles {
   SecurityContextHolder _securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   
-  WebServer({host: null,         
+  WebServer({host: "127.0.0.1",         
              port: 8080,
              wsPath: '/ws',
              clientFiles: '../build/web/',
              clientServe: true,
-             views: null}) : 
+             views: "../views/"}) : 
                super(host, port, wsPath, 
                      clientFiles, clientServe) {
     viewRender = new MustacheRender(views);
