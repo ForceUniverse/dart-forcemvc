@@ -15,7 +15,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
              wsPath: '/ws',
              clientFiles: '../build/web/',
              clientServe: true,
-             views: "../views/"}) : 
+             views: "../views/",
+             startPage: "index.html"}) : 
                super(host, port, wsPath, 
                      clientFiles, clientServe) {
     viewRender = new MustacheRender(views, clientFiles, clientServe);
