@@ -27,6 +27,19 @@ class SimpleWebServer {
     if (host != null) {
       this.bind_address = host;
     }
+    
+    // If we should serve client files, check that pub build has been run
+    if(clientServe == true) {
+      // Build dir of running server script 
+      var pathLen = Platform.script.pathSegments.length;
+      var buildDir = Platform.script.pathSegments.sublist(0, pathLen - 1).join("/");
+      buildDir = "${buildDir}/build";
+      
+      if (!new Directory(buildDir).existsSync()) {
+        log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
+        return;
+      }
+    }
   }
   
   Future start([WebSocketHandler handleWs]) {

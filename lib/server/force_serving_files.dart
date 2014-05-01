@@ -33,7 +33,7 @@ class ServingFiles {
       virDir.serve(router.defaultStream);
       
       // Start serving dart files
-      _serveDartFiles(clientFiles);
+      _serveDartFiles("../$clientFiles");
         
       // Start serving static files 
       _serveStaticFiles(clientFiles);
