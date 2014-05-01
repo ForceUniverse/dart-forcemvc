@@ -16,7 +16,7 @@ abstract class ForceViewRender {
     
     // If we should serve client files, check that pub build has been run
     if(clientServe == true) {
-      var buildDir = "${Platform.script.path}$clientFiles";
+      var buildDir = "${Platform.script.path}/$clientFiles";
       
       if (!new Directory(buildDir).existsSync()) {
         log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
