@@ -19,9 +19,9 @@ abstract class ForceViewRender {
       clientFiles = Platform.script.resolve(clientFiles).toFilePath();
             
       if (!new Directory(clientFiles).existsSync()) {
-              log.severe("The 'build' directory was not found ($clientFiles). Please run 'pub build'.");
-              return;
-            }
+          log.severe("The 'build' directory was not found ($clientFiles). Please run 'pub build'.");
+          return;
+      }
     }
   }
   
