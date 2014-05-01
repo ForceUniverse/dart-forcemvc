@@ -10,18 +10,23 @@ abstract class ForceViewRender {
     // Check so that we have a server side views directory exists  
     views = Platform.script.resolve(views).toFilePath();
     
-    if (!new Directory(views).existsSync()) {
-      log.severe("The 'views/' directory was not found.");
-    }
+    _exists(views);
     
     // If we should serve client files, check that pub build has been run
     if(clientServe == true) {
       clientFiles = Platform.script.resolve(clientFiles).toFilePath();
             
-      if (!new Directory(clientFiles).existsSync()) {
-          log.severe("The 'build' directory was not found ($clientFiles). Please run 'pub build'.");
-          return;
+      _exists(clientFiles);
+    }
+  }
+  
+  void _exists(dir) {
+    try {
+      if (!new Directory(views).existsSync()) {
+         log.severe("The '$dir' directory was not found.");
       }
+    } on FileSystemException {
+      log.severe("The '$dir' directory was not found.");
     }
   }
   

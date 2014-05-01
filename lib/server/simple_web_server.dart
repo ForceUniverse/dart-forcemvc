@@ -34,10 +34,13 @@ class SimpleWebServer {
       var pathLen = Platform.script.pathSegments.length;
       var buildDir = Platform.script.pathSegments.sublist(0, pathLen - 1).join("/");
       buildDir = "${buildDir}/build";
-      
-      if (!new Directory(buildDir).existsSync()) {
+      try {
+        if (!new Directory(buildDir).existsSync()) {
+          log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
+          return;
+        }
+      } on FileSystemException {
         log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
-        return;
       }
     }
   }
