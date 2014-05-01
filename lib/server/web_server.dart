@@ -18,7 +18,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
              views: "../views/"}) : 
                super(host, port, wsPath, 
                      clientFiles, clientServe) {
-    viewRender = new MustacheRender(views);
+    viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     _securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     _scanning();
