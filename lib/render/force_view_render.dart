@@ -16,12 +16,12 @@ abstract class ForceViewRender {
     
     // If we should serve client files, check that pub build has been run
     if(clientServe == true) {
-      var buildDir = "${Platform.script.path}/$clientFiles";
-      
-      if (!new Directory(buildDir).existsSync()) {
-        log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
-        return;
-      }
+      clientFiles = Platform.script.resolve(clientFiles).toFilePath();
+            
+      if (!new Directory(clientFiles).existsSync()) {
+              log.severe("The 'build' directory was not found ($clientFiles). Please run 'pub build'.");
+              return;
+            }
     }
   }
   
@@ -33,13 +33,13 @@ abstract class ForceViewRender {
     if (file.existsSync()) {
       _readFile(file, completer, model);
     } else {
-//      viewUri = new Uri.file(buildDir).resolve("$view.html");
-//      file = new File(viewUri.toFilePath());
-//      if (file.existsSync()) {
-//        _readFile(file, completer, model);
-//      } else {
-//        completer.complete("");
-//      }
+      viewUri = new Uri.file(clientFiles).resolve("$view.html");
+      file = new File(viewUri.toFilePath());
+      if (file.existsSync()) {
+        _readFile(file, completer, model);
+      } else {
+        completer.complete("");
+      }
     }
     
     return completer.future;
