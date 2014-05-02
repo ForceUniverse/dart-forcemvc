@@ -28,21 +28,21 @@ class SimpleWebServer {
       this.bind_address = host;
     }
     
-    // If we should serve client files, check that pub build has been run
     if(clientServe == true) {
-      // Build dir of running server script 
-      var pathLen = Platform.script.pathSegments.length;
-      var buildDir = Platform.script.pathSegments.sublist(0, pathLen - 1).join("/");
-      buildDir = "${buildDir}/build";
-      try {
-        if (!new Directory(buildDir).existsSync()) {
-          log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
-          return;
-        }
-      } on FileSystemException {
-        log.severe("The 'build' directory was not found ($buildDir). Please run 'pub build'.");
-      }
+       clientFiles = Platform.script.resolve(clientFiles).toFilePath();
+               
+       _exists(clientFiles);
     }
+  }
+     
+  void _exists(dir) {
+     try {
+       if (!new Directory(dir).existsSync()) {
+          log.severe("The '$dir' directory was not found.");
+       }
+     } on FileSystemException {
+       log.severe("The '$dir' directory was not found.");
+     }
   }
   
   Future start([WebSocketHandler handleWs]) {
