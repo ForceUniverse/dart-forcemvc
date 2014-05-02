@@ -22,7 +22,7 @@ abstract class ForceViewRender {
   
   void _exists(dir) {
     try {
-      if (!new Directory(views).existsSync()) {
+      if (!new Directory(dir).existsSync()) {
          log.severe("The '$dir' directory was not found.");
       }
     } on FileSystemException {
