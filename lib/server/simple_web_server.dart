@@ -29,9 +29,9 @@ class SimpleWebServer {
     }
     
     if(clientServe == true) {
-       clientFiles = Platform.script.resolve(clientFiles).toFilePath();
+       String clientFilesPath = Platform.script.resolve(clientFiles).toFilePath();
                
-       _exists(clientFiles);
+       _exists(clientFilesPath);
     }
   }
      
