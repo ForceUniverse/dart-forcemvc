@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.2.1 ####
+
+New structure!
+
 #### Pub version 0.2.0 ####
 
 Adding security and authentication functionality
