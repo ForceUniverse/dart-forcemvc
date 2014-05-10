@@ -7,7 +7,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   ForceViewRender viewRender;
   ForceRegistry registry;
   
-  SecurityContextHolder _securityContext;
+  SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   
   WebServer({host: "127.0.0.1",         
@@ -21,7 +21,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
                      clientFiles, clientServe) {
     viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
-    _securityContext = new SecurityContextHolder(new NoSecurityStrategy());
+    securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     _scanning();
   }
   
@@ -41,7 +41,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
        if (checkSecurity(req, authentication)) {
          _resolveRequest(req, controllerHandler);
        } else {
-         Uri location = _securityContext.redirectUri(req);
+         Uri location = securityContext.redirectUri(req);
          req.response.redirect(location, status: 301);
        }
      });
@@ -50,7 +50,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   bool checkSecurity(HttpRequest req, auth) {
     if (auth) {
-      return _securityContext.checkAuthorization(req);
+      return securityContext.checkAuthorization(req);
     } else {
       return true;
     }
@@ -130,7 +130,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
   
   void set strategy(SecurityStrategy strategy) {
-    _securityContext.strategy = strategy;
+    securityContext.strategy = strategy;
   }
 }
 
