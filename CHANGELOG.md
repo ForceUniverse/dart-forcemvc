@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.2.2 ####
+
+Refactoring of the use of webSockets, also provide httpRequest in the flow, so you get access to httpsession.
+
 #### Pub version 0.2.1+2 ####
 
 Make the security rules more general.
