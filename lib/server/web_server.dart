@@ -120,9 +120,16 @@ class WebServer extends SimpleWebServer with ServingFiles {
     // The client will connect using a WebSocket. Upgrade requests to '/ws' and
     // forward them to 'handleWebSocket'.
     if (handleWs != null) {
-      router.serve(this.wsPath)
-        .transform(new WebSocketTransformer())
-          .listen(handleWs);
+      Stream<HttpRequest> stream = router.serve(this.wsPath);
+        stream.listen((HttpRequest req) {
+//          stream.transform(new WebSocketTransformer())
+//                    .listen(handleWs);
+          if(WebSocketTransformer.isUpgradeRequest(req)) {
+             WebSocketTransformer.upgrade(req).then((WebSocket ws) {
+                handleWs(ws, req);
+             });
+          }
+        });
     }
     
     // Serve dart and static files (if not explicitly disabled by clientServe) 
