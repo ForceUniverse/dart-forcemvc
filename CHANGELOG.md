@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.2.1+1 ####
+
+Make the securityContextHolder object in webserver public accessible.
+
 #### Pub version 0.2.1 ####
 
 New structure!
