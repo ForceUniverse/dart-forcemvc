@@ -7,7 +7,7 @@ class SecurityContextHolder {
   SecurityContextHolder(this.strategy);
   
   bool checkAuthorization(req, {data: null}) { 
-    return this.strategy.checkAuthorization(req, data: data);
+    return this.strategy.checkAuthorization(req, data);
   }
   
   Uri redirectUri(HttpRequest req) => this.strategy.getRedirectUri(req);
