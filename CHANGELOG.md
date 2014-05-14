@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.2.3 ####
+
+Implemented changes to the security api. Add an optional parameter {data} in the security strategy checkAuthorization class.
+
 #### Pub version 0.2.2 ####
 
 Refactoring of the use of webSockets, also provide httpRequest in the flow, so you get access to httpsession.

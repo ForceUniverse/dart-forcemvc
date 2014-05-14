@@ -117,7 +117,7 @@ You can set a strategy by extending the class SecurityStrategy.
 
 	class SessionStrategy extends SecurityStrategy {
 	  
-	  bool checkAuthorization(HttpRequest req) {
+	  bool checkAuthorization(HttpRequest req, {data: null}) {
 	    HttpSession session = req.session;
 	    return (session["user"]!=null);
 	  }   
