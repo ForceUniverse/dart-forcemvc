@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.2.4 ####
+
+Add easier bootstrapping of the logging functionality serverside.
+
 #### Pub version 0.2.3 ####
 
 Implemented changes to the security api. Add an optional parameter {data} in the security strategy checkAuthorization class.
