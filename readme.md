@@ -131,6 +131,12 @@ You can set a strategy by extending the class SecurityStrategy.
 And then add this strategy to the webserver.
 
 	server.strategy = new SessionStrategy();
+	
+#### Logging ####
+
+You can easily boostrap logging.
+
+	server.setupConsoleLog();
 
 #### Example ####
 
