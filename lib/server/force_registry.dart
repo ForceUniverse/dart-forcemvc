@@ -7,8 +7,10 @@ class ForceRegistry {
   ForceRegistry(this.webServer);
 
   void scanning() {
+      ApplicationContext.bootstrap();
+    
       Scanner<Controller, Object> classesHelper = new Scanner<Controller, Object>();
-      List<Object> classes = classesHelper.scan();
+      List<Object> classes = ApplicationContext.component(classesHelper);
       
       for (var obj in classes) {
         this.register(obj);

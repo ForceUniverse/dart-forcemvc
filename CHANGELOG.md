@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.0 ####
+
+Add 'force it' package into this new version of the forcemvc so you can use @Autowired in the @Controller classes. 
+
 #### Pub version 0.2.4 ####
 
 Add easier bootstrapping of the logging functionality serverside.
