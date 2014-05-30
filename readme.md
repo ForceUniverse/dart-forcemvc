@@ -138,6 +138,12 @@ You can easily boostrap logging.
 
 	server.setupConsoleLog();
 
+#### Force it ####
+
+Force it is a dependency injection package.
+You can use @Autowired and @bean and more in forcemvc find info [here](https://github.com/jorishermans/dart-force_it)
+
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
