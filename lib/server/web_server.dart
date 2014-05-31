@@ -19,6 +19,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
              startPage: "index.html"}) : 
                super(host, port, wsPath, 
                      clientFiles, clientServe) {
+    this.startPage = startPage;
     viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());

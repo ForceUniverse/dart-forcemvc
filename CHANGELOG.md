@@ -4,6 +4,10 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.3.0 ####
 
+Fix a bug with passing by the startPage.
+
+#### Pub version 0.3.0 ####
+
 Add 'force it' package into this new version of the forcemvc so you can use @Autowired in the @Controller classes. 
 
 #### Pub version 0.2.4 ####
