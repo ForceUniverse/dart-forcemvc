@@ -33,9 +33,9 @@ class ServingFiles {
       virDir.serve(router.defaultStream);
       
       // Start serving dart files
-      String dartFiles = clientFiles;
+      // String dartFiles = clientFiles;
       // dartFiles = dartFiles.replaceAll("/build", "");
-      _serveDartFiles(dartFiles);
+      // _serveDartFiles(dartFiles);
         
       // Start serving static files 
       _serveStaticFiles(clientFiles);
