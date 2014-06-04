@@ -33,9 +33,7 @@ class ServingFiles {
       virDir.serve(router.defaultStream);
       
       // Start serving dart files
-      // String dartFiles = clientFiles;
-      // dartFiles = dartFiles.replaceAll("/build", "");
-      // _serveDartFiles(dartFiles);
+      _serveDartFiles(clientFiles);
         
       // Start serving static files 
       _serveStaticFiles(clientFiles);
@@ -44,6 +42,12 @@ class ServingFiles {
   
   void serveFile(String fileName, HttpRequest request) {
     Uri fileUri = Platform.script.resolve(fileName);
+    File file = new File(fileUri.toFilePath());
+    if (!file.existsSync()) {
+      fileName = fileName.replaceAll("/build", "");
+      fileUri = Platform.script.resolve(fileName);
+      file = new File(fileUri.toFilePath());
+    }
     virDir.serveFile(new File(fileUri.toFilePath()), request);
   }
   

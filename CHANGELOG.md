@@ -2,7 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.3.0 ####
+#### Pub version 0.3.1 ####
+
+Fix a problem with serving dart files.
+
+#### Pub version 0.3.0+1 ####
 
 Fix a bug with passing by the startPage.
 
