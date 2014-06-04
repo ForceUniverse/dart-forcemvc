@@ -48,7 +48,7 @@ class ServingFiles {
       fileUri = Platform.script.resolve(fileName);
       file = new File(fileUri.toFilePath());
     }
-    virDir.serveFile(new File(fileUri.toFilePath()), request);
+    virDir.serveFile(file, request);
   }
   
   void _serveDartFiles(clientFiles) {
