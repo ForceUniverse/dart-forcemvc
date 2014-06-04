@@ -9,7 +9,7 @@ class ServingFiles {
   void _serveClient(clientFiles, clientServe) {
     if(clientServe == true) {
       // Set up default handler. This will serve files from our 'build' directory.
-      virDir = new http_server.VirtualDirectory(clientFiles);
+      virDir = new http_server.VirtualDirectory(clientFiles); 
       
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
@@ -34,7 +34,7 @@ class ServingFiles {
       
       // Start serving dart files
       String dartFiles = clientFiles;
-      dartFiles = dartFiles.replaceAll("/build", "");
+      // dartFiles = dartFiles.replaceAll("/build", "");
       _serveDartFiles(dartFiles);
         
       // Start serving static files 
