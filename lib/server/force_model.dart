@@ -5,14 +5,23 @@ class Model {
   final Logger log = new Logger('Model');
   
   var dynamic;
-  Map<String, String> values = new Map<String, String>();
+  // Changed from Map<String,String> into generic,
+  // You can add other types of object without limitation
+  Map values = new Map();
   
   void addAttributeObject(dynamic) {
     this.dynamic = dynamic;
   }
   
   void addAttribute(String key, String value) {
-    values[key] = value;
+      values[key] = value;
+    }
+  
+  /**
+   * With this you can add object into your models
+   **/
+  void addAttributeObj(String key, var genericOBJ) {
+      values[key] = genericOBJ;
   }
   
   bool containsAttribute(String key) {
