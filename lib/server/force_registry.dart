@@ -3,9 +3,22 @@ part of dart_force_mvc_lib;
 class ForceRegistry {
   
   WebServer webServer;
+  File _basePath;
   
-  ForceRegistry(this.webServer);
+  ForceRegistry(this.webServer) {
+    _basePath = new File(Platform.script.toFilePath());
+  }
 
+  void loadValues(String path) {
+     var valuesUri = new Uri.file(_basePath.path).resolve(path);
+     var file = new File(valuesUri.toFilePath());
+     file.readAsBytes().then((data) {
+          var yaml = new String.fromCharCodes(data);
+              
+          ApplicationContext.registerMessage(path, yaml);
+     });
+  }
+  
   void scanning() {
       ApplicationContext.bootstrap();
     
