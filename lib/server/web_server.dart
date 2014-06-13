@@ -140,5 +140,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void set strategy(SecurityStrategy strategy) {
     securityContext.strategy = strategy;
   }
+  
+  void loadValues(String path) => this.registry.loadValues(path);
 }
 
