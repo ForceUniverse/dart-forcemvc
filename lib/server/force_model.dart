@@ -13,15 +13,8 @@ class Model {
     this.dynamic = dynamic;
   }
   
-  void addAttribute(String key, String value) {
+  void addAttribute(String key, var value) {
       values[key] = value;
-    }
-  
-  /**
-   * With this you can add object into your models
-   **/
-  void addAttributeObj(String key, var genericOBJ) {
-      values[key] = genericOBJ;
   }
   
   bool containsAttribute(String key) {
