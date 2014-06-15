@@ -2,7 +2,8 @@ part of dart_force_mvc_lib;
 
 class WebServer extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebServer');
-	bool cors=false;
+	
+  bool cors=false;
   Router router;
   ForceViewRender viewRender;
   ForceRegistry registry;
