@@ -8,6 +8,7 @@ class SimpleWebServer {
   var host;
   var port;
   var wsPath;
+  var staticFiles;
   var clientFiles;
   var clientServe;
   var virDir;
@@ -18,6 +19,7 @@ class SimpleWebServer {
   SimpleWebServer(this.host,    
                   this.port,
                   this.wsPath,
+                  this.staticFiles,
                   this.clientFiles,
                   this.clientServe) {
     init();

@@ -6,7 +6,7 @@ class ServingFiles {
   var virDir;
   String startPage = 'index.html';
   
-  void _serveClient(clientFiles, clientServe) {
+  void _serveClient(staticFiles, clientFiles, clientServe) {
     if(clientServe == true) {
       // Set up default handler. This will serve files from our 'build' directory.
       virDir = new http_server.VirtualDirectory(clientFiles); 
@@ -36,7 +36,7 @@ class ServingFiles {
       _serveDartFiles(clientFiles);
         
       // Start serving static files 
-      _serveStaticFiles(clientFiles);
+      _serveStaticFiles(staticFiles);
     }
   }
   

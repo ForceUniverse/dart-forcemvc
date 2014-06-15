@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 class WebServer extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebServer');
-	bool Cors=false;
+	bool cors=false;
   Router router;
   ForceViewRender viewRender;
   ForceRegistry registry;
@@ -13,18 +13,20 @@ class WebServer extends SimpleWebServer with ServingFiles {
   WebServer({host: "127.0.0.1",
              port: 8080,
              wsPath: '/ws',
+             staticFiles: '../static/',
              clientFiles: '../build/web/',
              clientServe: true,
              views: "../views/",
-             startPage: "index.html",cors:true}) :
-               super(host, port, wsPath,
+             startPage: "index.html",
+             cors:true}) :
+               super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
     this.startPage = startPage;
+    this.cors = cors;
     viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     _scanning();
-    this.Cors=cors;
   }
 
   void _scanning() {
@@ -107,7 +109,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
-  	if(this.Cors==true){
+  	if(this.cors==true){
   		response
         ..headers.add("Access-Control-Allow-Origin", "*, ")
         ..headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
@@ -141,7 +143,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
     }
 
     // Serve dart and static files (if not explicitly disabled by clientServe)
-    _serveClient(clientFiles, clientServe);
+    _serveClient(staticFiles, clientFiles, clientServe);
   }
 
   void set strategy(SecurityStrategy strategy) {
