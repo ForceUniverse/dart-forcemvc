@@ -26,7 +26,6 @@ class WebServer extends SimpleWebServer with ServingFiles {
     viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
-    _scanning();
   }
 
   void _scanning() {
@@ -125,6 +124,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void _onStart(server, [WebSocketHandler handleWs]) {
     log.info("Search server is running on "
         "'http://${Platform.localHostname}:$port/'");
+    _scanning();
     router = new Router(server);
 
     // The client will connect using a WebSocket. Upgrade requests to '/ws' and
