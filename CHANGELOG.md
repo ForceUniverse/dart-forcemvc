@@ -2,6 +2,12 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.2 ####
+
+- load values into your webserver from yaml files
+- cors
+- small improvement on the model object, it allows you to put anything in it
+
 #### Pub version 0.3.1 ####
 
 Fix a problem with serving dart files.
