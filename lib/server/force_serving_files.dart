@@ -64,7 +64,8 @@ class ServingFiles {
     var pattern = new UrlPattern('/static/([/|.|\\-|\\w|\\s])*');
     
     router.serve(pattern).listen((request) {
-      var path = request.uri.path;
+      String path = request.uri.path;
+      path = path.replaceAll('/static/', '');
       serveFile("${clientFiles}${path}", request);
     });
   }
