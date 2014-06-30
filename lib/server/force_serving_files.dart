@@ -16,7 +16,9 @@ class ServingFiles {
             ..allowDirectoryListing = true;
       
       virDir.directoryHandler = (dir, request) {
-        serveFile(startPage, request);
+        var filePath = "$clientFiles$startPage";
+        log.info("Try to server $filePath!");
+        serveFile("$clientFiles$startPage", request);
       };
       
       // Add an error page handler.

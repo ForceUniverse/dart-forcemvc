@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.3.2+1 ####
+#### Pub version 0.3.2+1 & 0.3.2+2 ####
 
 - improve serving code of the start page.
 
