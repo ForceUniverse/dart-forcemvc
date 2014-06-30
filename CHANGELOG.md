@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.2+1 ####
+
+- improve serving code of the start page.
+
 #### Pub version 0.3.2 ####
 
 - load values into your webserver from yaml files
