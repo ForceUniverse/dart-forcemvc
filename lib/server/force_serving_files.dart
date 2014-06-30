@@ -16,10 +16,7 @@ class ServingFiles {
             ..allowDirectoryListing = true;
       
       virDir.directoryHandler = (dir, request) {
-        // Redirect directory-requests to index.html files.
-        var indexUri = Platform.script.resolve(dir.path).resolve(startPage);
-        log.info("We serve $indexUri from the webserver!");
-        virDir.serveFile(new File(indexUri.toFilePath()), request);
+        serveFile(startPage, request);
       };
       
       // Add an error page handler.
