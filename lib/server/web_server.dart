@@ -10,6 +10,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
 
   SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
+  
+  List<ResponseHook> responseHooks = new List<ResponseHook>();
 
   WebServer({host: "127.0.0.1",
              port: 8080,
@@ -23,7 +25,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
                super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
     this.startPage = startPage;
-    this.cors = cors;
+    if(cors==true){ this.responseHooks.add(response_hook_cors); }
     viewRender = new MustacheRender(views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
@@ -109,12 +111,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
-  	if(this.cors==true){
-  		response
-        ..headers.add("Access-Control-Allow-Origin", "*, ")
-        ..headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-        ..headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    }
+  	responseHooks.forEach((ResponseHook responseHook) {
+  	  responseHook(response);
+  	});
   	response
     ..statusCode = 200
     ..headers.contentType = contentType
