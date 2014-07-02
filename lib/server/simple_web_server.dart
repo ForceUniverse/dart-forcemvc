@@ -51,9 +51,14 @@ class SimpleWebServer {
     HttpServer.bind(bind_address, port).then((server) { 
       _onStart(server, handleWs);
       _completer.complete(const []);
-    });
+    }).catchError(_errorOnStart);
     
     return _completer.future;
+  }
+  
+  void _errorOnStart(e) {
+    log.warning("Could not startup the web server ... $e");
+    log.info("Is your port already in use?");
   }
 
   Stream<HttpRequest> serve(String name) {
