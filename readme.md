@@ -37,7 +37,7 @@ Then you register that object on the WebServer object.
 	
 Or you can annotate a class with @Controller and then it will be registered automatically in the force server.
 
-	@Controller
+	@Controller()
 	class SomeObject {
 	
 	}
