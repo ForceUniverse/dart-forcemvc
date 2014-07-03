@@ -4,8 +4,9 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.3.3 ####
 
-- Error logging when the server don't start.
-- Add responseHooks into the web_server.
+- Error logging when the server don't start
+- Add responseHooks into the web_server
+- Using variable name of the annotated @RequestParam when value is empty
 
 #### Pub version 0.3.2+1 & 0.3.2+2 ####
 
