@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.3+1 ####
+
+- Make @RequestParam working without a value
+
 #### Pub version 0.3.3 ####
 
 - Error logging when the server don't start

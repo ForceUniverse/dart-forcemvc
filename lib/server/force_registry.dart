@@ -93,9 +93,9 @@ class ForceRegistry {
                  }
                  if ( im.reflectee is RequestParam) {
                    RequestParam rp = im.reflectee;
-                   String value= (rp.value==""?name:rp.value);
-                   if (req.request.uri.queryParameters[rp.value] != null) {
-                     positionalArguments.add(req.request.uri.queryParameters[rp.value]);
+                   String qvalue= (rp.value==""?name:rp.value);
+                   if (req.request.uri.queryParameters[qvalue] != null) {
+                     positionalArguments.add(req.request.uri.queryParameters[qvalue]);
                    } else {
                      positionalArguments.add(rp.defaultValue);
                    }
