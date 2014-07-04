@@ -35,10 +35,13 @@ class ForceRegistry {
         AnnotationChecker<Authentication> annoChecker = new AnnotationChecker<Authentication>();
         bool auth = annoChecker.hasOnClazz(obj);
         
+        String startPath = _findStartPath(obj);
+        
         for (MetaDataValue mv in mirrorValues) {
               // execute all ! ! !
           PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
-          UrlPattern urlPattern = new UrlPattern(pathAnalyzer.route);
+          
+          UrlPattern urlPattern = new UrlPattern("$startPath$pathAnalyzer.route");
           this.webServer.on(urlPattern, (ForceRequest req, Model model) {
               // prepare model  
               for (MetaDataValue mvModel in mirrorModels) {
@@ -108,5 +111,17 @@ class ForceRegistry {
              positionalArguments = [req, model];
         }
         return positionalArguments;
+    }
+    
+    String _findStartPath(Object obj) {
+      InstanceMirror objMirror = reflect(obj);
+      String startPath="";
+      for (var meta in objMirror.type.metadata) {
+           if (meta.reflectee is RequestMapping) {
+               RequestMapping reqMapping = meta.reflectee;
+               startPath = reqMapping.value;
+           }
+      }
+      return startPath;
     }
 }
