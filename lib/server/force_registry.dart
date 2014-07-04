@@ -38,10 +38,10 @@ class ForceRegistry {
         String startPath = _findStartPath(obj);
         
         for (MetaDataValue mv in mirrorValues) {
-              // execute all ! ! !
+          // execute all ! ! !
           PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
-          
-          UrlPattern urlPattern = new UrlPattern("$startPath$pathAnalyzer.route");
+          var route = pathAnalyzer.route;
+          UrlPattern urlPattern = new UrlPattern("$startPath$route");
           this.webServer.on(urlPattern, (ForceRequest req, Model model) {
               // prepare model  
               for (MetaDataValue mvModel in mirrorModels) {

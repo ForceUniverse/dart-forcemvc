@@ -1,5 +1,5 @@
 name: forcemvc
-version: 0.3.4
+version: 0.3.4+1
 author: Joris Hermans <hermansj@gmail.com>
 description: A serverside web mvc framework
 homepage: https://github.com/jorishermans/dart-forcemvc
