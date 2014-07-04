@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.4 ####
+
+- Add @RequestMapping on an object level possible
+
 #### Pub version 0.3.3+1 ####
 
 - Make @RequestParam working without a value
