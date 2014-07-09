@@ -19,6 +19,7 @@ class MustacheRender extends ForceViewRender {
     result = result.replaceAll("src='/../", "src='../");
     result = result.replaceAll("src='//", "src='/");
     result = result.replaceAll("src=\"//", "src=\"/");
+    result = result.replaceAll("${delimiter.opening}&amp;", "${delimiter.opening}&");
     return result;
   }
 }
