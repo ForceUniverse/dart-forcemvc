@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.4+1 & 0.3.4+2 ####
+
+- update rules for mustache rendering the view
+
 #### Pub version 0.3.4 ####
 
 - Add @RequestMapping on an object level possible
