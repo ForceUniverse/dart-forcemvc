@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.3.4+1 & 0.3.4+2 ####
+#### Pub version 0.3.4+1 & 0.3.4+2 & 0.3.4+3 ####
 
 - update rules for mustache rendering the view
 
