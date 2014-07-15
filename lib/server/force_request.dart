@@ -6,6 +6,8 @@ class ForceRequest {
   Map<String, String> path_variables;
   Completer _asyncCallCompleter;
   
+  ForceRequest._();
+  
   ForceRequest(this.request) {
     path_variables = new Map<String, String>(); 
     _asyncCallCompleter = new Completer();
