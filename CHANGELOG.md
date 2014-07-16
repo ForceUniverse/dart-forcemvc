@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.5+1 ####
+
+- Update package configuration
+
 #### Pub version 0.3.5 ####
 
 - Provide a class MockForceRequest to mock more easily ForceRequest in unittests 
