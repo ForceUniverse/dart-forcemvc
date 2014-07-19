@@ -47,13 +47,50 @@ class SimpleWebServer {
      }
   }
   
+  /**
+     * This method helps to start your webserver.
+     * 
+     * You can add a [WebSocketHandler].
+     */
+  
   Future start([WebSocketHandler handleWs]) {
     HttpServer.bind(bind_address, port).then((server) { 
-      _onStart(server, handleWs);
-      _completer.complete(const []);
+      _onStartComplete(server, handleWs);
     }).catchError(_errorOnStart);
     
     return _completer.future;
+  }
+  
+  /**
+     * This method helps to start your webserver in a secure way.
+     * 
+     * You can add a [WebSocketHandler], certificateName,
+     * 
+     * The optional argument [backlog] can be used to specify the listen
+     * backlog for the underlying OS listen setup. If [backlog] has the
+     * value of [:0:] (the default) a reasonable value will be chosen by
+     * the system.
+     *
+     * The certificate with nickname or distinguished name (DN) [certificateName]
+     * is looked up in the certificate database, and is used as the server
+     * certificate. If [requestClientCertificate] is true, the server will
+     * request clients to authenticate with a client certificate. 
+     */
+  
+  Future startSecure({WebSocketHandler handleWs: null, String certificateName, bool requestClientCertificate: false,
+    int backlog: 0}) {
+      HttpServer.bindSecure(bind_address, port, certificateName: certificateName,
+          requestClientCertificate: requestClientCertificate,
+          backlog: backlog).then((server) { 
+        _onStartComplete(server, handleWs);
+      }).catchError(_errorOnStart);
+      
+      return _completer.future;
+    }
+  
+  void _onStartComplete(server, [WebSocketHandler handleWs]) {
+    _onStart(server, handleWs);
+    _completer.complete(const []);
   }
   
   void _errorOnStart(e) {
