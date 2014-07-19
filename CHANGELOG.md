@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.6+1 ####
+
+- First steps in error handling
+
 #### Pub version 0.3.6 ####
 
 - Adding startSecure method, so you can start your webserver over SSL.
