@@ -54,7 +54,7 @@ It is also possible to start a server with SSL possibilities.
 
 #### ForceRequest ####
 
-ForceRequest is an abstraction for HttpRequest
+ForceRequest is an extension for HttpRequest
 
 	forceRequest.postData().then((data) => print(data));
 	
