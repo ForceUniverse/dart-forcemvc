@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.6 ####
+
+- Adding startSecure method, so you can start your webserver over SSL.
+
 #### Pub version 0.3.5+1 ####
 
 - Update package configuration
