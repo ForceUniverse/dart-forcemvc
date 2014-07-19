@@ -42,6 +42,16 @@ Or you can annotate a class with @Controller and then it will be registered auto
 	
 	}
 
+#### Starting your web server ####
+
+You can do this as follow!
+
+	server.start();
+	
+It is also possible to start a server with SSL possibilities.
+
+	server.startSecure();
+
 #### ForceRequest ####
 
 ForceRequest is an abstraction for HttpRequest
