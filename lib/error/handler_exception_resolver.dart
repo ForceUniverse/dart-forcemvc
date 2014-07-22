@@ -15,6 +15,6 @@ abstract class HandlerExceptionResolver {
      * @param ex the exception that got thrown during handler execution
      * @return a corresponding String that represents the viewname of your template
      */
-  String resolveException(ForceRequest request, Exception ex);
+  String resolveException(ForceRequest request, Model model, Exception ex);
   
 }

@@ -10,6 +10,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
 
   SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
+  HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
 
@@ -71,8 +72,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
       interceptors.preHandle(forceRequest, model, this);
       result = controllerHandler(forceRequest, model);
       interceptors.postHandle(forceRequest, model, this);
-    } catch (e) {
+    } catch (ex) {
       // do proper exception handling 
+      result = exceptionResolver.resolveException(forceRequest, model, ex);
     }
     if (result != null) {
        // template rendering

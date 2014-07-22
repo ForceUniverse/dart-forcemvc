@@ -44,3 +44,4 @@ part 'annotations/force_request_param.dart';
 
 // exception handling
 part 'error/handler_exception_resolver.dart';
+part 'error/simple_exception_resolver.dart';
