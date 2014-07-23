@@ -72,9 +72,13 @@ class WebServer extends SimpleWebServer with ServingFiles {
       interceptors.preHandle(forceRequest, model, this);
       result = controllerHandler(forceRequest, model);
       interceptors.postHandle(forceRequest, model, this);
-    } catch (ex) {
+    } catch (e) {
       // do proper exception handling 
-      result = exceptionResolver.resolveException(forceRequest, model, ex);
+      if (e is Exception) {
+        result = exceptionResolver.resolveException(forceRequest, model, e);
+      } else if (e is Error) {
+        result = exceptionResolver.resolveError(forceRequest, model, e);
+      }
     }
     if (result != null) {
        // template rendering

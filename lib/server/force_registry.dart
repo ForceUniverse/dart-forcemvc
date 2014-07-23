@@ -91,7 +91,7 @@ class ForceRegistry {
     }
   }
     
-    List<dynamic> _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [exception]) {
+    List<dynamic> _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [ex_er]) {
         List<dynamic> positionalArguments = new List<dynamic>();
         for (ParameterMirror pm in mv.parameters) {
             String name = (MirrorSystem.getName(pm.simpleName));
@@ -105,7 +105,9 @@ class ForceRegistry {
             } else if (pm.type is HttpHeaders || name == 'headers') {
               positionalArguments.add(req.request.headers);
             } else if (pm.type is Exception || name == 'exception') {
-              positionalArguments.add(exception);
+              positionalArguments.add(ex_er);
+            } else if (pm.type is Error || name == 'error') {
+              positionalArguments.add(ex_er);
             } else {
               if (req.path_variables[name] != null) {
                 positionalArguments.add(req.path_variables[name]);
