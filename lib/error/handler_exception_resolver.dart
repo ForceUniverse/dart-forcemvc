@@ -10,7 +10,7 @@ abstract class HandlerExceptionResolver {
   
     /**
      * Try to resolve the given exception that got thrown during on handler execution,
-     * returning a String that represents a specific error page if appropriate.
+     * returning a String that the viewname or return null if you want to return a json representation.
      * @param request current Force Request, an encapsulated HttpRequest
      * @param ex the exception that got thrown during handler execution
      * @return a corresponding String that represents the viewname of your template
