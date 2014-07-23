@@ -61,34 +61,31 @@ class ForceRegistry {
                 }
                  
                 List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
-                _executeFunction(mv, positionalArguments);
+                return _executeFunction(mv, positionalArguments);
               } catch(e) {
                 // Look for exceptionHandlers in this case 
                 List<MetaDataValue<ExceptionHandler>> mirrorExceptions = new MetaDataHelper<ExceptionHandler>().getMirrorValues(obj); 
                        
-                _errorHandling(mirrorExceptions, model, req, e);
+                return _errorHandling(mirrorExceptions, model, req, e);
               }
             }, method: mv.object.method, authentication: auth);
         }
     }
 
-  void _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
+  String _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
     if (mirrorExceptions.length==0) {
       throw e;
     } else {
       MetaDataValue mdvException = mirrorExceptions.first;
       
       List<dynamic> positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
-      _executeFunction(mdvException, positionalArguments);
+      return _executeFunction(mdvException, positionalArguments);
     }
   }
 
-  void _executeFunction(MetaDataValue mdv, List positionalArguments) {
+  String _executeFunction(MetaDataValue mdv, List positionalArguments) {
     InstanceMirror res = mdv.invoke(positionalArguments);
-    
-    if (res != null && res.hasReflectee) {
-        return res.reflectee;
-    }
+    return res.reflectee;
   }
     
     List<dynamic> _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [ex_er]) {
