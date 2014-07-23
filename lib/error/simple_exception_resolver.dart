@@ -16,7 +16,7 @@ class SimpleExceptionResolver extends HandlerExceptionResolver {
      * @return a corresponding String that represents the viewname of your template or null when a json response is required
      */
   String resolveException(ForceRequest request, Model model, Exception ex) {
-    model.addAttribute(DEFAULT_EXCEPTION_ATTRIBUTE, ex);
+    model.addAttribute(DEFAULT_EXCEPTION_ATTRIBUTE, ex.toString());
     return null;
   }
   
@@ -27,7 +27,7 @@ class SimpleExceptionResolver extends HandlerExceptionResolver {
     * @return a corresponding String that represents the viewname of your template or null when a json response is required
     */
   String resolveError(ForceRequest request, Model model, Error er) {
-    model.addAttribute(DEFAULT_EXCEPTION_ATTRIBUTE, er);
+    model.addAttribute(DEFAULT_EXCEPTION_ATTRIBUTE, er.stackTrace.toString());
     return null;
   }
   
