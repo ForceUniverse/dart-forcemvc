@@ -60,7 +60,7 @@ class ForceRegistry {
                   req.path_variables[variableName] = value;
                 }
                  
-                List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
+                List positionalArguments = _calculate_positionalArguments(mv, model, req);
                 return _executeFunction(mv, positionalArguments);
               } catch(e) {
                 // Look for exceptionHandlers in this case 
@@ -72,24 +72,24 @@ class ForceRegistry {
         }
     }
 
-  String _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
-    if (mirrorExceptions.length==0) {
-      throw e;
-    } else {
-      MetaDataValue mdvException = mirrorExceptions.first;
-      
-      List<dynamic> positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
-      return _executeFunction(mdvException, positionalArguments);
+    _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
+      if (mirrorExceptions.length==0) {
+        throw e;
+      } else {
+        MetaDataValue mdvException = mirrorExceptions.first;
+        
+        List positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
+        return _executeFunction(mdvException, positionalArguments);
+      }
     }
-  }
 
-  String _executeFunction(MetaDataValue mdv, List positionalArguments) {
-    InstanceMirror res = mdv.invoke(positionalArguments);
-    return res.reflectee;
-  }
+    _executeFunction(MetaDataValue mdv, List positionalArguments) {
+      InstanceMirror res = mdv.invoke(positionalArguments);
+      return res.reflectee;
+    }
     
-    List<dynamic> _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [ex_er]) {
-        List<dynamic> positionalArguments = new List<dynamic>();
+    List _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [ex_er]) {
+        List positionalArguments = new List();
         for (ParameterMirror pm in mv.parameters) {
             String name = (MirrorSystem.getName(pm.simpleName));
             
