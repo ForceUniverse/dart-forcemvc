@@ -7,6 +7,7 @@ part of dart_force_mvc_lib;
 class SimpleExceptionResolver extends HandlerExceptionResolver {
   
   static final String DEFAULT_EXCEPTION_ATTRIBUTE = "exception";
+  static final String DEFAULT_STACKTRACE_ATTRIBUTE = "stacktrace";
   static final String DEFAULT_ERROR_ATTRIBUTE = "error";
   
     /**
@@ -27,7 +28,8 @@ class SimpleExceptionResolver extends HandlerExceptionResolver {
     * @return a corresponding String that represents the viewname of your template or null when a json response is required
     */
   String resolveError(ForceRequest request, Model model, Error er) {
-    model.addAttribute(DEFAULT_EXCEPTION_ATTRIBUTE, er.stackTrace.toString());
+    model.addAttribute(DEFAULT_STACKTRACE_ATTRIBUTE, er.stackTrace.toString());
+    model.addAttribute(DEFAULT_ERROR_ATTRIBUTE, er.stackTrace.toString());
     return null;
   }
   
