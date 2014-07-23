@@ -28,8 +28,8 @@ class SimpleExceptionResolver extends HandlerExceptionResolver {
     * @return a corresponding String that represents the viewname of your template or null when a json response is required
     */
   String resolveError(ForceRequest request, Model model, Error er) {
+    model.addAttribute(DEFAULT_ERROR_ATTRIBUTE, er.toString());
     model.addAttribute(DEFAULT_STACKTRACE_ATTRIBUTE, er.stackTrace.toString());
-    model.addAttribute(DEFAULT_ERROR_ATTRIBUTE, er.stackTrace.toString());
     return null;
   }
   
