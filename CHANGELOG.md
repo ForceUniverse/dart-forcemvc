@@ -2,6 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.3.7 ####
+
+- General error handling with a HandlerExceptionResolver
+- Introducing the annotation @ExceptionHandler so you can use that in your @Controller classes when an error is happening.
+
 #### Pub version 0.3.6+1 ####
 
 - First steps in error handling

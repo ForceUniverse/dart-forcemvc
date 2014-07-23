@@ -43,34 +43,55 @@ class ForceRegistry {
 
           UrlPattern urlPattern = new UrlPattern("${startPath}${pathAnalyzer.route}");
           this.webServer.on(urlPattern, (ForceRequest req, Model model) {
-              // prepare model  
-              for (MetaDataValue mvModel in mirrorModels) {
-                  
-                  InstanceMirror res = mvModel.invoke([]);
-                  
-                  if (res != null && res.hasReflectee) {
-                    model.addAttribute(mvModel.object.value, res.reflectee);
-                  }
-              }
-              // search for path variables
-              for (var i = 0; pathAnalyzer.variables.length>i; i++) { 
-                var variableName = pathAnalyzer.variables[i], 
-                    value = urlPattern.parse(req.request.uri.path)[i];
-                req.path_variables[variableName] = value;
-              }
-               
-              List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
-              
-              InstanceMirror res = mv.invoke(positionalArguments);
-                
-              if (res != null && res.hasReflectee) {
-                  return res.reflectee;
+              try {  
+                // prepare model  
+                for (MetaDataValue mvModel in mirrorModels) {
+                    
+                    InstanceMirror res = mvModel.invoke([]);
+                    
+                    if (res != null && res.hasReflectee) {
+                      model.addAttribute(mvModel.object.value, res.reflectee);
+                    }
                 }
-             }, method: mv.object.method, authentication: auth);
+                // search for path variables
+                for (var i = 0; pathAnalyzer.variables.length>i; i++) { 
+                  var variableName = pathAnalyzer.variables[i], 
+                      value = urlPattern.parse(req.request.uri.path)[i];
+                  req.path_variables[variableName] = value;
+                }
+                 
+                List<dynamic> positionalArguments = _calculate_positionalArguments(mv, model, req);
+                _executeFunction(mv, positionalArguments);
+              } catch(e) {
+                // Look for exceptionHandlers in this case 
+                List<MetaDataValue<ExceptionHandler>> mirrorExceptions = new MetaDataHelper<ExceptionHandler>().getMirrorValues(obj); 
+                       
+                _errorHandling(mirrorExceptions, model, req, e);
+              }
+            }, method: mv.object.method, authentication: auth);
         }
     }
+
+  void _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
+    if (mirrorExceptions.length==0) {
+      throw e;
+    } else {
+      MetaDataValue mdvException = mirrorExceptions.first;
+      
+      List<dynamic> positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
+      _executeFunction(mdvException, positionalArguments);
+    }
+  }
+
+  void _executeFunction(MetaDataValue mdv, List positionalArguments) {
+    InstanceMirror res = mdv.invoke(positionalArguments);
     
-    List<dynamic> _calculate_positionalArguments(MetaDataValue<RequestMapping> mv, Model model, ForceRequest req) {
+    if (res != null && res.hasReflectee) {
+        return res.reflectee;
+    }
+  }
+    
+    List<dynamic> _calculate_positionalArguments(MetaDataValue mv, Model model, ForceRequest req, [exception]) {
         List<dynamic> positionalArguments = new List<dynamic>();
         for (ParameterMirror pm in mv.parameters) {
             String name = (MirrorSystem.getName(pm.simpleName));
@@ -83,6 +104,8 @@ class ForceRegistry {
               positionalArguments.add(req.request.session);
             } else if (pm.type is HttpHeaders || name == 'headers') {
               positionalArguments.add(req.request.headers);
+            } else if (pm.type is Exception || name == 'exception') {
+              positionalArguments.add(exception);
             } else {
               if (req.path_variables[name] != null) {
                 positionalArguments.add(req.path_variables[name]);
