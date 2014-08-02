@@ -16,16 +16,16 @@ import 'package:force_it/force_it.dart';
 
 part 'server/web_server.dart';
 part 'server/simple_web_server.dart';
-part 'server/force_mvc_typedefs.dart';
-part 'server/force_request_method.dart';
-part 'server/force_model.dart';
+part 'server/mvc_typedefs.dart';
+part 'server/request_method.dart';
+part 'server/model.dart';
 part 'server/force_request.dart';
-part 'server/force_registry.dart';
-part 'server/force_handler_interceptor.dart';
-part 'server/force_interceptors_collection.dart';
-part 'server/force_path_analyzer.dart';
-part 'server/force_serving_files.dart';
-part 'server/force_response_hooks.dart';
+part 'server/registry.dart';
+part 'server/handler_interceptor.dart';
+part 'server/interceptors_collection.dart';
+part 'server/path_analyzer.dart';
+part 'server/serving_files.dart';
+part 'server/response_hooks.dart';
 // security
 part 'security/security_context_holder.dart';
 part 'security/security_strategy.dart';
