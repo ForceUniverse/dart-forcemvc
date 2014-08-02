@@ -21,6 +21,16 @@ class Controller {
 }
 
 /**
+ * Annotation that will be used to indicate that a class is a controller
+ *
+ */
+class ControllerAdvice {
+  
+  const ControllerAdvice();
+
+}
+
+/**
  * Annotation that will be used to indicate a method that will be called when an exception happens
  *
  */

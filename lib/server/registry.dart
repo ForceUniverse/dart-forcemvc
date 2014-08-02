@@ -20,17 +20,28 @@ class ForceRegistry {
   void scanning() {
       ApplicationContext.bootstrap();
     
-      Scanner<Controller, Object> classesHelper = new Scanner<Controller, Object>();
-      List<Object> classes = ApplicationContext.component(classesHelper);
+      /* scan for controllers */
+      Scanner<Controller, Object> controllerClasHelper = new Scanner<Controller, Object>();
+      List<Object> classes = ApplicationContext.component(controllerClasHelper);
+      
+      /* scan for controllerAdvice classes */
+      Scanner<ControllerAdvice, Object> adviserHelper = new Scanner<ControllerAdvice, Object>();
+      List<Object> adviserObjects = ApplicationContext.component(adviserHelper);
+      
+      List<MetaDataValue<ModelAttribute>> adviserModels = new List<MetaDataValue<ModelAttribute>>();
+      for (var obj in classes) {
+        adviserModels.addAll(new MetaDataHelper<ModelAttribute>().getMirrorValues(obj));
+      }
       
       for (var obj in classes) {
-        this.register(obj);
+        this.register(obj, adviserModels);
       }
   }
   
-  void register(Object obj) {
+  void register(Object obj, List<MetaDataValue<ModelAttribute>> adviserModels) {
         List<MetaDataValue<RequestMapping>> mirrorValues = new MetaDataHelper<RequestMapping>().getMirrorValues(obj);
         List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj); 
+        mirrorModels.addAll(adviserModels);
         
         AnnotationChecker<Authentication> annoChecker = new AnnotationChecker<Authentication>();
         bool auth = annoChecker.hasOnClazz(obj);
