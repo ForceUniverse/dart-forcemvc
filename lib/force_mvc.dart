@@ -32,17 +32,11 @@ part 'security/security_strategy.dart';
 part 'security/no_security_strategy.dart';
 
 // render
-part 'render/force_view_render.dart';
-part 'render/force_mustache_render.dart';
+part 'render/view_render.dart';
+part 'render/mustache_render.dart';
 
-part 'annotations/force_authentication.dart';
-part 'annotations/force_request_mapping.dart';
-part 'annotations/force_model_attribute.dart';
-part 'annotations/force_controller.dart';
-part 'annotations/force_path_variable.dart';
-part 'annotations/force_request_param.dart';
+part 'annotations/metadata.dart';
 
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';
-part 'annotations/force_exception_handler.dart';
