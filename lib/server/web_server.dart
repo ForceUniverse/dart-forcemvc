@@ -133,7 +133,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
 
   void _onStart(server, [WebSocketHandler handleWs]) {
-    log.info("Search server is running on "
+    log.info("Web server is running on "
         "'http://${Platform.localHostname}:$port/'");
     _scanning();
     router = new Router(server);
