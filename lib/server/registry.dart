@@ -30,7 +30,7 @@ class ForceRegistry {
       
       List<MetaDataValue<ModelAttribute>> adviserModels = new List<MetaDataValue<ModelAttribute>>();
       List<MetaDataValue<ExceptionHandler>> adviserExc = new List<MetaDataValue<ExceptionHandler>>();
-      for (var obj in classes) {
+      for (var obj in adviserObjects) {
         adviserModels.addAll(new MetaDataHelper<ModelAttribute>().getMirrorValues(obj));
         adviserExc.addAll(new MetaDataHelper<ExceptionHandler>().getMirrorValues(obj));
       }
