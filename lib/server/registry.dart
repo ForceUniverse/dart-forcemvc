@@ -29,16 +29,23 @@ class ForceRegistry {
       List<Object> adviserObjects = ApplicationContext.component(adviserHelper);
       
       List<MetaDataValue<ModelAttribute>> adviserModels = new List<MetaDataValue<ModelAttribute>>();
+      List<MetaDataValue<ExceptionHandler>> adviserExc = new List<MetaDataValue<ExceptionHandler>>();
       for (var obj in classes) {
         adviserModels.addAll(new MetaDataHelper<ModelAttribute>().getMirrorValues(obj));
+        adviserExc.addAll(new MetaDataHelper<ExceptionHandler>().getMirrorValues(obj));
       }
       
+      /* now register all the controller classes */
       for (var obj in classes) {
-        this.register(obj, adviserModels);
+        this._register(obj, adviserModels, adviserExc);
       }
   }
   
-  void register(Object obj, List<MetaDataValue<ModelAttribute>> adviserModels) {
+  void register(Object obj) {
+    this._register(obj, new List<MetaDataValue<ModelAttribute>>(), new List<MetaDataValue<ExceptionHandler>>());     
+  }
+  
+  void _register(Object obj, List<MetaDataValue<ModelAttribute>> adviserModels, List<MetaDataValue<ExceptionHandler>> adviserExc) {
         List<MetaDataValue<RequestMapping>> mirrorValues = new MetaDataHelper<RequestMapping>().getMirrorValues(obj);
         List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj); 
         mirrorModels.addAll(adviserModels);
@@ -76,7 +83,8 @@ class ForceRegistry {
               } catch(e) {
                 // Look for exceptionHandlers in this case 
                 List<MetaDataValue<ExceptionHandler>> mirrorExceptions = new MetaDataHelper<ExceptionHandler>().getMirrorValues(obj); 
-                       
+                mirrorExceptions.addAll(adviserExc);
+                
                 return _errorHandling(mirrorExceptions, model, req, e);
               }
             }, method: mv.object.method, authentication: auth);
