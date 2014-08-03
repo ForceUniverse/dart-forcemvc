@@ -4,6 +4,10 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.3.7 ####
 
+- Introducing @ControllerAdvice so that you can make methods with @ModelAttribute & @ExceptionHandler that has inpact to all the controller
+
+#### Pub version 0.3.7 ####
+
 - General error handling with a HandlerExceptionResolver
 - Introducing the annotation @ExceptionHandler so you can use that in your @Controller classes when an error is happening.
 
