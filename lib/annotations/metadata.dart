@@ -10,10 +10,6 @@ class Authentication {
   
 }
 
-/**
- * Annotation that will be used to indicate that a class is a controller
- *
- */
 class _Controller {
   
   const _Controller();
@@ -26,10 +22,6 @@ class _Controller {
  */
 const controller = const _Controller();
 
-/**
- * Annotation that will be used to indicate that a class is a controller
- *
- */
 class _ControllerAdvice {
   
   const _ControllerAdvice();
