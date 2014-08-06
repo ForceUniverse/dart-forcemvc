@@ -14,9 +14,9 @@ class Authentication {
  * Annotation that will be used to indicate that a class is a controller
  *
  */
-class Controller {
+class _Controller {
   
-  const Controller();
+  const _Controller();
 
 }
 
@@ -24,11 +24,23 @@ class Controller {
  * Annotation that will be used to indicate that a class is a controller
  *
  */
-class ControllerAdvice {
+const controller = const _Controller();
+
+/**
+ * Annotation that will be used to indicate that a class is a controller
+ *
+ */
+class _ControllerAdvice {
   
-  const ControllerAdvice();
+  const _ControllerAdvice();
 
 }
+
+/**
+ * Annotation that will be used to indicate that a class is a controller adviser
+ *
+ */
+const controllerAdvice = const _ControllerAdvice();
 
 /**
  * Annotation that will be used to indicate a method that will be called when an exception happens

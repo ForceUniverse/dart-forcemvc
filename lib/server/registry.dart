@@ -21,11 +21,11 @@ class ForceRegistry {
       ApplicationContext.bootstrap();
     
       /* scan for controllers */
-      Scanner<Controller, Object> controllerClasHelper = new Scanner<Controller, Object>();
+      Scanner<_Controller, Object> controllerClasHelper = new Scanner<_Controller, Object>();
       List<Object> classes = ApplicationContext.component(controllerClasHelper);
       
       /* scan for controllerAdvice classes */
-      Scanner<ControllerAdvice, Object> adviserHelper = new Scanner<ControllerAdvice, Object>();
+      Scanner<_ControllerAdvice, Object> adviserHelper = new Scanner<_ControllerAdvice, Object>();
       List<Object> adviserObjects = ApplicationContext.component(adviserHelper);
       
       List<MetaDataValue<ModelAttribute>> adviserModels = new List<MetaDataValue<ModelAttribute>>();
