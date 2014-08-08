@@ -1,0 +1,4 @@
+name: client
+dependencies:
+  browser: any 
+

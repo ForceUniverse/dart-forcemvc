@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>force mvc example</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Bootstrap -->
+      <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat-extensions.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat-square.css" rel="stylesheet" media="screen">
+      <style>
+        .small {
+          font-size: 10pt;
+          color: #aaa;
+        }
+        .btn-primary, .btn-primary.disabled, .btn-primary[disabled] {
+          background-color: #BB0000;
+          border-color: #AA0000;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+          background-color: #A10000;
+          border-color: #A10000;
+        }
+      </style>
+  </head>
+ 
+  <body> 
+    <div class="jumbotron">
+      <div class="container">
+        <h1><img src="/static/img/dart_force_logo.jpg" /> Force mvc examples</h1>
+        <p>Force mvc is part of the dart force framework. It is a server side implementation with concepts of spring mvc. It uses annotations like @RequestMapping, @Controller, @ModelAttribute, interceptors, ... more to come.</p>
+        <p><a href="https://github.com/jorishermans/dart-forcemvc" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>  
+     <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-3">
+          <h2>Normal page</h2>
+          <p>This page just will count the visits in memory on the server</p>
+          <p><a class="btn btn-default" href="/count" role="button">View example &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+          <h2>JSON</h2>
+          <p>Force mvc also allows REST endpoints that can return JSON.</p>
+          <p><a class="btn btn-default" href="/json" role="button">View example &raquo;</a></p>
+       </div>
+        <div class="col-md-3">
+          <h2>Path Variables</h2>
+          <p>You can use path variables in the url to make it more dynamic! In this example it is /var/{var1}/.</p>
+          <p><a class="btn btn-default" href="/var/something/" role="button">View example &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+          <h2>Security</h2>
+          <p>You can also add authentication into the controller, test it out!</p>
+          <p><a class="btn btn-default" href="/admin/info/" role="button">View example &raquo;</a></p>
+        </div>
+        
+      </div>
+      <br /><br />
+      <div class="row">
+          <div class="col-xs-12 col-md-6 small">
+            This application is an example of the <a href="https://github.com/jorishermans/dart-forcemvc">dart force mvc</a> part of <a href="https://github.com/jorishermans/dart-force">dart force framework</a>! 
+            <br />
+            <br />
+            You can find the sourcecode of this example <a href="https://github.com/jorishermans/dart-forcemvc-example">here</a>.
+          </div>
+        </div>
+     </div>
+      
+  </body>
+</html>
