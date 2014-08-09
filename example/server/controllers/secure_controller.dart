@@ -9,8 +9,8 @@ class User {
 
 bool hasAdminRole(User user, returnObject, arguments) => user.role == "ADMIN";
 
-@controller
-@PreAuthorizeRoles(const ["ADMIN"])
+@Controller
+//@PreAuthorizeRoles(const ["ADMIN"])
 //@PreAuthorizeIf(hasAdminRole)
 class AdminController {
   

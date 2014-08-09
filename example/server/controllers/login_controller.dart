@@ -1,6 +1,6 @@
 part of example_forcedart;
 
-@controller
+@Controller
 class LoginController {
   
   @RequestMapping(value: "/login/")

@@ -1,6 +1,6 @@
 part of example_forcedart;
 
-@controller
+@Controller
 class PathController {
   
   @RequestMapping(value: "/var/{var1}/")

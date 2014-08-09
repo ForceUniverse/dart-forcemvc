@@ -1,7 +1,7 @@
 part of example_forcedart;
 
 
-@controller
+@Controller
 class AboutController {
   
   @Value("name")
