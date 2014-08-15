@@ -1,6 +1,6 @@
 ### Dart Force MVC ###
 
-![LOGO!](https://raw.github.com/jorishermans/dart-force/master/resources/dart_force_logo.jpg)
+![LOGO!](https://raw.github.com/ForceUniverse/dart-force/master/resources/dart_force_logo.jpg)
 
 Part of the Dart Force Framework.
 
@@ -152,8 +152,7 @@ You can easily boostrap logging.
 #### Force it ####
 
 Force it is a dependency injection package.
-You can use @Autowired and @bean and more in forcemvc find info [here](https://github.com/jorishermans/dart-force_it)
-
+You can use @Autowired and @bean and more in forcemvc find info [here](https://github.com/ForceUniverse/dart-force_it)
 
 #### Example ####
 
@@ -163,11 +162,7 @@ You can find a simple example with a page counter implementation [here](https://
 
 - get more annotations and options for sending the response back
 - writing tests
-
-### Api documents ###
-
-You can find them [here](https://jorishermans.github.io/dart-forcemvc/api/index.html) 
-
+ 
 ### Notes to Contributors ###
 
 #### Fork Dart Force MVC ####
@@ -178,7 +173,7 @@ If you are new to Git or GitHub, please read [this guide](https://help.github.co
 
 #### Dart Force ####
 
-Realtime web framework for dart that uses force MVC [source code](https://github.com/jorishermans/dart-force)
+Realtime web framework for dart that uses force MVC [source code](https://github.com/ForceUniverse/dart-force)
 
 #### Twitter ####
 
