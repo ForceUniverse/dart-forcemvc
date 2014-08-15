@@ -37,7 +37,7 @@ Then you register that object on the WebServer object.
 	
 Or you can annotate a class with @Controller and then it will be registered automatically in the force server.
 
-	@Controller()
+	@Controller
 	class SomeObject {
 	
 	}
@@ -120,7 +120,8 @@ This is an example how you can use it.
 
 #### Authentication ####
 
-You can now add the annotation @Authentication() to a controller class.
+You can now add the annotation @Authentication to a controller class. 
+This will make it necessary to for a user to authenticate before accessing these resources.
 
 An authentication in force is following a strategy.
 You can set a strategy by extending the class SecurityStrategy.
