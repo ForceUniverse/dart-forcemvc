@@ -7,7 +7,7 @@ class RedirectController {
   int redirect = 0;
   
   @RequestMapping(value: "/start")
-  String variable(req, Model model) {
+  String redirectMethod(req, Model model) {
     redirect++;
     return "redirect:/redirect/viewable/";
   }

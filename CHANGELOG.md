@@ -6,6 +6,7 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 - Remove parentheses from annotations. 
 - Update to the latest version (0.2.0) of force_it
+- Add example folder to the git repository
 
 #### Pub version 0.3.8 ####
 
