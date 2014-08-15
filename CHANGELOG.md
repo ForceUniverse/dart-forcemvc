@@ -2,6 +2,16 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.4.0+1 ####
+
+- Adding MVCAnnotationHelper, with the method hasAuthentication(obj) to the package
+
+#### Pub version 0.4.0 ####
+
+- Remove parentheses from annotations. 
+- Update to the latest version (0.2.0) of force_it
+- Add example folder to the git repository
+
 #### Pub version 0.4.0 ####
 
 - Remove parentheses from annotations. 

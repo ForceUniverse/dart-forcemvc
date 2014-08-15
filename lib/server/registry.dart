@@ -50,8 +50,7 @@ class ForceRegistry {
         List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute>().getMirrorValues(obj); 
         mirrorModels.addAll(adviserModels);
         
-        AnnotationChecker<_Authentication> annoChecker = new AnnotationChecker<_Authentication>();
-        bool auth = annoChecker.hasOnClazz(obj);
+        bool auth = MVCAnnotationHelper.hasAuthentication(obj);
         
         String startPath = _findStartPath(obj);
         
