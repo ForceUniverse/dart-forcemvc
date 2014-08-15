@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.4.0+1 ####
+#### Pub version 0.4.0+1 & 0.4.0+2 ####
 
 - Adding MVCAnnotationHelper, with the method hasAuthentication(obj) to the package
 
