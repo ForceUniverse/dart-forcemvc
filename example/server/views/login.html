@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf8">
+    <script type="application/dart" src="client.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Bootstrap -->
+      <link href="/static/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat-extensions.css" rel="stylesheet" media="screen">
+      <link href="/static/css/bootflat-square.css" rel="stylesheet" media="screen">
+      <style>
+        .small {
+          font-size: 10pt;
+          color: #aaa;
+        }
+      </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Force MVC example</h1>
+        <div id="status" class="small"></div>
+        <div>Please login (admin - admin123)</div>
+      </header>
+      <form role="form" action="/login/" method="POST">
+        <input type="hidden" name="referer" value="{{referer}}" />
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="text" name="user" class="form-control" id="userInput" placeholder="user name">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputName">name</label>
+          <input type="password" name="pwd" class="form-control" id="pwdInput" placeholder="password">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      
+      <br /><br />
+      <div class="row">
+          <div class="col-xs-12 col-md-6 small">
+            This application is an example of the <a href="https://github.com/jorishermans/dart-forcemvc">dart force mvc</a> part of <a href="https://github.com/jorishermans/dart-force">dart force framework</a>! 
+            <br />
+            <br />
+            You can find the sourcecode of this example <a href="https://github.com/jorishermans/dart-forcemvc-example">here</a>.
+          </div>
+        </div>
+     </div>
+  </body>
+</html>
