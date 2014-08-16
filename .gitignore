@@ -6,3 +6,5 @@ packages
 *.js
 pubspec.lock
 .idea
+/dart-forcemvc.iml
+/.settings/
