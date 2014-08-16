@@ -7,11 +7,11 @@ class User {
   String password;
 }
 
-bool hasAdminRole(User user, returnObject, arguments) => user.role == "ADMIN";
+bool hasAdminRole(User user, methodArguments) => user.role == "ADMIN";
 
 @Controller
-//@PreAuthorizeRoles(const ["ADMIN"])
-//@PreAuthorizeIf(hasAdminRole)
+@PreAuthorizeRoles(const ["ADMIN"])
+@PreAuthorizeIf(hasAdminRole) // Not yet implemented
 class AdminController {
   
   int redirect = 0;
