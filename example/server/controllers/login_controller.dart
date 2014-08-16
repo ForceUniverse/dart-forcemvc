@@ -10,12 +10,14 @@ class LoginController {
   }
   
   @RequestMapping(value: "/login/", method: "POST")
-  Future<String> countMethod(req, HttpSession session, Model model) {
+  Future<String> countMethod(ForceRequest req, HttpSession session, Model model) {
      req.getPostParams().then((map) {
        if ( map["user"]=="admin" && map["pwd"]=="admin123" ) {
           model.addAttribute("user", map["user"]);
        
           session["user"] = "admin";
+          session["role"] = "ADMIN";
+          
           var referer = map["referer"]; 
           req.async("redirect:$referer");
        } else {
