@@ -42,10 +42,11 @@ class WebServer extends SimpleWebServer with ServingFiles {
     interceptors.addAll(interceptorList);
   }
 
-  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool authentication: false}) {
+  void on(Pattern url, ControllerHandler controllerHandler, 
+          {method: RequestMethod.GET, List<String> roles}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (checkSecurity(req, authentication)) {
+       if (checkSecurity(req, roles)) {
          _resolveRequest(req, controllerHandler);
        } else {
          Uri location = securityContext.redirectUri(req);
@@ -55,9 +56,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
    });
   }
 
-  bool checkSecurity(HttpRequest req, auth) {
-    if (auth) {
-      return securityContext.checkAuthorization(req);
+  bool checkSecurity(HttpRequest req, List<String> roles) {
+    if (roles != null) {
+      return securityContext.checkAuthorization(req, roles);
     } else {
       return true;
     }
