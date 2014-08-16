@@ -6,7 +6,7 @@ class SecurityContextHolder {
   
   SecurityContextHolder(this.strategy);
   
-  bool checkAuthorization(req, List<String> roles, {data: null}) { 
+  bool checkAuthorization(HttpRequest req, List<String> roles, {data: null}) {
     return this.strategy.checkAuthorization(req, roles, data);
   }
   
