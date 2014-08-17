@@ -36,6 +36,7 @@ part 'render/view_render.dart';
 part 'render/mustache_render.dart';
 
 part 'annotations/metadata.dart';
+part 'annotations/helpers.dart';
 
 // exception handling
 part 'error/handler_exception_resolver.dart';
