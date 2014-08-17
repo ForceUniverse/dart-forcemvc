@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 class WebServer extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebServer');
-	
+  
   bool cors=false;
   Router router;
   ForceViewRender viewRender;
@@ -123,10 +123,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
-  	responseHooks.forEach((ResponseHook responseHook) {
-  	  responseHook(response);
-  	});
-  	response
+    responseHooks.forEach((ResponseHook responseHook) {
+      responseHook(response);
+    });
+    response
     ..statusCode = 200
     ..headers.contentType = contentType
     ..write(result)

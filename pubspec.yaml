@@ -1,15 +1,16 @@
 name: forcemvc
-version: 0.4.0
+version: 0.4.0+2
 author: Joris Hermans <hermansj@gmail.com>
-description: A serverside web mvc framework
-homepage: https://github.com/jorishermans/dart-forcemvc
+description: A serverside web mvc framework with templates
+homepage: https://github.com/ForceUniverse/dart-forcemvc
 dependencies:
-  force_it:
-    path: ../dart-force_it
   http_server: '>=0.9.0 <0.10.0'
   logging: '>=0.9.0 <0.10.0'
-  mustache4dart: '>=1.0.0 <1.1.0'
   route: '>=0.4.0 <0.5.0'
+  mustache4dart: '>=1.0.0 <1.1.0'
+  force_it: '>=0.2.1 <0.3.0'
 dev_dependencies:
-  mock: '>=0.11.0 <0.11.1'
   unittest: '>=0.11.0+2 <0.11.1'
+  mock: '>=0.11.0 <0.11.1'
+
+  

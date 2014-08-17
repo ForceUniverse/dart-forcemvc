@@ -15,8 +15,9 @@ part 'controllers/count_controller.dart';
 part 'controllers/secure_controller.dart';
 part 'controllers/about_controller.dart';
 
-part 'interceptors/random_interceptor.dart';
+part 'advice/text_advice.dart';
 
+part 'interceptors/random_interceptor.dart';
 part 'controllers/security/session_strategy.dart';
 
 void main() { 
@@ -47,13 +48,5 @@ void main() {
   
   // Start serving force 
   server.start();
-  
-//  var mirrorSystem = currentMirrorSystem();
-//  mirrorSystem.isolate.rootLibrary.declarations.values
-//  .where((dm) => dm is ClassMirror && dm.metadata.any((im) => im.reflectee is Controller))
-//  .forEach((dm) {
-//    print(dm);
-////    print(dm.metadata.any((im) => im.reflectee is Controller));
-//  });
 }
 
