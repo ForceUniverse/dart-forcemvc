@@ -2,6 +2,17 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.0+1 ####
+
+- Add getAuthentication in MVCAnnotationHelper
+
+#### Pub version 0.5.0 ####
+
+- Add PreauthorizeRoles and PreauthorizeFunc Annotations
+- Add possibility to define authorization roles
+- Define and extend the way security works in forcemvc
+- Upgrade to the latest version of 'force it'
+
 #### Pub version 0.4.0+1 & 0.4.0+2 ####
 
 - Adding MVCAnnotationHelper, with the method hasAuthentication(obj) to the package

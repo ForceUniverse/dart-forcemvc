@@ -5,4 +5,9 @@ class MVCAnnotationHelper {
     AnnotationScanner<_Authentication> annoChecker = new AnnotationScanner<_Authentication>();
     return annoChecker.isOn(obj);
   }
+  
+  static _Authentication getAuthentication(Object obj) {
+    AnnotationScanner<_Authentication> annoChecker = new AnnotationScanner<_Authentication>();
+    return annoChecker.instanceFrom(obj);
+  }
 }
