@@ -143,6 +143,15 @@ And then add this strategy to the webserver.
 
 	server.strategy = new SessionStrategy();
 	
+##### Roles #####
+
+You can also define authorize roles. This can be done as follow.
+
+@Controller
+@PreAuthorizeRoles(const ["ADMIN"])
+class AdminController {
+		
+}
 #### Logging ####
 
 You can easily boostrap logging.
