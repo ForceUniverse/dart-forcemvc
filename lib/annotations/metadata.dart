@@ -12,6 +12,20 @@ class _Authentication {
   
 }
 
+class PreAuthorizeRoles {
+  final List<String> roles;
+  
+  const PreAuthorizeRoles(this.roles);
+}
+
+typedef void PreAuthorizeFunc(user, [List methodArguments]);
+
+class PreAuthorizeIf {
+  final PreAuthorizeFunc preAuthorizeFunc;
+  
+  const PreAuthorizeIf(this.preAuthorizeFunc);
+}
+
 /**
  * Annotation that will be used to indicate that a class is a controller
  *

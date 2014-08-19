@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 class WebServer extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebServer');
-	
+  
   bool cors=false;
   Router router;
   ForceViewRender viewRender;
@@ -42,10 +42,11 @@ class WebServer extends SimpleWebServer with ServingFiles {
     interceptors.addAll(interceptorList);
   }
 
-  void on(Pattern url, ControllerHandler controllerHandler, {method: RequestMethod.GET, bool authentication: false}) {
+  void on(Pattern url, ControllerHandler controllerHandler, 
+          {method: RequestMethod.GET, List<String> roles}) {
    _completer.future.whenComplete(() {
      this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (checkSecurity(req, authentication)) {
+       if (checkSecurity(req, roles)) {
          _resolveRequest(req, controllerHandler);
        } else {
          Uri location = securityContext.redirectUri(req);
@@ -55,9 +56,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
    });
   }
 
-  bool checkSecurity(HttpRequest req, auth) {
-    if (auth) {
-      return securityContext.checkAuthorization(req);
+  bool checkSecurity(HttpRequest req, List<String> roles) {
+    if (roles != null) {
+      return securityContext.checkAuthorization(req, roles);
     } else {
       return true;
     }
@@ -122,10 +123,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
-  	responseHooks.forEach((ResponseHook responseHook) {
-  	  responseHook(response);
-  	});
-  	response
+    responseHooks.forEach((ResponseHook responseHook) {
+      responseHook(response);
+    });
+    response
     ..statusCode = 200
     ..headers.contentType = contentType
     ..write(result)
