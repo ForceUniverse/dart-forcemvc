@@ -53,7 +53,10 @@ class ForceRegistry {
     // TODO: when issue 1236 and 41 in dart lang get resolved, change next code to use Coalesce or Elvis Operator.
     PreAuthorizeFunc globalPreAuthorizeFunc = (_ref = new AnnotationScanner<PreAuthorizeIf>().instanceFrom(obj)) != null ? _ref.preAuthorizeFunc : null;
     
-    var roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? null : _ref.roles;
+    // first look if the controller has a @Authentication annotation
+    var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))== null ? null : _ref.roles;
+    // then look at PreAuthorizeRoles, when they are defined
+    roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? null : _ref.roles;
 
     String startPath = (_ref = new AnnotationScanner<RequestMapping>().instanceFrom(obj)) != null ? _ref.value : "";
 

@@ -10,6 +10,7 @@ class _Authentication {
   
   const _Authentication();
   
+  List<String> get roles => ["BASIC"]; 
 }
 
 class PreAuthorizeRoles {
@@ -18,7 +19,7 @@ class PreAuthorizeRoles {
   const PreAuthorizeRoles(this.roles);
 }
 
-typedef void PreAuthorizeFunc(user, [List methodArguments]);
+typedef bool PreAuthorizeFunc(user, [List methodArguments]);
 
 class PreAuthorizeIf {
   final PreAuthorizeFunc preAuthorizeFunc;
