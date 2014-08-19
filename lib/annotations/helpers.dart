@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 class MVCAnnotationHelper {
   static bool hasAuthentication(Object obj) {
-    AnnotationChecker<_Authentication> annoChecker = new AnnotationChecker<_Authentication>();
-    return annoChecker.hasOnClazz(obj);
+    AnnotationScanner<_Authentication> annoChecker = new AnnotationScanner<_Authentication>();
+    return annoChecker.isOn(obj);
   }
 }
