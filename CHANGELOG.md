@@ -23,12 +23,6 @@ This file contains highlights of what changes on each version of the forcemvc pa
 - Update to the latest version (0.2.0) of force_it
 - Add example folder to the git repository
 
-#### Pub version 0.4.0 ####
-
-- Remove parentheses from annotations. 
-- Update to the latest version (0.2.0) of force_it
-- Add example folder to the git repository
-
 #### Pub version 0.3.8 ####
 
 - Introducing @ControllerAdvice so that you can make methods with @ModelAttribute & @ExceptionHandler that has inpact to all the controller
