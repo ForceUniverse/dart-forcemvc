@@ -100,16 +100,23 @@ class ForceRegistry {
     if (mirrorExceptions.length == 0) {
       throw e;
     } else {
-      MetaDataValue<ExceptionHandler> mdvException = mirrorExceptions.first;
+      MetaDataValue<ExceptionHandler> mdvException = null;
 
       for (MetaDataValue<ExceptionHandler> mdv in mirrorExceptions) {
         if (mdv.object.type !=null && e.runtimeType == mdv.object.type) {
           mdvException = mdv;
         }
+        if (mdvException == null && mdv.object.type==null) {
+          mdvException = mdv;
+        }
       }
       
-      List positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
-      return _executeFunction(mdvException, positionalArguments);
+      if (mdvException!=null) {
+        List positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
+        return _executeFunction(mdvException, positionalArguments);
+      } else {
+        throw e;
+      }
     }
   }
 
