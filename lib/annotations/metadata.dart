@@ -57,7 +57,9 @@ class _ControllerAdvice {
  */
 class ExceptionHandler {
   
-  const ExceptionHandler();
+  final Type type;
+  
+  const ExceptionHandler({this.type});
 
 }
 

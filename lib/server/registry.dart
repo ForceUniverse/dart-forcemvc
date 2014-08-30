@@ -100,8 +100,14 @@ class ForceRegistry {
     if (mirrorExceptions.length == 0) {
       throw e;
     } else {
-      MetaDataValue mdvException = mirrorExceptions.first;
+      MetaDataValue<ExceptionHandler> mdvException = mirrorExceptions.first;
 
+      for (MetaDataValue<ExceptionHandler> mdv in mirrorExceptions) {
+        if (mdv.object.type !=null && e.runtimeType == mdv.object.type) {
+          mdvException = mdv;
+        }
+      }
+      
       List positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
       return _executeFunction(mdvException, positionalArguments);
     }
