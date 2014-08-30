@@ -14,6 +14,7 @@ part 'controllers/path_controller.dart';
 part 'controllers/count_controller.dart';
 part 'controllers/secure_controller.dart';
 part 'controllers/about_controller.dart';
+part 'controllers/error_controller.dart';
 
 part 'advice/text_advice.dart';
 
