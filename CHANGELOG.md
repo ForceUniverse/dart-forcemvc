@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.2 ####
+
+- package 'Force IT' is been renamed to 'wired'
+
 #### Pub version 0.5.1 ####
 
 - Add Type checking in @ExceptionHandler

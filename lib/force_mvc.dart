@@ -12,7 +12,7 @@ import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 import 'package:mustache4dart/mustache4dart.dart';
 
 import 'package:forcemirrors/force_mirrors.dart';
-import 'package:force_it/force_it.dart';
+import 'package:wired/wired.dart';
 
 part 'server/web_server.dart';
 part 'server/simple_web_server.dart';

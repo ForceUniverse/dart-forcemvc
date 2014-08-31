@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:logging/logging.dart';
 import 'package:forcemvc/force_mvc.dart';
-import 'package:force_it/force_it.dart';
+import 'package:wired/wired.dart';
 
 part 'controllers/post_controller.dart';
 part 'controllers/login_controller.dart';

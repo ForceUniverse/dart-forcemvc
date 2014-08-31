@@ -200,7 +200,7 @@ If you are new to Git or GitHub, please read [this guide](https://help.github.co
 
 #### Dart Force ####
 
-Realtime web framework for dart that uses force MVC [source code](https://github.com/ForceUniverse/dart-force)
+Realtime web framework for dart that uses force MVC & wired [source code](https://github.com/ForceUniverse/dart-force)
 
 #### Twitter ####
 
