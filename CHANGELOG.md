@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.1 ####
+
+- Add Type checking in @ExceptionHandler
+
 #### Pub version 0.5.0+1 ####
 
 - Add getAuthentication in MVCAnnotationHelper
