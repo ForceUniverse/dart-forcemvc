@@ -152,6 +152,24 @@ You can also define authorize roles. This can be done as follow.
 class AdminController {
 		
 }
+
+##### ExceptionHandler #####
+
+This helps in defining methods that will be executed when an error or exception occured. 
+
+	@ExceptionHandler()
+  	String error_catch(req, Model model) {
+  		...
+  	}
+
+You can also specify a type, only when an error or exception happend of that Type, that method will be executed.
+
+	@ExceptionHandler(type: DoorLockedError)
+  	String doorLockedError(req, Model model) {
+    	model.addAttribute("explanation", "This is a specific error!");
+    	return "error";  
+  	}
+
 #### Logging ####
 
 You can easily boostrap logging.
