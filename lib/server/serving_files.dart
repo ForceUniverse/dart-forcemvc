@@ -43,7 +43,7 @@ class ServingFiles {
     Uri fileUri = Platform.script.resolve(fileName);
     File file = new File(fileUri.toFilePath());
     if (!file.existsSync()) {
-      fileName = fileName.replaceAll("/build", "");
+      fileName = fileName.replaceFirst("/build", "");
       fileUri = Platform.script.resolve(fileName);
       file = new File(fileUri.toFilePath());
     }
