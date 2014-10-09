@@ -37,6 +37,12 @@ class ForceRegistry {
     for (var obj in classes) {
       this._register(obj, adviserModels, adviserExc);
     }
+    
+    // Search for interceptors
+    ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
+    List<HandlerInterceptor> interceptorList = searcher.scan();
+
+    webServer.interceptors.addAll(interceptorList);
   }
 
   void register(Object obj) {

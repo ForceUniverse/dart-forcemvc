@@ -35,12 +35,6 @@ class WebServer extends SimpleWebServer with ServingFiles {
 
   void _scanning() {
     this.registry.scanning();
-
-    // Search for interceptors
-    ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
-    List<HandlerInterceptor> interceptorList = searcher.scan();
-
-    interceptors.addAll(interceptorList);
   }
 
   void on(Pattern url, ControllerHandler controllerHandler, 
@@ -133,10 +127,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
     ..write(result)
       ..close();
   }
-  
-  /*
-   * 
-   */ 
+   
   /**
    * This requestHandler can be used to hook into the system without having to start a server.
    * You need to use this method for example with Google App Engine runtime.
