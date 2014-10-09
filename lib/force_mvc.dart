@@ -26,6 +26,7 @@ part 'server/interceptors_collection.dart';
 part 'server/path_analyzer.dart';
 part 'server/serving_files.dart';
 part 'server/response_hooks.dart';
+part 'server/http_request_streamer.dart';
 // security
 part 'security/security_context_holder.dart';
 part 'security/security_strategy.dart';

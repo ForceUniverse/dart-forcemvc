@@ -13,6 +13,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
+  HttpRequestStreamer requestStreamer;
 
   WebServer({host: "127.0.0.1",
              port: 8080,
@@ -144,7 +145,12 @@ class WebServer extends SimpleWebServer with ServingFiles {
    * 
    */
   void requestHandler(HttpRequest request) {
-    
+    if (requestStreamer==null) {
+      // initialize all
+      requestStreamer = new HttpRequestStreamer();
+      _onStartComplete(requestStreamer.stream);
+    }
+    this.requestStreamer.add(request);
   }
 
   void _onStart(Stream<HttpRequest> incoming, [WebSocketHandler handleWs]) {
