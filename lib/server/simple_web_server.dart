@@ -88,8 +88,8 @@ class SimpleWebServer {
       return _completer.future;
     }
   
-  void _onStartComplete(server, [WebSocketHandler handleWs]) {
-    _onStart(server, handleWs);
+  void _onStartComplete(Stream<HttpRequest> incoming, [WebSocketHandler handleWs]) {
+    _onStart(incoming, handleWs);
     _completer.complete(const []);
   }
   
@@ -114,6 +114,6 @@ class SimpleWebServer {
       });
   }
  
-  _onStart(server, [WebSocketHandler handleWs]) {}
+  _onStart(Stream<HttpRequest> incoming, [WebSocketHandler handleWs]) {}
 }
 

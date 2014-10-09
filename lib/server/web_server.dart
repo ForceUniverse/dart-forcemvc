@@ -132,12 +132,26 @@ class WebServer extends SimpleWebServer with ServingFiles {
     ..write(result)
       ..close();
   }
+  
+  /*
+   * 
+   */ 
+  /**
+   * This requestHandler can be used to hook into the system without having to start a server.
+   * You need to use this method for example with Google App Engine runtime.
+   * 
+   * @param request is the current HttpRequest that needs to be handled by the system.
+   * 
+   */
+  void requestHandler(HttpRequest request) {
+    
+  }
 
-  void _onStart(server, [WebSocketHandler handleWs]) {
+  void _onStart(Stream<HttpRequest> incoming, [WebSocketHandler handleWs]) {
     log.info("Web server is running on "
         "'http://${Platform.localHostname}:$port/'");
     _scanning();
-    router = new Router(server);
+    router = new Router(incoming);
 
     // The client will connect using a WebSocket. Upgrade requests to '/ws' and
     // forward them to 'handleWebSocket'.
