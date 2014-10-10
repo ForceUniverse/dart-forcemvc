@@ -14,6 +14,8 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
+  
+  ControllerHandler _notFound;
 
   WebServer({host: "127.0.0.1",
              port: 8080,
@@ -45,10 +47,23 @@ class WebServer extends SimpleWebServer with ServingFiles {
          _resolveRequest(req, controllerHandler);
        } else {
          Uri location = securityContext.redirectUri(req);
-         req.response.redirect(location, status: 301);
+         req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
        }
      });
    });
+  }
+  
+  void notFound(ControllerHandler controllerHandler) {
+    this._notFound = controllerHandler;
+  }
+  
+  void _notFoundHandling(HttpRequest request) {
+     super._notFoundHandling(request);
+     if (_notFound!=null) {
+         _resolveRequest(request, _notFound);
+     } else {
+         request.response.close();
+     }
   }
 
   bool checkSecurity(HttpRequest req, List<String> roles) {
@@ -101,7 +116,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void _resolveView(String view, HttpRequest req, Model model) {
     if (view.startsWith("redirect:")) {
       Uri location = Uri.parse(view.substring(9));
-      req.response.redirect(location, status: 301);
+      req.response.redirect(location, status: HttpStatus.MOVED_TEMPORARILY);
     } else {
       _send_template(req, model, view);
     }
@@ -122,10 +137,9 @@ class WebServer extends SimpleWebServer with ServingFiles {
       responseHook(response);
     });
     response
-    ..statusCode = 200
-    ..headers.contentType = contentType
-    ..write(result)
-      ..close();
+      ..headers.contentType = contentType
+      ..write(result)
+        ..close();
   }
    
   /**
@@ -168,7 +182,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
     // Serve dart and static files (if not explicitly disabled by clientServe)
     _serveClient(staticFiles, clientFiles, clientServe);
   }
-
+  
   void set strategy(SecurityStrategy strategy) {
     securityContext.strategy = strategy;
   }

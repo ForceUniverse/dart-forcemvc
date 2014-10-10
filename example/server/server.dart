@@ -37,6 +37,9 @@ void main() {
   // register yaml files
   server.loadValues("../app.yaml");
 //  server.loadValues("pubspec.yaml");
+  server.notFound((ForceRequest req, Model model) {
+    return "notfound";
+  });
   
   // Set up logger.
   server.setupConsoleLog(Level.FINEST);

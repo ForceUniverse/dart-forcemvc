@@ -24,9 +24,10 @@ class ServingFiles {
       
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
-        log.warning("Resource not found ${request.uri.path}");
+        /*log.warning("Resource not found ${request.uri.path}");
         request.response.statusCode = HttpStatus.NOT_FOUND;
-        request.response.close();
+        request.response.close();*/
+        _notFoundHandling(request);
       };
 
       // Serve everything not routed elsewhere through the virtual directory.
@@ -38,6 +39,11 @@ class ServingFiles {
       // Start serving static files 
       _serveStaticFiles(staticFiles);
     }
+  }
+  
+  void _notFoundHandling(HttpRequest request) {
+    log.warning("Resource not found ${request.uri.path}");
+    request.response.statusCode = HttpStatus.NOT_FOUND;
   }
   
   void serveFile(String fileName, HttpRequest request) {
