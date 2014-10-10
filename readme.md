@@ -176,9 +176,9 @@ You can easily boostrap logging.
 
 	server.setupConsoleLog();
 
-#### Force it ####
+#### Wired ####
 
-Force it is a dependency injection package.
+Wired is a dependency injection package.
 You can use @Autowired and @bean and more in forcemvc find info [here](https://github.com/ForceUniverse/dart-force_it)
 
 #### Example ####
