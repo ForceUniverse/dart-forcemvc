@@ -2,6 +2,12 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.3 ####
+
+- Add better 404 handling
+- Serving the Client files from their URL relative to the script's location
+- Make dart-forcemvc WebServer compatible with App Engine Dart
+
 #### Pub version 0.5.2+1 ####
 
 - Fixing 'Replace only the first occurrence of /build'
