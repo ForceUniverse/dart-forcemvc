@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.3+1 ####
+
+- Small adjustments so dart force can also work on appengine.
+
 #### Pub version 0.5.3 ####
 
 - Add better 404 handling

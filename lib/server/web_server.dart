@@ -147,13 +147,13 @@ class WebServer extends SimpleWebServer with ServingFiles {
    * You need to use this method for example with Google App Engine runtime.
    * 
    * @param request is the current HttpRequest that needs to be handled by the system.
-   * 
+   * @param optional parameter to handle webSockets
    */
-  void requestHandler(HttpRequest request) {
+  void requestHandler(HttpRequest request, [WebSocketHandler handleWs]) {
     if (requestStreamer==null) {
       // initialize all
       requestStreamer = new HttpRequestStreamer();
-      _onStartComplete(requestStreamer.stream);
+      _onStartComplete(requestStreamer.stream, handleWs);
     }
     this.requestStreamer.add(request);
   }
