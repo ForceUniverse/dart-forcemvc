@@ -9,6 +9,8 @@ import 'package:http_server/http_server.dart' as http_server;
 import 'package:route/server.dart' show Router, UrlPattern;
 import 'package:logging/logging.dart' show Logger, Level, LogRecord;
 
+import 'package:path/path.dart' show normalize;
+
 import 'package:mustache4dart/mustache4dart.dart';
 
 import 'package:forcemirrors/force_mirrors.dart';
@@ -27,6 +29,7 @@ part 'server/path_analyzer.dart';
 part 'server/serving_files.dart';
 part 'server/response_hooks.dart';
 part 'server/http_request_streamer.dart';
+part 'server/serving_assistent.dart';
 // security
 part 'security/security_context_holder.dart';
 part 'security/security_strategy.dart';

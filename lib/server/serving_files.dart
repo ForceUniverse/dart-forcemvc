@@ -2,8 +2,12 @@ part of dart_force_mvc_lib;
 
 class ServingFiles {
   final Logger log = new Logger('ServingFiles');
+  
   Router router;
+  
   var virDir;
+  ServingAssistent servingAssistent;
+  
   String startPage = 'index.html';
   
   void _serveClient(staticFiles, clientFiles, clientServe) {
@@ -12,6 +16,9 @@ class ServingFiles {
       Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
       virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
       
+      Uri pubServerUrl;
+      servingAssistent = new ServingAssistent(pubServerUrl, virDir);
+      
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
             ..allowDirectoryListing = true;
@@ -19,14 +26,11 @@ class ServingFiles {
       virDir.directoryHandler = (dir, request) {
         var filePath = "$clientFiles$startPage";
         log.info("Try to server $filePath!");
-        serveFile("$clientFiles$startPage", request);
+        serveFile(request, "$clientFiles$startPage");
       };
       
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
-        /*log.warning("Resource not found ${request.uri.path}");
-        request.response.statusCode = HttpStatus.NOT_FOUND;
-        request.response.close();*/
         _notFoundHandling(request);
       };
 
@@ -46,15 +50,8 @@ class ServingFiles {
     request.response.statusCode = HttpStatus.NOT_FOUND;
   }
   
-  void serveFile(String fileName, HttpRequest request) {
-    Uri fileUri = Platform.script.resolve(fileName);
-    File file = new File(fileUri.toFilePath());
-    if (!file.existsSync()) {
-      fileName = fileName.replaceFirst("/build", "");
-      fileUri = Platform.script.resolve(fileName);
-      file = new File(fileUri.toFilePath());
-    }
-    virDir.serveFile(file, request);
+  void serveFile(HttpRequest request, String fileName) {
+    servingAssistent.serve(request, fileName);
   }
   
   void _serveDartFiles(clientFiles) {
@@ -62,7 +59,7 @@ class ServingFiles {
 
     router.serve(pattern).listen((request) {
       var path = request.uri.path;
-      serveFile("${clientFiles}${path}", request);
+      serveFile(request, "${clientFiles}${path}");
     });
   }
   
@@ -72,7 +69,7 @@ class ServingFiles {
     router.serve(pattern).listen((request) {
       String path = request.uri.path;
       path = path.replaceAll('/static/', '');
-      serveFile("${clientFiles}${path}", request);
+      serveFile(request, "${clientFiles}${path}");
     });
   }
 }
