@@ -38,7 +38,8 @@ class ServingFiles {
       
       // Start serving dart files
       _serveDartFiles(clientFiles);
-        
+      _serveJsFiles(clientFiles);
+      
       // Start serving static files 
       _serveStaticFiles(staticFiles);
     }
@@ -56,11 +57,21 @@ class ServingFiles {
   void _serveDartFiles(clientFiles) {
     var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:dart)');
 
+    this._serveWithPatterns(clientFiles, pattern);
+  }
+  
+  void _serveJsFiles(clientFiles) {
+    var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:js)');
+      
+    this._serveWithPatterns(clientFiles, pattern);
+  }
+  
+  void _serveWithPatterns(clientFiles, UrlPattern pattern) {
     router.serve(pattern).listen((request) {
       var path = request.uri.path;
       serveFile(request, "${clientFiles}${path}");
     });
-  }
+  } 
   
   void _serveStaticFiles(clientFiles) {
     var pattern = new UrlPattern('/static/([/|.|\\-|\\w|\\s])*');
@@ -68,7 +79,8 @@ class ServingFiles {
     router.serve(pattern).listen((request) {
       String path = request.uri.path;
       path = path.replaceAll('/static/', '');
-      serveFile(request, "${clientFiles}${path}");
+      
+      servingAssistent.serveFromFile(request, "${clientFiles}${path}");
     });
   }
   
