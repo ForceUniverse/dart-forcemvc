@@ -16,8 +16,7 @@ class ServingFiles {
       Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
       virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
       
-      Uri pubServerUrl;
-      servingAssistent = new ServingAssistent(pubServerUrl, virDir);
+      servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
       
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
@@ -71,6 +70,16 @@ class ServingFiles {
       path = path.replaceAll('/static/', '');
       serveFile(request, "${clientFiles}${path}");
     });
+  }
+  
+  Uri _pubServeUrl() {
+    var env = Platform.environment;
+    String pubServeUrlString = env['DART_PUB_SERVE'];
+
+    Uri pubServeUrl = pubServeUrlString != null
+                        ? Uri.parse(pubServeUrlString)
+                        : null;
+    return pubServeUrl;
   }
 }
 
