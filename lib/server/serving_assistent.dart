@@ -73,11 +73,13 @@ class ServingAssistent {
         });
   }
 
-  Future serve(HttpRequest request, String path) {
+  Future serve(HttpRequest request, String root, String path) {
     if (pubServeUrl != null) {
+      // path = normalize(path);
+      
       return proxyToPub(request, path);
     } else {
-      return serveFromFile(request, path);
+      return serveFromFile(request, "${root}${path}");
     }
   }
 }

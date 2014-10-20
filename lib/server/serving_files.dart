@@ -25,7 +25,7 @@ class ServingFiles {
       virDir.directoryHandler = (dir, request) {
         var filePath = "$clientFiles$startPage";
         log.info("Try to server $filePath!");
-        serveFile(request, "$clientFiles$startPage");
+        servingAssistent.serveFromFile(request, "$clientFiles$startPage");
       };
       
       // Add an error page handler.
@@ -50,8 +50,8 @@ class ServingFiles {
     request.response.statusCode = HttpStatus.NOT_FOUND;
   }
   
-  void serveFile(HttpRequest request, String fileName) {
-    servingAssistent.serve(request, fileName);
+  void serveFile(HttpRequest request, String root, String fileName) {
+    servingAssistent.serve(request, root, fileName);
   }
   
   void _serveDartFiles(clientFiles) {
@@ -69,7 +69,7 @@ class ServingFiles {
   void _serveWithPatterns(clientFiles, UrlPattern pattern) {
     router.serve(pattern).listen((request) {
       var path = request.uri.path;
-      serveFile(request, "${clientFiles}${path}");
+      serveFile(request, clientFiles, path);
     });
   } 
   
