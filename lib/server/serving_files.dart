@@ -10,6 +10,8 @@ class ServingFiles {
   
   String startPage = 'index.html';
   
+  List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp"];
+  
   void _serveClient(staticFiles, clientFiles, clientServe) {
     if(clientServe == true) {
       // Set up default handler. This will serve files from our 'build' directory.
@@ -30,21 +32,14 @@ class ServingFiles {
       
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
-        var path = request.uri.path;
-        Future serving = servingAssistent.serve(request, clientFiles, path);
-        serving.then((_) {
-          log.info("Serving file $path!");
-        }).catchError((e) {
           _notFoundHandling(request);
-        });
       };
 
       // Serve everything not routed elsewhere through the virtual directory.
       virDir.serve(router.defaultStream);
       
-      // Start serving dart files
-      // _serveDartFiles(clientFiles);
-      // _serveJsFiles(clientFiles);
+      // Start serving transformable files
+      _serveTransformableFiles(clientFiles);
       
       // Start serving static files 
       _serveStaticFiles(staticFiles);
@@ -60,17 +55,15 @@ class ServingFiles {
     servingAssistent.serve(request, root, fileName);
   }
   
-  void _serveDartFiles(clientFiles) {
-    var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:dart)');
+  void _serveTransformableFiles(clientFiles) {
+    for (var fileType in staticFileTypes) {
+        String pats = '([/|.|\\w|\\s])*\\.(?:${fileType})';
+        var pattern = new UrlPattern(pats);
 
-    this._serveWithPatterns(clientFiles, pattern);
+        this._serveWithPatterns(clientFiles, pattern);
+    }
   }
   
-  void _serveJsFiles(clientFiles) {
-    var pattern = new UrlPattern(r'([/|.|\w|\s])*\.(?:js)');
-      
-    this._serveWithPatterns(clientFiles, pattern);
-  }
   
   void _serveWithPatterns(clientFiles, UrlPattern pattern) {
     router.serve(pattern).listen((request) {
