@@ -30,15 +30,21 @@ class ServingFiles {
       
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {
-        _notFoundHandling(request);
+        var path = request.uri.path;
+        Future serving = servingAssistent.serve(request, clientFiles, path);
+        serving.then((_) {
+          log.info("Serving file $path!");
+        }).catchError((e) {
+          _notFoundHandling(request);
+        });
       };
 
       // Serve everything not routed elsewhere through the virtual directory.
       virDir.serve(router.defaultStream);
       
       // Start serving dart files
-      _serveDartFiles(clientFiles);
-      _serveJsFiles(clientFiles);
+      // _serveDartFiles(clientFiles);
+      // _serveJsFiles(clientFiles);
       
       // Start serving static files 
       _serveStaticFiles(staticFiles);

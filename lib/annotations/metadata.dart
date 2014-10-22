@@ -125,15 +125,16 @@ class RequestMapping {
 /**
  * Annotation which indicates that a method parameter should be bound to a web
  * request parameter.
+ * 
  * */
-
 class RequestParam {
   
   final String value;
   final String defaultValue;
-  const RequestParam({this.value: "", this.defaultValue: ""});
+  final bool required;
+  const RequestParam({this.value: "", this.defaultValue: "", this.required: false});
 
-  String toString() => "$value -> - $defaultValue";
+  String toString() => "$value -> - $defaultValue ($required)";
   
 }
 

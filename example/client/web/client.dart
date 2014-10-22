@@ -6,5 +6,5 @@ import 'dart:html';
 
 void main() {
   DivElement statusElement = querySelector('#status');
-  statusElement.innerHtml = "Js / dart is up and running!";
+  statusElement.innerHtml = "Js / dart is up and running! Live hacking, this is de max ...";
 }
