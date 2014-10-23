@@ -166,7 +166,7 @@ class ForceRegistry {
                 positionalArguments.add(req.request.uri.queryParameters[qvalue]);
               } else {
                 if (rp.required) {
-                  
+                  throw new RequiredError("${qvalue} not found on the queryParameters");
                 } else {
                   positionalArguments.add(rp.defaultValue);
                 }
