@@ -165,7 +165,11 @@ class ForceRegistry {
               if (req.request.uri.queryParameters[qvalue] != null) {
                 positionalArguments.add(req.request.uri.queryParameters[qvalue]);
               } else {
-                positionalArguments.add(rp.defaultValue);
+                if (rp.required) {
+                  
+                } else {
+                  positionalArguments.add(rp.defaultValue);
+                }
               }
             }
           }
@@ -177,4 +181,13 @@ class ForceRegistry {
     }
     return positionalArguments;
   }
+}
+
+/**
+ * When a request parameter is been required this will be thrown.
+ */
+class RequiredError extends Error {
+  final String message;
+  RequiredError(this.message);
+  String toString() => "Required: $message";
 }
