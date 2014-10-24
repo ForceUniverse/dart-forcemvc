@@ -2,6 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.4 ####
+
+- Add required boolean into @RequestParam(required: true)
+- Pub serve trick, issue 23 is been solved.
+
 #### Pub version 0.5.3+1 ####
 
 - Small adjustments so dart force can also work on appengine.
