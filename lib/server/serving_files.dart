@@ -57,7 +57,7 @@ class ServingFiles {
   
   void _serveTransformableFiles(clientFiles) {
     for (var fileType in staticFileTypes) {
-        String pats = '([/|.|\\w|\\s])*\\.(?:${fileType})';
+        String pats = '([/|.|\\-|\\w|\\W|\\s])*\\.(?:${fileType})';
         var pattern = new UrlPattern(pats);
 
         this._serveWithPatterns(clientFiles, pattern);
