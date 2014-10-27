@@ -148,6 +148,8 @@ class ForceRegistry {
         positionalArguments.add(ex_er);
       } else if (pm.type is Error || name == 'error') {
         positionalArguments.add(ex_er);
+      } else if (pm.type is Locale || name == 'locale') {
+        positionalArguments.add(Locale.defaultLocale);
       } else {
         if (req.path_variables[name] != null) {
           positionalArguments.add(req.path_variables[name]);
