@@ -261,9 +261,9 @@ class Locale {
      * @see #getDisplayName
      */
     String toString() {
-        bool l = _language.length != 0;
-        bool c = _country.length != 0;
-        bool v = _variant.length != 0;
+        bool l = _language!=null && _language.length != 0;
+        bool c = _country!= null && _country.length != 0;
+        bool v = _variant!= null && _variant.length != 0;
         StringBuffer result = new StringBuffer(_language);
         if (c||(l&&v)) {
             result..write('_')
