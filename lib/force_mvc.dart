@@ -34,6 +34,9 @@ part 'server/serving_assistent.dart';
 part 'i18n/locale.dart';
 part 'i18n/locale_resolver.dart';
 part 'i18n/accept_header_locale_resolver.dart';
+part 'i18n/default_locale_resolver.dart';
+part 'i18n/fixed_locale_resolver.dart';
+part 'i18n/cookie_locale_resolver.dart';
 
 // security
 part 'security/security_context_holder.dart';
