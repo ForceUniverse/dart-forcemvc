@@ -6,15 +6,14 @@ part of dart_force_mvc_lib;
  * the locale sent by the client browser, normally that of the client's OS).
  */
 class AcceptHeaderLocaleResolver implements LocaleResolver {
-
-  final regex = new RegExp(r'([a-z]{1,8}(-[a-z]{1,8})?)s*(;s*qs*=s*(1|0.[0-9]+))');
-  
+    
   Locale resolveLocale(ForceRequest request) {
-    Locale locale;
-    
-    // request.header(name)
-    
-    return locale;
+    List<Locale> locales = new List<Locale>();
+    List<String> values = request.header(HttpHeaders.ACCEPT_LANGUAGE);
+    values.forEach((value) {
+           locales.add(resolveLocaleWithHeader(value)); 
+          });
+    return locales.isNotEmpty? locales[0] : Locale.defaultLocale;
   }
 
   void setLocale(ForceRequest request, Locale locale) {

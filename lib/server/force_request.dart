@@ -14,7 +14,7 @@ class ForceRequest {
     _asyncCallCompleter = new Completer();
   }
   
-  List header(String name) => request.headers[name.toLowerCase()];
+  List<String> header(String name) => request.headers[name.toLowerCase()];
 
   bool accepts(String type) =>
       request.headers['accept'].where((name) => name.split(',').indexOf(type) ).length > 0;

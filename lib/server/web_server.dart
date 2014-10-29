@@ -11,6 +11,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
+  LocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
@@ -77,6 +78,10 @@ class WebServer extends SimpleWebServer with ServingFiles {
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
     Model model = new Model();
     ForceRequest forceRequest = new ForceRequest(req);
+    
+    // check locale 
+    forceRequest.locale = localeResolver.resolveLocale(forceRequest);
+    
     var result;
     
     try {
