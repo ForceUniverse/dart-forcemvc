@@ -31,7 +31,9 @@ part 'server/response_hooks.dart';
 part 'server/http_request_streamer.dart';
 part 'server/serving_assistent.dart';
 
-part 'server/locale.dart';
+part 'i18n/locale.dart';
+part 'i18n/locale_resolver.dart';
+part 'i18n/accept_header_locale_resolver.dart';
 
 // security
 part 'security/security_context_holder.dart';

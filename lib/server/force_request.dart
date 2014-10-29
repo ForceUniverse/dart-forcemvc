@@ -5,6 +5,7 @@ class ForceRequest {
   HttpRequest request;
   Map<String, String> path_variables;
   Completer _asyncCallCompleter;
+  Locale locale;
   
   ForceRequest._();
   
