@@ -38,11 +38,11 @@ class ServingFiles {
       // Serve everything not routed elsewhere through the virtual directory.
       virDir.serve(router.defaultStream);
       
-      // Start serving transformable files
-      _serveTransformableFiles(clientFiles);
-      
       // Start serving static files 
       _serveStaticFiles(staticFiles);
+      
+      // Start serving transformable files
+      _serveTransformableFiles(clientFiles);
     }
   }
   

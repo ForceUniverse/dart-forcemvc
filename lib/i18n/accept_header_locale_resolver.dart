@@ -44,9 +44,7 @@ class AcceptHeaderLocaleResolver implements LocaleResolver {
                 break;
             }
         }
-
-      //Print the Locale and associated q-value
-        print(locale);
+        
         locales.add(locale);
     }
     return locales.isNotEmpty? locales[0] : null; 
