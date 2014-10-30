@@ -1,6 +1,6 @@
 part of dart_force_mvc_lib;
 
-class CookieManager {
+class CookieHolderManager {
   
   static final Logger logger = new Logger('CookieManager');
   

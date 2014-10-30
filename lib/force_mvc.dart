@@ -38,7 +38,7 @@ part 'i18n/default_locale_resolver.dart';
 part 'i18n/fixed_locale_resolver.dart';
 part 'i18n/cookie_locale_resolver.dart';
 
-part 'manager/cookie_manager.dart';
+part 'manager/cookie_holder_manager.dart';
 
 // security
 part 'security/security_context_holder.dart';

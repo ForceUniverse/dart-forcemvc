@@ -16,7 +16,7 @@ class CookieLocaleResolver extends AbstractLocaleResolver {
 
   Locale defaultLocale;
   
-  CookieManager cookieManager = new CookieManager();
+  CookieHolderManager cookieManager = new CookieHolderManager();
 
   CookieLocaleResolver() {
     cookieManager.cookieName = DEFAULT_COOKIE_NAME;
@@ -43,7 +43,7 @@ class CookieLocaleResolver extends AbstractLocaleResolver {
     Cookie cookie = cookieManager.getCookie(request.request);
     if (cookie != null) {
         // ... todo for see implementation
-        Locale locale = null; //StringUtils.parseLocaleString(cookie.value); How will I parse the cookie to a locale
+        Locale locale = Locale.parseString(cookie.value); //StringUtils.parseLocaleString(cookie.value); How will I parse the cookie to a locale
           
         if (locale != null) {
             return locale;

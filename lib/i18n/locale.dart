@@ -138,9 +138,9 @@ class Locale {
 
 
     /**
-     * Creates a <code>Locale</code> instance with the given
-     * <code>language</code> and <code>counry</code> and puts the
-     * instance under the given <code>key</code> in the cache. This
+     * Creates a [Locale] instance with the given
+     * language and counry and puts the
+     * instance under the given key in the cache. This
      * method must be called only when initializing the Locale
      * constants.
      */
@@ -148,6 +148,22 @@ class Locale {
         Locale locale = new Locale(language, country);
         cache[key] = locale;
         return locale;
+    }
+    
+    /**
+     * Creates a [Locale] instance with the given
+     * value string 
+     */
+    static Locale parseString(String value) {
+      List<String> l = value.split("_");
+      
+      var language = l.length>0&&l[0]!=null?l[0]:"";
+      var country = l.length>1&&l[1]!=null?l[1]:"";
+      var variant = l.length>2&&l[2]!=null?l[2]:"";
+      
+      Locale locale = new Locale(language, country, variant: variant);
+      
+      return locale;
     }
 
     /**
