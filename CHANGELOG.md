@@ -2,6 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.5 ####
+
+- Add locale resolver mechanics into the framework
+- Easy use of the locale in the controller
+
 #### Pub version 0.5.4 ####
 
 - Add required boolean into @RequestParam(required: true)
