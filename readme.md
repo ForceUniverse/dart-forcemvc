@@ -181,6 +181,13 @@ You can easily boostrap logging.
 Wired is a dependency injection package.
 You can use @Autowired and @bean and more in forcemvc find info [here](https://github.com/ForceUniverse/dart-force_it)
 
+#### LocaleResolver ####
+
+In ForceMVC you have a locale resolver to handle locale. 
+The implementation that is been used by default is the AcceptHeaderLocale Resolver, this resolver looks at the request header accept-language.
+
+You can choose for a fixed locale resolver implementation or a cookie locale resolver or just implement your own handling if need.
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
