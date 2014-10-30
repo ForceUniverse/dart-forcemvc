@@ -7,7 +7,7 @@ part of dart_force_mvc_lib;
  *
  * This is particularly useful for stateless applications without user sessions.
  */
-class CookieLocaleResolver implements LocaleResolver {
+class CookieLocaleResolver extends AbstractLocaleResolver {
 
   /**
    * The default cookie name used if none is explicitly set.
@@ -15,9 +15,11 @@ class CookieLocaleResolver implements LocaleResolver {
   final String DEFAULT_COOKIE_NAME = "FORCE.LOCALE";
 
   Locale defaultLocale;
+  
+  CookieManager cookieManager = new CookieManager();
 
   CookieLocaleResolver() {
-    // setCookieName(DEFAULT_COOKIE_NAME);
+    cookieManager.cookieName = DEFAULT_COOKIE_NAME;
   }
 
   /**
@@ -38,22 +40,36 @@ class CookieLocaleResolver implements LocaleResolver {
 
   Locale resolveLocale(ForceRequest request) {
     // Retrieve and parse cookie value.
-    // ... todo for see implementation
-
+    Cookie cookie = cookieManager.getCookie(request.request);
+    if (cookie != null) {
+        // ... todo for see implementation
+        Locale locale = null; //StringUtils.parseLocaleString(cookie.value); How will I parse the cookie to a locale
+          
+        if (locale != null) {
+            return locale;
+        }
+    }
+    
     return determineDefaultLocale(request);
   }
 
   void setLocale(ForceRequest request, Locale locale) {
-    // ...
+    if (locale != null) {
+      cookieManager.addCookie(request.request.response, locale.toString());
+    } else {
+          // Set request attribute to fallback locale and remove cookie.
+      cookieManager.removeCookie(request.request.response);
+    }
   }
 
   /**
    * Determine the default locale for the given request,
    * Called if no locale cookie has been found.
-   * <p>The default implementation returns the specified default locale,
+   * 
+   * The default implementation returns the specified default locale,
    * if any, else falls back to the request's accept-header locale.
    * @param request the request to resolve the locale for
-   * @return the default locale (never <code>null</code>)
+   * @return the default locale
    */
   Locale determineDefaultLocale(ForceRequest request) {
     Locale defaultLocale = getDefaultLocale();

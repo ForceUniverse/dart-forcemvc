@@ -13,7 +13,6 @@ class FixedLocaleResolver extends AbstractLocaleResolver {
     setDefaultLocale(locale);
   }
 
-
   Locale resolveLocale(ForceRequest request) {
     Locale locale = getDefaultLocale();
     if (locale == null) {
