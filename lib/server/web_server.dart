@@ -5,6 +5,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   bool cors=false;
   Router router;
+  String views;
   ForceViewRender viewRender;
   ForceRegistry registry;
 
@@ -24,14 +25,13 @@ class WebServer extends SimpleWebServer with ServingFiles {
              staticFiles: '../static/',
              clientFiles: '../build/web/',
              clientServe: true,
-             views: "../views/",
+             this.views: "../views/",
              startPage: "index.html",
              cors:true}) :
                super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
     this.startPage = startPage;
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
-    viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
   }
@@ -186,6 +186,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
 
     // Serve dart and static files (if not explicitly disabled by clientServe)
     _serveClient(staticFiles, clientFiles, clientServe);
+    viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
   }
   
   void set strategy(SecurityStrategy strategy) {
