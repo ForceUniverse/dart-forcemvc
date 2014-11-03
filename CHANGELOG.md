@@ -5,6 +5,7 @@ This file contains highlights of what changes on each version of the forcemvc pa
 #### Pub version 0.5.6 ####
 
 - Apply pub serve trick also to view render logic.
+- Fallbacks / error handling when a resource is not been found.
 
 #### Pub version 0.5.5 ####
 
