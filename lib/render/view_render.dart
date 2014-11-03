@@ -6,13 +6,16 @@ abstract class ForceViewRender {
   String clientFiles;
   bool clientServe;
   
-  ForceViewRender([this.views, this.clientFiles, this.clientServe]) {
+  ServingAssistent servingAssistent;
+  
+  ForceViewRender(this.servingAssistent, [this.views, this.clientFiles, this.clientServe]) {
     // Check so that we have a server side views directory exists  
     views = Platform.script.resolve(views).toFilePath();
     
     _exists(views);
     
     // If we should serve client files, check that pub build has been run
+    // or use the pub serve tric 
     if(clientServe == true) {
       clientFiles = Platform.script.resolve(clientFiles).toFilePath();
             
@@ -38,13 +41,20 @@ abstract class ForceViewRender {
     if (file.existsSync()) {
       _readFile(file, completer, model);
     } else {
-      viewUri = new Uri.file(clientFiles).resolve("$view.html");
-      file = new File(viewUri.toFilePath());
-      if (file.existsSync()) {
-        _readFile(file, completer, model);
-      } else {
-        completer.complete("");
-      }
+//      viewUri = new Uri.file(clientFiles).resolve("$view.html");
+//      file = new File(viewUri.toFilePath());
+//      if (file.existsSync()) {
+//        _readFile(file, completer, model);
+//      } else {
+//        completer.complete("");
+//      }
+      servingAssistent.read(clientFiles, "$view.html").then((Stream<List<int>> inputStream) {
+        inputStream
+          .transform(UTF8.decoder).listen((template) {
+             var result = _render_impl(template, model);       
+             completer.complete(result);
+        });
+      });
     }
     
     return completer.future;

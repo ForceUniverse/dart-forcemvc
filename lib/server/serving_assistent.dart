@@ -87,6 +87,27 @@ class ServingAssistent {
       return serveFromFile(request, "${root}${path}");
     }
   }
+  
+  Future<Stream<List<int>>> readFromFile(String root, String path) {
+      path = normalize(path);
+      return FileSystemEntity.isFile(root + path).then((exists) {
+        if (exists) {
+          return new File(root + path).openRead();
+        } else {
+          var error = new AssistentError("Asset '$path' not found");
+          return new Future.error(error);
+        }
+      });
+    }
+
+    Future<Stream<List<int>>> read(String root, String path) {
+      if (pubServeUrl != null) {
+        return readFromPub(path);
+      } else {
+        return readFromFile(root, path);
+      }
+    }
+  
 }
 
 class AssistentError extends Error {

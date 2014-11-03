@@ -31,7 +31,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
                      clientFiles, clientServe) {
     this.startPage = startPage;
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
-    viewRender = new MustacheRender(views, clientFiles, clientServe);
+    viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
   }
