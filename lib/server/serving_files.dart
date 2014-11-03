@@ -82,7 +82,10 @@ class ServingFiles {
       String path = request.uri.path;
       path = path.replaceAll('/static/', '');
       
-      servingAssistent.serveFromFile(request, "${clientFiles}${path}");
+      servingAssistent.serveFromFile(request, "${clientFiles}${path}").catchError((e) {
+          print(e);
+          _notFoundHandling(request);
+      });
     });
   }
   

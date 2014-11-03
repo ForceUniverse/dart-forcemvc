@@ -41,20 +41,23 @@ abstract class ForceViewRender {
     if (file.existsSync()) {
       _readFile(file, completer, model);
     } else {
-//      viewUri = new Uri.file(clientFiles).resolve("$view.html");
-//      file = new File(viewUri.toFilePath());
-//      if (file.existsSync()) {
-//        _readFile(file, completer, model);
-//      } else {
-//        completer.complete("");
-//      }
-      servingAssistent.read(clientFiles, "$view.html").then((Stream<List<int>> inputStream) {
-        inputStream
-          .transform(UTF8.decoder).listen((template) {
-             var result = _render_impl(template, model);       
-             completer.complete(result);
+      if (servingAssistent!=null) {
+        servingAssistent.read(clientFiles, "$view.html").then((Stream<List<int>> inputStream) {
+          inputStream
+            .transform(UTF8.decoder).listen((template) {
+               var result = _render_impl(template, model);       
+               completer.complete(result);
+          });
         });
-      });
+      } else {
+        viewUri = new Uri.file(clientFiles).resolve("$view.html");
+        file = new File(viewUri.toFilePath());
+        if (file.existsSync()) {
+          _readFile(file, completer, model);
+        } else {
+          completer.complete("");
+        }
+      }
     }
     
     return completer.future;
