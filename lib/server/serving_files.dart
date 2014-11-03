@@ -67,8 +67,15 @@ class ServingFiles {
   
   void _serveWithPatterns(clientFiles, UrlPattern pattern) {
     router.serve(pattern).listen((request) {
-      var path = request.uri.path;
-      serveFile(request, clientFiles, path);
+      try {
+        var path = request.uri.path; 
+        serveFile(request, clientFiles, path);
+      } catch(exception, stackTrace) {
+        print(exception);
+        print(stackTrace);
+        
+        _notFoundHandling(request);
+      }
     });
   } 
   
