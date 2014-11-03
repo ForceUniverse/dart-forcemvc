@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.6 ####
+
+- Apply pub serve trick also to view render logic.
+
 #### Pub version 0.5.5 ####
 
 - Add locale resolver mechanics into the framework

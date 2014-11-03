@@ -188,6 +188,14 @@ The implementation that is been used by default is the AcceptHeaderLocale Resolv
 
 You can choose for a fixed locale resolver implementation or a cookie locale resolver or just implement your own handling if need.
 
+#### Development trick ####
+
+Following the next steps will make it easier for you to develop, this allows you to adapt clientside files and immidiatly see results with doing a pub build.
+
+	pub serve web --hostname 0.0.0.0 --port 7777 &&
+	export DART_PUB_SERVE="http://localhost:7777" &&
+	pub run bin/server.dart
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
