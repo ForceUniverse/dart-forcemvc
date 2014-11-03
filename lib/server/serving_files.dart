@@ -52,7 +52,10 @@ class ServingFiles {
   }
   
   void serveFile(HttpRequest request, String root, String fileName) {
-    servingAssistent.serve(request, root, fileName);
+    servingAssistent.serve(request, root, fileName).catchError((e) {
+      print(e);
+      _notFoundHandling(request);
+    });
   }
   
   void _serveTransformableFiles(clientFiles) {
@@ -67,15 +70,8 @@ class ServingFiles {
   
   void _serveWithPatterns(clientFiles, UrlPattern pattern) {
     router.serve(pattern).listen((request) {
-      try {
         var path = request.uri.path; 
         serveFile(request, clientFiles, path);
-      } catch(exception, stackTrace) {
-        print(exception);
-        print(stackTrace);
-        
-        _notFoundHandling(request);
-      }
     });
   } 
   
