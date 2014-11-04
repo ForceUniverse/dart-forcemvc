@@ -48,6 +48,9 @@ abstract class ForceViewRender {
                var result = _render_impl(template, model);       
                completer.complete(result);
           });
+        }).catchError((e) {
+          log.severe("The '$view' can't be resolved.");
+          completer.complete("");
         });
       } else {
         viewUri = new Uri.file(clientFiles).resolve("$view.html");
