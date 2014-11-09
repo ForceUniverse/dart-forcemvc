@@ -10,7 +10,7 @@ class ServingFiles {
   
   String startPage = 'index.html';
   
-  List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html"];
+  List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html", "map"];
   
   void _serveClient(staticFiles, clientFiles, clientServe) {
     if(clientServe == true) {
