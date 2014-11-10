@@ -14,9 +14,9 @@ First you will setup a new web application.
 
 	WebApplication app = new WebApplication(wsPath: wsPath, port: port, host: host, buildPath: buildPath);
 	
-Then you use the on method to handle http requests.
+Then you use the 'use' method to handle http requests.
 
-	app.on(url, (ForceRequest req, Model model) { /* logic */ }, method: "GET");
+	app.use(url, (ForceRequest req, Model model) { /* logic */ }, method: "GET");
 	
 You can also use the annotation RequestMapping in a dart object
 

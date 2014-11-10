@@ -57,18 +57,24 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     this.registry.scanning();
   }
 
+  void use(Pattern url, ControllerHandler controllerHandler, 
+          {method: RequestMethod.GET, List<String> roles}) {
+    _completer.future.whenComplete(() {
+         this.router.serve(url, method: method).listen((HttpRequest req) {
+           if (checkSecurity(req, roles)) {
+             _resolveRequest(req, controllerHandler);
+           } else {
+             Uri location = securityContext.redirectUri(req);
+             req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
+           }
+         });
+       });
+  }
+  
+  @Deprecated("0.6.0")
   void on(Pattern url, ControllerHandler controllerHandler, 
           {method: RequestMethod.GET, List<String> roles}) {
-   _completer.future.whenComplete(() {
-     this.router.serve(url, method: method).listen((HttpRequest req) {
-       if (checkSecurity(req, roles)) {
-         _resolveRequest(req, controllerHandler);
-       } else {
-         Uri location = securityContext.redirectUri(req);
-         req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
-       }
-     });
-   });
+    this.use(url, controllerHandler, method: method, roles: roles);
   }
   
   void notFound(ControllerHandler controllerHandler) {

@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.8 ####
+
+- Deprecate the method on, it is too confusing with the on method of dart force, the method 'use' is now the prefered way.
+
 #### Pub version 0.5.7 ####
 
 - Changing the main class of WebServer to WebApplication.
