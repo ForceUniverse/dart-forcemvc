@@ -71,7 +71,7 @@ class ForceRegistry {
       PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
 
       UrlPattern urlPattern = new UrlPattern("${startPath}${pathAnalyzer.route}");
-      this.webApplication.on(urlPattern, (ForceRequest req, Model model) {
+      this.webApplication.use(urlPattern, (ForceRequest req, Model model) {
         try {
           // prepare model
           for (MetaDataValue mvModel in mirrorModels) {
