@@ -42,15 +42,19 @@ class ServingAssistent {
     File file = new File(fileUri.toFilePath());
     return file.exists().then((exists) { 
         if (exists) {
+          return vd.serveFile(file, request);
+        } else {
+          // look outside the build folder!
           path = path.replaceFirst("/build", "");
           fileUri = Platform.script.resolve(path);
           file = new File(fileUri.toFilePath());
-          
-          return vd.serveFile(file, request);
-        } else {
-          print("Unable to connect to 'pub serve' for '${request.uri}'");
-          var error = new AssistentError("Unable to connect to 'pub serve' for '${request.uri}'");
-          return new Future.error(error);
+          if (file.existsSync()) {
+            return vd.serveFile(file, request);
+          } else {
+            print("Unable to connect to 'pub serve' for '${request.uri}'");
+            var error = new AssistentError("Unable to connect to 'pub serve' for '${request.uri}'");
+            return new Future.error(error);
+          }
         }
     });
   }

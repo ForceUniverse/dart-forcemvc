@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.6+1 ####
+
+- Fix issue serving without pub serve
+
 #### Pub version 0.5.6 ####
 
 - Apply pub serve trick also to view render logic.
