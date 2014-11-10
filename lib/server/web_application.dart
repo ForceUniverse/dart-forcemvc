@@ -1,6 +1,23 @@
 part of dart_force_mvc_lib;
 
-class WebServer extends SimpleWebServer with ServingFiles {
+@Deprecated("0.6.0") // use WebApplication instead!
+class WebServer extends WebApplication {
+  
+  WebServer({host: "127.0.0.1",
+               port: 8080,
+               wsPath: '/ws',
+               staticFiles: '../static/',
+               clientFiles: '../build/web/',
+               clientServe: true,
+               views: "../views/",
+               startPage: "index.html",
+               cors:true}) :
+                 super(host: host, port: port, wsPath: wsPath, staticFiles: staticFiles,
+                       clientFiles: clientFiles, clientServe: clientServe, views: views, startPage: startPage, cors: cors);
+  
+}
+
+class WebApplication extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebServer');
   
   bool cors=false;
@@ -19,7 +36,7 @@ class WebServer extends SimpleWebServer with ServingFiles {
   
   ControllerHandler _notFound;
 
-  WebServer({host: "127.0.0.1",
+  WebApplication({host: "127.0.0.1",
              port: 8080,
              wsPath: '/ws',
              staticFiles: '../static/',

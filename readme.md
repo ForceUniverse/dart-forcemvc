@@ -8,15 +8,15 @@ Serverside MVC based implementation for Dart. Easy to setup and part of the dart
 
 #### Walkthrough ####
 
-Use a server with dart very easily, create controllers with annotations ... similar to spring mvc.
+Use a Web Application Server with dart very easily, create controllers with annotations ... similar to spring mvc.
 
-First you will setup a new server.
+First you will setup a new web application.
 
-	WebServer server = new WebServer(wsPath: wsPath, port: port, host: host, buildPath: buildPath);
+	WebApplication app = new WebApplication(wsPath: wsPath, port: port, host: host, buildPath: buildPath);
 	
 Then you use the on method to handle http requests.
 
-	server.on(url, (ForceRequest req, Model model) { /* logic */ }, method: "GET");
+	app.on(url, (ForceRequest req, Model model) { /* logic */ }, method: "GET");
 	
 You can also use the annotation RequestMapping in a dart object
 
@@ -31,26 +31,26 @@ An @ModelAttribute on a method argument indicates the argument should be retriev
 		return mv.getValue();
 	}
 	
-Then you register that object on the WebServer object.
+Then you register that object on the WebApplication object.
 
-	server.register(someObjectWithRequestMappingAnnotations)
+	app.register(someObjectWithRequestMappingAnnotations)
 	
-Or you can annotate a class with @Controller and then it will be registered automatically in the force server.
+Or you can annotate a class with @Controller and then it will be registered automatically in the force WebApplication.
 
 	@Controller
 	class SomeObject {
 	
 	}
 
-#### Starting your web server ####
+#### Starting your web application ####
 
 You can do this as follow!
 
-	server.start();
+	app.start();
 	
-It is also possible to start a server with SSL possibilities.
+It is also possible to start a web application with SSL possibilities.
 
-	server.startSecure();
+	app.startSecure();
 
 #### ForceRequest ####
 
@@ -139,9 +139,9 @@ You can set a strategy by extending the class SecurityStrategy.
 	  }
 	} 
 	
-And then add this strategy to the webserver.
+And then add this strategy to the web application.
 
-	server.strategy = new SessionStrategy();
+	app.strategy = new SessionStrategy();
 	
 ##### Roles #####
 
@@ -174,7 +174,7 @@ You can also specify a type, only when an error or exception happend of that Typ
 
 You can easily boostrap logging.
 
-	server.setupConsoleLog();
+	app.setupConsoleLog();
 
 #### Wired ####
 

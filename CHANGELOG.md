@@ -2,9 +2,15 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.5.7 ####
+
+- Changing the main class of WebServer to WebApplication.
+- Making WebServer Deprecated
+
 #### Pub version 0.5.6+1 ####
 
 - Fix issue serving without pub serve
+- put more control in accept_header_locale
 
 #### Pub version 0.5.6 ####
 

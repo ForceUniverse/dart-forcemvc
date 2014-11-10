@@ -10,9 +10,11 @@ class AcceptHeaderLocaleResolver implements LocaleResolver {
   Locale resolveLocale(ForceRequest request) {
     List<Locale> locales = new List<Locale>();
     List<String> values = request.header(HttpHeaders.ACCEPT_LANGUAGE);
-    values.forEach((value) {
-           locales.add(resolveLocaleWithHeader(value)); 
-          });
+    if (values!=null && values.isNotEmpty) {
+        values.forEach((value) {
+             locales.add(resolveLocaleWithHeader(value)); 
+            });
+    }
     return locales.isNotEmpty? locales[0] : Locale.defaultLocale;
   }
 

@@ -16,7 +16,7 @@ import 'package:mustache4dart/mustache4dart.dart';
 import 'package:forcemirrors/force_mirrors.dart';
 import 'package:wired/wired.dart';
 
-part 'server/web_server.dart';
+part 'server/web_application.dart';
 part 'server/simple_web_server.dart';
 part 'server/mvc_typedefs.dart';
 part 'server/request_method.dart';

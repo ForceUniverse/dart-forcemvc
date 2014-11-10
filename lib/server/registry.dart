@@ -2,10 +2,10 @@ part of dart_force_mvc_lib;
 
 class ForceRegistry {
 
-  WebServer webServer;
+  WebApplication webApplication;
   File _basePath;
 
-  ForceRegistry(this.webServer) {
+  ForceRegistry(this.webApplication) {
     _basePath = new File(Platform.script.toFilePath());
   }
 
@@ -42,7 +42,7 @@ class ForceRegistry {
     ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
     List<HandlerInterceptor> interceptorList = searcher.scan();
 
-    webServer.interceptors.addAll(interceptorList);
+    webApplication.interceptors.addAll(interceptorList);
   }
 
   void register(Object obj) {
@@ -71,7 +71,7 @@ class ForceRegistry {
       PathAnalyzer pathAnalyzer = new PathAnalyzer(mv.object.value);
 
       UrlPattern urlPattern = new UrlPattern("${startPath}${pathAnalyzer.route}");
-      this.webServer.on(urlPattern, (ForceRequest req, Model model) {
+      this.webApplication.on(urlPattern, (ForceRequest req, Model model) {
         try {
           // prepare model
           for (MetaDataValue mvModel in mirrorModels) {

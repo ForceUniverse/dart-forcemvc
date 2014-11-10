@@ -28,29 +28,29 @@ void main() {
   var serveClient = portEnv == null ? true : false;
   
   // Create a force server 
-  WebServer server = new WebServer(host: "127.0.0.1",
+  WebApplication webApp = new WebApplication(host: "127.0.0.1",
                                    port: port,  
                                    staticFiles: '../client/static/',
                                    clientFiles: '../client/build/web/',
                                    clientServe: serveClient,
                                    views: "views/");
   // register yaml files
-  server.loadValues("../app.yaml");
+  webApp.loadValues("../app.yaml");
 //  server.loadValues("pubspec.yaml");
-  server.notFound((ForceRequest req, Model model) {
+  webApp.notFound((ForceRequest req, Model model) {
     return "notfound";
   });
   
   // Set up logger.
-  server.setupConsoleLog(Level.FINEST);
+  webApp.setupConsoleLog(Level.FINEST);
   
   // Setup session strategy
-  server.strategy = new SessionStrategy();
+  webApp.strategy = new SessionStrategy();
   
   // Serve the view called index as default 
-  server.on("/", (req, model) => "index");
+  webApp.on("/", (req, model) => "index");
   
   // Start serving force 
-  server.start();
+  webApp.start();
 }
 
