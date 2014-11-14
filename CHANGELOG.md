@@ -2,9 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
-#### Pub version 0.5.8 ####
+#### Pub version 0.5.7+1 ####
 
 - Deprecate the method on, it is too confusing with the on method of dart force, the method 'use' is now the prefered way.
+- Fixing a crash when the startPage is not found.
 
 #### Pub version 0.5.7 ####
 
