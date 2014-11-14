@@ -2,6 +2,19 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub Version 0.5.8 ####
+
+- Make the default value to startpage empty.
+  It is better to use:
+  
+  app.use('/', (req, model) {
+    return "index";
+  });
+  
+  then startPage: "index.html"
+  
+  Be aware that then it becomes a template and that when you use polymer or angular you need to use another delimiter.
+
 #### Pub version 0.5.7+1 ####
 
 - Deprecate the method on, it is too confusing with the on method of dart force, the method 'use' is now the prefered way.
