@@ -27,7 +27,9 @@ class ServingFiles {
       virDir.directoryHandler = (dir, request) {
         var filePath = "$clientFiles$startPage";
         log.info("Try to server $filePath!");
-        servingAssistent.serveFromFile(request, "$clientFiles$startPage");
+        servingAssistent.serveFromFile(request, "$clientFiles$startPage").catchError((e) {
+          _notFoundHandling(request);
+        });
       };
       
       // Add an error page handler.

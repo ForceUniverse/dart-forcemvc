@@ -48,7 +48,7 @@ void main() {
   webApp.strategy = new SessionStrategy();
   
   // Serve the view called index as default 
-  webApp.on("/", (req, model) => "index");
+  webApp.use("/", (req, model) => "index");
   
   // Start serving force 
   webApp.start();

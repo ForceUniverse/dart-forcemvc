@@ -51,8 +51,8 @@ class ServingAssistent {
           if (file.existsSync()) {
             return vd.serveFile(file, request);
           } else {
-            print("Unable to connect to 'pub serve' for '${request.uri}'");
-            var error = new AssistentError("Unable to connect to 'pub serve' for '${request.uri}'");
+            print("Unable to serve for file at this path '${request.uri}'");
+            var error = new AssistentError("Unable to serve form file to 'pub serve' for '${request.uri}'");
             return new Future.error(error);
           }
         }
