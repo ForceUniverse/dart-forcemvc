@@ -10,7 +10,7 @@ class WebServer extends WebApplication {
                clientFiles: '../build/web/',
                clientServe: true,
                views: "../views/",
-               startPage: "index.html",
+               startPage,
                cors:true}) :
                  super(host: host, port: port, wsPath: wsPath, staticFiles: staticFiles,
                        clientFiles: clientFiles, clientServe: clientServe, views: views, startPage: startPage, cors: cors);
@@ -43,7 +43,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
              clientFiles: '../build/web/',
              clientServe: true,
              this.views: "../views/",
-             startPage: "index.html",
+             startPage,
              cors:true}) :
                super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
