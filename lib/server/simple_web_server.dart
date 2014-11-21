@@ -56,7 +56,10 @@ class SimpleWebServer {
   Future start([WebSocketHandler handleWs]) {
     HttpServer.bind(bind_address, port).then((server) { 
       _onStartComplete(server, handleWs);
-    }).catchError(_errorOnStart);
+    }).catchError((e) {
+      var error = _errorOnStart(e);
+      return new Future.error(error);
+    });
     
     return _completer.future;
   }
@@ -83,7 +86,10 @@ class SimpleWebServer {
           requestClientCertificate: requestClientCertificate,
           backlog: backlog).then((server) { 
         _onStartComplete(server, handleWs);
-      }).catchError(_errorOnStart);
+      }).catchError((e) {
+        var error = _errorOnStart(e);
+        return new Future.error(error);
+      });
       
       return _completer.future;
     }
@@ -93,9 +99,10 @@ class SimpleWebServer {
     _completer.complete(const []);
   }
   
-  void _errorOnStart(e) {
-    log.warning("Could not startup the web server ... $e");
-    log.info("Is your port already in use?");
+  return _errorOnStart(e) {
+    log.error("Could not startup the web server ... $e");
+    log.warning("Is your port already in use?");
+    return error = new WebApplicationStartError("Unable start with '${host}' - '${port}': $e");
   }
 
   Stream<HttpRequest> serve(String name) {
@@ -115,5 +122,19 @@ class SimpleWebServer {
   }
  
   _onStart(Stream<HttpRequest> incoming, [WebSocketHandler handleWs]) {}
+}
+
+class WebApplicationStartError extends Error {
+    final message;
+
+    /** The [message] describes the erroneous argument. */
+    WebApplicationStartError([this.message]);
+
+    String toString() {
+      if (message != null) {
+        return "WebApplication start error: $message";
+      }
+      return "WebApplication start error";
+    }
 }
 
