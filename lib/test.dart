@@ -17,6 +17,7 @@ class MockForceRequest implements ForceRequest {
    HttpRequest request;
    Map<String, String> path_variables;
    Completer _asyncCallCompleter;
+   Locale locale;
    
    MockForceRequest({this.postData: "test"}) {
      path_variables = new Map<String, String>(); 
