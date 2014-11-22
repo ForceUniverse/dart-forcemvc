@@ -99,10 +99,10 @@ class SimpleWebServer {
     _completer.complete(const []);
   }
   
-  return _errorOnStart(e) {
-    log.error("Could not startup the web server ... $e");
+  Error _errorOnStart(e) {
+    log.warning("Could not startup the web server ... $e");
     log.warning("Is your port already in use?");
-    return error = new WebApplicationStartError("Unable start with '${host}' - '${port}': $e");
+    return new WebApplicationStartError("Unable start with '${host}' - '${port}': $e");
   }
 
   Stream<HttpRequest> serve(String name) {
