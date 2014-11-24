@@ -53,8 +53,6 @@ part 'render/mustache_render.dart';
 part 'annotations/metadata.dart';
 part 'annotations/helpers.dart';
 
-part 'startup/strategy.dart';
-
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';

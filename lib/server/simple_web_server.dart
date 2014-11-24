@@ -53,7 +53,7 @@ class SimpleWebServer {
      * You can add a [WebSocketHandler].
      */
   
-  Future start([WebSocketHandler handleWs, FallbackStart fallback]) {
+  Future start({WebSocketHandler handleWs: null, FallbackStart fallback}) {
     HttpServer.bind(bind_address, port).then((server) { 
       _onStartComplete(server, handleWs);
     }).catchError((e) {
@@ -106,7 +106,7 @@ class SimpleWebServer {
   Error _errorOnStart(e) {
     log.warning("Could not startup the web server ... $e");
     log.warning("Is your port already in use?");
-    return new WebApplicationStartError("Unable start with '${host}' - '${port}': $e");
+    return new WebApplicationStartError("Unable to start with '${host}' - '${port}': $e");
   }
 
   Stream<HttpRequest> serve(String name) {
@@ -152,5 +152,5 @@ var randomPortFallback = (SimpleWebServer sws, WebSocketHandler wsHandler) {
   var newPortNumber = rng.nextInt(8888) + 1000;
   
   sws.port = newPortNumber;
-  sws.start(wsHandler);
+  sws.start(handleWs: wsHandler);
 };

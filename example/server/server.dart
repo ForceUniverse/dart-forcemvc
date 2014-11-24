@@ -24,7 +24,7 @@ part 'controllers/security/session_strategy.dart';
 void main() { 
   // Setup what port to listen to 
   var portEnv = Platform.environment['PORT'];
-  var port = portEnv == null ? 3030 : int.parse(portEnv);
+  var port = portEnv == null ? 4040 : int.parse(portEnv);
   var serveClient = portEnv == null ? true : false;
   
   // Create a force server 
@@ -50,7 +50,7 @@ void main() {
   // Serve the view called index as default 
   webApp.use("/", (req, model) => "index");
   
-  // Start serving force 
-  webApp.start();
+  // Start serving force with a randomPortFallback 
+  webApp.start(fallback: randomPortFallback);
 }
 
