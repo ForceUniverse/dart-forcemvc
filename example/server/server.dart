@@ -24,7 +24,7 @@ part 'controllers/security/session_strategy.dart';
 void main() { 
   // Setup what port to listen to 
   var portEnv = Platform.environment['PORT'];
-  var port = portEnv == null ? 4040 : int.parse(portEnv);
+  var port = portEnv == null ? 8080 : int.parse(portEnv);
   var serveClient = portEnv == null ? true : false;
   
   // Create a force server 
