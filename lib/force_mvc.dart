@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:mirrors';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http_server/http_server.dart' as http_server;
 import 'package:route/server.dart' show Router, UrlPattern;
@@ -51,6 +52,8 @@ part 'render/mustache_render.dart';
 
 part 'annotations/metadata.dart';
 part 'annotations/helpers.dart';
+
+part 'startup/strategy.dart';
 
 // exception handling
 part 'error/handler_exception_resolver.dart';

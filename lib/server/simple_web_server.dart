@@ -53,12 +53,16 @@ class SimpleWebServer {
      * You can add a [WebSocketHandler].
      */
   
-  Future start([WebSocketHandler handleWs]) {
+  Future start([WebSocketHandler handleWs, FallbackStart fallback]) {
     HttpServer.bind(bind_address, port).then((server) { 
       _onStartComplete(server, handleWs);
     }).catchError((e) {
-      var error = _errorOnStart(e);
-      return new Future.error(error);
+      if (fallback==null) {
+        var error = _errorOnStart(e);
+        return new Future.error(error);
+      } else {
+        fallback(this, handleWs);
+      }
     });
     
     return _completer.future;
@@ -138,3 +142,15 @@ class WebApplicationStartError extends Error {
     }
 }
 
+/*
+ * This is been used in the restartFallback
+ */
+typedef FallbackStart(SimpleWebServer sws, WebSocketHandler wsHandler);
+
+var randomPortFallback = (SimpleWebServer sws, WebSocketHandler wsHandler) {
+  var rng = new Random();
+  var newPortNumber = rng.nextInt(8888) + 1000;
+  
+  sws.port = newPortNumber;
+  sws.start(wsHandler);
+};
