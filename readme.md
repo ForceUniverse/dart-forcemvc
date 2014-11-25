@@ -12,7 +12,7 @@ We changed the name of WebServer to WebApplication! ForceMVC can now also be use
 
 #### Walkthrough ####
 
-Use a Web Application Server with dart very easily, create controllers with annotations ... similar to spring mvc.
+Use a Web Application Server with dart very easily, create controllers with annotations ... similar to java spring mvc.
 
 First you will setup a new web application.
 
