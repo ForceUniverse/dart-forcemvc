@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub Version 0.5.9+1 ####
+
+- Fix a bug so that @Authentication works again.
+
 #### Pub Version 0.5.9 ####
 
 - Improve the startup functionality, by adding startup fallback mechanism

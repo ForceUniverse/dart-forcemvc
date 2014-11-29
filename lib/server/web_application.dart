@@ -91,11 +91,9 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   }
 
   bool checkSecurity(HttpRequest req, List<String> roles) {
-    if (roles != null) {
-      return securityContext.checkAuthorization(req, roles);
-    } else {
-      return true;
-    }
+    if (roles == null) roles = new List<String>();
+    
+    return securityContext.checkAuthorization(req, roles);
   }
 
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
