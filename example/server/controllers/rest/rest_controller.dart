@@ -53,7 +53,12 @@ class RestController {
   }
   
   @RequestMapping(value: "/book", method: RequestMethod.POST)
-  void post(req, Model model) {
-        model.addAttribute("post", "ok");
+  Future post(req, Model model) {
+     model.addAttribute("post", "ok");
+        
+     req.getPostParams().then((data) {
+               req.async(data);
+             });
+     return req.asyncFuture;
   }
 }

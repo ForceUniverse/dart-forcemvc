@@ -115,5 +115,9 @@ You can also define the http method type on a rest call by doing the following.
 @RequestMapping(value: "/post", method: RequestMethod.POST)
 void post(req, Model model) {
      model.addAttribute("post", "ok");
+     
+     req.getPostData().then((data) {
+     
+     });
 }
 ``` 
