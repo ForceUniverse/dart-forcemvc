@@ -62,7 +62,7 @@ class ForceRegistry {
     // first look if the controller has a @Authentication annotation
     var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))== null ? null : _ref.roles;
     // then look at PreAuthorizeRoles, when they are defined
-    roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? null : _ref.roles;
+    roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? roles : _ref.roles;
 
     String startPath = (_ref = new AnnotationScanner<RequestMapping>().instanceFrom(obj)) != null ? _ref.value : "";
 
