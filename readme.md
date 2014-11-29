@@ -214,6 +214,10 @@ You don't need to start WebApplication anymore, the start of the server will be 
 
 More info about [GAE overall](https://www.dartlang.org/cloud/) 
 
+#### Rest API's ####
+
+If you want to learn more about how to build Rest api's with ForceMVC go [here](https://github.com/ForceUniverse/dart-forcemvc/tree/master/example/server/controllers/rest)
+
 #### Example ####
 
 You can find a simple example with a page counter implementation [here](https://github.com/jorishermans/dart-forcemvc-example) - [live demo](http://forcemvc.herokuapp.com/)
