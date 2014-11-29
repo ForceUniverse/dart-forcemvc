@@ -69,16 +69,14 @@ class RestController {
 Now you can go to http://localhost:8080/api/books and you will see the following outcome.
 
 ```json
-[
-{
-"author": "JK Rowling",
-"title": "Harry Potter"
+[{
+  "author": "JK Rowling",
+  "title": "Harry Potter"
 },
 {
-"author": "Tolkin",
-"title": "Hobbit"
-}
-]
+  "author": "Tolkin",
+  "title": "Hobbit"
+}]
 ```
 
 #### More ####
@@ -98,20 +96,17 @@ This will always add a dateTime object in your rest api as a result to your brow
 
 We will get the following outcome.
 ```json
-[
-[
-{
-"author": "JK Rowling",
-"title": "Harry Potter"
-},
-{
-"author": "Tolkin",
-"title": "Hobbit"
-}
-],
-{
-"datetime": "2014-11-29 18:28:05.801"
-}
+[[{
+    "author": "JK Rowling",
+    "title": "Harry Potter"
+  },
+  {
+    "author": "Tolkin",
+    "title": "Hobbit"
+  }],
+  {
+    "datetime": "2014-11-29 18:28:05.801"
+  }
 ]
 ```
 
