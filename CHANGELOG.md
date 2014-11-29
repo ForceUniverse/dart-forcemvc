@@ -4,7 +4,7 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub Version 0.5.9+1 ####
 
-- Fix a bug so that @Authentication works again.
+- Fix a bug so that @Authentication works, and takes up BASIC as a role.
 
 #### Pub Version 0.5.9 ####
 
