@@ -37,8 +37,9 @@ class Book {
 ```
 
 But be aware that this will not work!
-You need to jsonify, you can do this by adding a method 'Map toJson()'.
-Or just use our mixin jsonify.
+
+You need to jsonify it, you can do this by adding a method 'Map toJson()'.
+Or just use our mixin Jsonify.
 
 ```dart
 class Book extends Object with Jsonify {
