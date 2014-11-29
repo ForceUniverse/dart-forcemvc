@@ -56,3 +56,6 @@ part 'annotations/helpers.dart';
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';
+
+// usefull mixins 
+part 'mixins/jsonify.dart';

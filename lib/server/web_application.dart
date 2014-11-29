@@ -129,16 +129,23 @@ class WebApplication extends SimpleWebServer with ServingFiles {
             if (e is String) {
               _resolveView(e, req, model);
             } else {
-              String data = JSON.encode(model.getData());
-              _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+              model.addAttributeObject(e);
+              _send_json(model.getData(), req);
             }
           });
+       } else {
+         model.addAttributeObject(result);
+         _send_json(model.getData(), req);
        }
     } else {
-      String data = JSON.encode(model.getData());
-      _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
+      _send_json(model.getData(), req);
     }
     interceptors.afterCompletion(forceRequest, model, this);
+  }
+  
+  void _send_json(rawData, HttpRequest req) {
+    String data = JSON.encode(rawData);
+    _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
   }
 
   void _resolveView(String view, HttpRequest req, Model model) {

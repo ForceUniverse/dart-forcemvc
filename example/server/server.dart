@@ -16,6 +16,8 @@ part 'controllers/secure_controller.dart';
 part 'controllers/about_controller.dart';
 part 'controllers/error_controller.dart';
 
+part 'controllers/rest/rest_controller.dart'; 
+
 part 'advice/text_advice.dart';
 
 part 'interceptors/random_interceptor.dart';
@@ -36,7 +38,7 @@ void main() {
                                    views: "views/");
   // register yaml files
   webApp.loadValues("../app.yaml");
-//  server.loadValues("pubspec.yaml");
+  //  server.loadValues("pubspec.yaml");
   webApp.notFound((ForceRequest req, Model model) {
     return "notfound";
   });

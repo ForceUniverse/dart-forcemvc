@@ -23,6 +23,12 @@ class Model {
   
   getData() {
     if (dynamic!=null) {
+      if (values.isNotEmpty) {
+        List dataList = new List(); 
+        dataList.add(dynamic);
+        dataList.add(values);
+        return dataList;
+      }
       return dynamic;
     } else {
       return values;
