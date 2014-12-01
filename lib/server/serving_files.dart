@@ -8,8 +8,6 @@ class ServingFiles {
   var virDir;
   ServingAssistent servingAssistent;
   
-  String startPage;
-  
   List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html", "map"];
   
   void _serveClient(staticFiles, clientFiles, clientServe) {
@@ -23,17 +21,6 @@ class ServingFiles {
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
             ..allowDirectoryListing = true;
-      
-      if (startPage!=null) {
-        // only do this when the user is in need of a startPage without using the normal httprequest routing
-        virDir.directoryHandler = (dir, request) {
-          var filePath = "$clientFiles$startPage";
-          log.info("Try to server $filePath!");
-          servingAssistent.serveFromFile(request, "$clientFiles$startPage").catchError((e) {
-            _notFoundHandling(request);
-          });
-        };
-      }
       
       // Add an error page handler.
       virDir.errorPageHandler = (HttpRequest request) {

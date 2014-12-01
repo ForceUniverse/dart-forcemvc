@@ -1,24 +1,7 @@
 part of dart_force_mvc_lib;
 
-@Deprecated("0.6.0") // use WebApplication instead!
-class WebServer extends WebApplication {
-  
-  WebServer({host: "127.0.0.1",
-               port: 8080,
-               wsPath: '/ws',
-               staticFiles: '../static/',
-               clientFiles: '../build/web/',
-               clientServe: true,
-               views: "../views/",
-               startPage,
-               cors:true}) :
-                 super(host: host, port: port, wsPath: wsPath, staticFiles: staticFiles,
-                       clientFiles: clientFiles, clientServe: clientServe, views: views, startPage: startPage, cors: cors);
-  
-}
-
 class WebApplication extends SimpleWebServer with ServingFiles {
-  final Logger log = new Logger('WebServer');
+  final Logger log = new Logger('WebApplication');
   
   bool cors=false;
   Router router;
@@ -47,7 +30,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
              cors:true}) :
                super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
-    this.startPage = startPage;
+    if (startPage!=null) { static("/", startPage); }
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
@@ -71,10 +54,18 @@ class WebApplication extends SimpleWebServer with ServingFiles {
        });
   }
   
-  @Deprecated("0.6.0")
-  void on(Pattern url, ControllerHandler controllerHandler, 
-          {method: RequestMethod.GET, List<String> roles}) {
-    this.use(url, controllerHandler, method: method, roles: roles);
+  void static(Pattern url, String name, 
+            {method: RequestMethod.GET, List<String> roles}) {
+      _completer.future.whenComplete(() {
+           this.router.serve(url, method: method).listen((HttpRequest req) {
+             if (checkSecurity(req, roles)) {
+               _resolveStatic(req, name);
+             } else {
+               Uri location = securityContext.redirectUri(req);
+               req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
+             }
+           });
+         });
   }
   
   void notFound(ControllerHandler controllerHandler) {
@@ -95,6 +86,14 @@ class WebApplication extends SimpleWebServer with ServingFiles {
       return securityContext.checkAuthorization(req, roles);
     } else {
       return true;
+    }
+  }
+  
+  Future _resolveStatic(HttpRequest req, String name) async {
+    try {
+      await servingAssistent.serve(req, clientFiles, name);
+    } catch(e) {
+      _notFoundHandling(req); 
     }
   }
 
@@ -161,10 +160,9 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     this.registry.register(obj);
   }
 
-  void _send_template(HttpRequest req, Model model, String view) {
-    this.viewRender.render(view, model.getData()).then((String result) {
-      _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
-    });
+  Future _send_template(HttpRequest req, Model model, String view) async {
+    String result = await this.viewRender.render(view, model.getData());
+    _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
