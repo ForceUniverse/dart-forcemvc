@@ -49,6 +49,24 @@ class Book extends Object with Jsonify {
 }
 ```
 
+It is always better to right your own Json mapper or you can use packages in pub like exportable.
+This way you have more control how your object will be transformed to json!
+
+```dart
+class Book {
+  Book(this.author, this.title);
+  String author;
+  String title;
+  
+  Map toJson() {
+    Map map = new Map();
+    map["author"] = author;
+    map["title"] = title;
+    return map;
+  }
+}
+```
+
 Now you can return book types and it is possible for them to be transformed to a json object.
 
 ```dart
