@@ -17,6 +17,8 @@ import 'package:mustache4dart/mustache4dart.dart';
 import 'package:forcemirrors/force_mirrors.dart';
 import 'package:wired/wired.dart';
 
+export 'package:jsonify/jsonify.dart';
+
 part 'server/web_application.dart';
 part 'server/simple_web_server.dart';
 part 'server/mvc_typedefs.dart';
@@ -56,6 +58,3 @@ part 'annotations/helpers.dart';
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';
-
-// usefull mixins 
-part 'mixins/jsonify.dart';
