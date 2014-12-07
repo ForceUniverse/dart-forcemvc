@@ -2,6 +2,13 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub Version 0.6.0 ####
+
+- WebServer becomes WebApplication dart class
+- The .on method becomes .use method
+- app.static will skip the view rendering logic, ideal for angular and polymer applications
+- simplify code on some parts
+
 #### Pub Version 0.5.10 ####
 
 - Extending the possibilities of a Rest interface.
