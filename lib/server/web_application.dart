@@ -89,12 +89,11 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     }
   }
   
-  Future _resolveStatic(HttpRequest req, String name) async {
-    try {
-      await servingAssistent.serve(req, clientFiles, name);
-    } catch(e) {
-      _notFoundHandling(req); 
-    }
+  void _resolveStatic(HttpRequest req, String name) {
+    servingAssistent.serve(req, clientFiles, name).catchError((e) {
+       print(e);
+       _notFoundHandling(req);
+    });
   }
 
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
@@ -160,19 +159,20 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     this.registry.register(obj);
   }
 
-  Future _send_template(HttpRequest req, Model model, String view) async {
-    String result = await this.viewRender.render(view, model.getData());
-    _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
+  void _send_template(HttpRequest req, Model model, String view) {
+      this.viewRender.render(view, model.getData()).then((String result) {
+        _send_response(req.response, new ContentType("text", "html", charset: "utf-8"), result);
+      });
   }
 
   void _send_response(HttpResponse response, ContentType contentType, String result) {
-    responseHooks.forEach((ResponseHook responseHook) {
-      responseHook(response);
-    });
-    response
-      ..headers.contentType = contentType
-      ..write(result)
-        ..close();
+      responseHooks.forEach((ResponseHook responseHook) {
+        responseHook(response);
+      });
+      response
+        ..headers.contentType = contentType
+        ..write(result)
+          ..close();
   }
    
   /**

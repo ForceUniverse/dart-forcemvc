@@ -33,40 +33,47 @@ abstract class ForceViewRender {
     }
   }
   
-  Future<String> render(String view, model) async {
+  Future<String> render(String view, model) {
+    Completer<String> completer = new Completer<String>();
     var viewUri = new Uri.file(views).resolve("$view.html");
     var file = new File(viewUri.toFilePath());
-    var result = "";
     
     if (file.existsSync()) {
-      result = await _readFile(file, model);
+      _readFile(file, completer, model);
     } else {
       if (servingAssistent!=null) {
-        try {
-          Stream<List<int>> inputStream = await servingAssistent.read(clientFiles, "$view.html");
-          var template = await inputStream.transform(UTF8.decoder).first;
-          result = _render_impl(template, model);       
-        } catch(e) {
+        servingAssistent.read(clientFiles, "$view.html").then((Stream<List<int>> inputStream) {
+          inputStream
+            .transform(UTF8.decoder).listen((template) {
+               var result = _render_impl(template, model);       
+               completer.complete(result);
+          });
+        }).catchError((e) {
           log.severe("The '$view' can't be resolved.");
-        }
+          completer.complete("");
+        });
       } else {
         viewUri = new Uri.file(clientFiles).resolve("$view.html");
         file = new File(viewUri.toFilePath());
         if (file.existsSync()) {
-          result = await _readFile(file, model);
+          _readFile(file, completer, model);
+        } else {
+          completer.complete("");
         }
       }
     }
     
-    return result;
+    return completer.future;
   }
   
-  Future<String> _readFile(File file, model) async {
-    var data = await file.readAsBytes();
-    var template = new String.fromCharCodes(data);
-    return _render_impl(template, model);
+  void _readFile(File file, Completer<String> completer, model) {
+    file.readAsBytes().then((data) {
+      var template = new String.fromCharCodes(data);
+      var result = _render_impl(template, model);
+          
+      completer.complete(result);
+    });
   }
   
   String _render_impl(String template, model);
 }
-

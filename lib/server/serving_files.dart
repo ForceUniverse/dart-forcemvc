@@ -43,13 +43,11 @@ class ServingFiles {
     request.response.statusCode = HttpStatus.NOT_FOUND;
   }
   
-  Future serveFile(HttpRequest request, String root, String fileName) async {
-    try {
-      await servingAssistent.serve(request, root, fileName);
-    } catch(e) {
-      print(e);
-      _notFoundHandling(request);
-    }
+  void serveFile(HttpRequest request, String root, String fileName) {
+      servingAssistent.serve(request, root, fileName).catchError((e) {
+        log.warning(e);
+        _notFoundHandling(request);
+      });
   }
   
   void _serveTransformableFiles(clientFiles) {
