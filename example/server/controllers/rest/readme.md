@@ -49,7 +49,7 @@ class Book extends Object with Jsonify {
 }
 ```
 
-It is always better to right your own Json mapper or you can use packages in pub like exportable.
+It is always better to write your own Json mapper or you can use packages in pub like exportable.
 This way you have more control how your object will be transformed to json!
 
 ```dart
