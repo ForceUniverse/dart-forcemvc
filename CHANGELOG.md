@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub Version 0.6.0+1 ####
+
+- Tighter version constraint on exported package
+
 #### Pub Version 0.6.0 ####
 
 - WebServer becomes WebApplication dart class
