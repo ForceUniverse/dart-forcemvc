@@ -2,6 +2,16 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.6.1+1 ####
+
+- add improvement on static handling internally
+
+#### Pub version 0.6.1 ####
+
+- remove start page and use this instead! 
+ 
+app.static("/", "index.html");
+
 #### Pub Version 0.6.0+1 ####
 
 - Tighter version constraint on exported package

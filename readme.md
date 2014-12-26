@@ -6,10 +6,6 @@ Part of the Dart Force Framework.
 
 Serverside MVC based implementation for Dart. Easy to setup and part of the dart force framework!
 
-#### Remark ####
-
-We changed the name of WebServer to WebApplication! ForceMVC can now also be used on Google AppEngine.
-
 #### Walkthrough ####
 
 Use a Web Application Server with dart very easily, create controllers with annotations ... similar to java spring mvc.

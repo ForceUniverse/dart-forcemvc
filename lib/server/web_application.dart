@@ -16,6 +16,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
+  Map<Pattern, String> _staticResources = new Map<Pattern, String>();
   
   ControllerHandler _notFound;
 
@@ -30,7 +31,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
              cors:true}) :
                super(host, port, wsPath, staticFiles,
                      clientFiles, clientServe) {
-    if (startPage!=null) { static("/", startPage); }
+    if (startPage!=null) { static("/", startPage); };
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
     registry = new ForceRegistry(this);
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
@@ -56,16 +57,21 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   
   void static(Pattern url, String name, 
             {method: RequestMethod.GET, List<String> roles}) {
-      _completer.future.whenComplete(() {
+    bool containsAlreadyStatic = _staticResources.containsKey(url);
+    _staticResources[url] = name;  
+    
+    _completer.future.whenComplete(() {
+      if (!containsAlreadyStatic) {
            this.router.serve(url, method: method).listen((HttpRequest req) {
              if (checkSecurity(req, roles)) {
-               _resolveStatic(req, name);
+               _resolveStatic(req, _staticResources[url]);
              } else {
                Uri location = securityContext.redirectUri(req);
                req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
              }
            });
-         });
+      }
+    });
   }
   
   void notFound(ControllerHandler controllerHandler) {
