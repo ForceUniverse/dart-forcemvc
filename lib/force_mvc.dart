@@ -14,7 +14,7 @@ import 'package:path/path.dart' show normalize;
 
 import 'package:mustache4dart/mustache4dart.dart';
 
-import 'package:forcemirrors/force_mirrors.dart';
+import 'package:mirrorme/mirrorme.dart';
 import 'package:wired/wired.dart';
 
 export 'package:jsonify/jsonify.dart';
