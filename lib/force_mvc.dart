@@ -58,3 +58,5 @@ part 'annotations/helpers.dart';
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';
+
+part 'server/web_config.dart';

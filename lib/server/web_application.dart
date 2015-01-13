@@ -9,7 +9,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   ForceViewRender viewRender;
   ForceRegistry registry;
 
-  SecurityContextHolder securityContext;
+  // SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
   HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
   LocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
@@ -34,7 +34,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     if (startPage!=null) { static("/", startPage); };
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
     registry = new ForceRegistry(this);
-    securityContext = new SecurityContextHolder(new NoSecurityStrategy());
+    // securityContext = new SecurityContextHolder(new NoSecurityStrategy());
   }
 
   void _scanning() {
@@ -48,7 +48,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
            if (checkSecurity(req, roles)) {
              _resolveRequest(req, controllerHandler);
            } else {
-             Uri location = securityContext.redirectUri(req);
+             SecurityContextHolder sch = ApplicationContext.getBeanByType(SecurityContextHolder);
+             Uri location = sch.redirectUri(req);
              req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
            }
          });
@@ -66,7 +67,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
              if (checkSecurity(req, roles)) {
                _resolveStatic(req, _staticResources[url]);
              } else {
-               Uri location = securityContext.redirectUri(req);
+               SecurityContextHolder sch = ApplicationContext.getBeanByType(SecurityContextHolder);
+               Uri location = sch.redirectUri(req);
                req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
              }
            });
@@ -89,6 +91,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
 
   bool checkSecurity(HttpRequest req, List<String> roles) {
     if (roles != null) {
+      SecurityContextHolder securityContext = ApplicationContext.getBeanByType(SecurityContextHolder);
       return securityContext.checkAuthorization(req, roles);
     } else {
       return true;
@@ -224,6 +227,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   }
   
   void set strategy(SecurityStrategy strategy) {
+    SecurityContextHolder securityContext = ApplicationContext.getBeanByType(SecurityContextHolder);
     securityContext.strategy = strategy;
   }
   
