@@ -228,11 +228,21 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
   }
   
+  // For Backwards compatibility
   void set strategy(SecurityStrategy strategy) {
     SecurityContextHolder securityContext = ApplicationContext.getBeanByType(SecurityContextHolder);
     securityContext.strategy = strategy;
   }
   
+  void set securityContext(SecurityContextHolder sch) 
+                             => ApplicationContext.setBean("securityContextHolder", sch);
+ 
+  void set exceptionResolver(HandlerExceptionResolver handlerExceptionResolver) 
+                             => ApplicationContext.setBean("securityContextHolder", handlerExceptionResolver);
+    
+  void set localeResolver(LocaleResolver localeResolver) 
+                          => ApplicationContext.setBean("securityContextHolder", localeResolver);
+      
   void loadValues(String path) => this.registry.loadValues(path);
 }
 
