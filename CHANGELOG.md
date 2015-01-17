@@ -2,6 +2,14 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.7.0 ####
+
+- update forcemvc to wired 4.3
+- add web config and an easy change towards core components with di
+  * SecurityContextHolder
+  * HandlerExceptionResolver
+  * LocaleResolver 
+
 #### Pub version 0.6.1+1 ####
 
 - add improvement on static handling internally

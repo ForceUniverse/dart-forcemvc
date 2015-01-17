@@ -11,8 +11,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
 
   // SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
-  HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
-  LocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+  // HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
+  // LocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
@@ -110,7 +110,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     ForceRequest forceRequest = new ForceRequest(req);
     
     // check locale 
-    forceRequest.locale = localeResolver.resolveLocale(forceRequest);
+    LocaleResolver localeResolver = ApplicationContext.getBeanByType(LocaleResolver);
+    if (localeResolver != null) forceRequest.locale = localeResolver.resolveLocale(forceRequest);
     
     var result;
     
@@ -120,6 +121,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
       interceptors.postHandle(forceRequest, model, this);
     } catch (e) {
       // do proper exception handling 
+      HandlerExceptionResolver exceptionResolver = ApplicationContext.getBeanByType(HandlerExceptionResolver);
       if (e is Exception) {
         result = exceptionResolver.resolveException(forceRequest, model, e);
       } else if (e is Error) {

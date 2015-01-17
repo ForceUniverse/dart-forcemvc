@@ -8,4 +8,14 @@ class WebConfig {
     return new SecurityContextHolder(new NoSecurityStrategy());
   }
   
+  @Bean
+  HandlerExceptionResolver exceptionResolver() {
+    return new SimpleExceptionResolver();
+  }
+  
+  @Bean
+  LocaleResolver localeResolver() {
+    return new AcceptHeaderLocaleResolver();
+  }
+  
 }

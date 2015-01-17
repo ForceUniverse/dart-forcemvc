@@ -7,6 +7,8 @@ class ForceRegistry {
 
   ForceRegistry(this.webApplication) {
     _basePath = new File(Platform.script.toFilePath());
+    
+    ApplicationContext.bootstrap();
   }
 
   void loadValues(String path) {
@@ -18,8 +20,6 @@ class ForceRegistry {
   }
 
   void scanning() {
-    ApplicationContext.bootstrap();
-
     // scan for controllers
     var classes = ApplicationContext.addComponents(new Scanner<_Controller>().scan());
 
