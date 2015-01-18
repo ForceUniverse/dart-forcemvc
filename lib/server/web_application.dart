@@ -221,7 +221,9 @@ class WebApplication extends SimpleWebServer with ServingFiles {
 
     // Serve dart and static files (if not explicitly disabled by clientServe)
     _serveClient(staticFiles, clientFiles, clientServe);
-    viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
+    if (viewRender == null) {
+        viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
+    }
   }
   
   // For Backwards compatibility
