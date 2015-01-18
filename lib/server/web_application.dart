@@ -6,13 +6,9 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   bool cors=false;
   Router router;
   String views;
-  ForceViewRender viewRender;
   ForceRegistry registry;
 
-  // SecurityContextHolder securityContext;
   InterceptorsCollection interceptors = new InterceptorsCollection();
-  // HandlerExceptionResolver exceptionResolver = new SimpleExceptionResolver();
-  // LocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
   
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
@@ -242,7 +238,13 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     
   void set localeResolver(LocaleResolver localeResolver) 
                           => ApplicationContext.setBean("securityContextHolder", localeResolver);
-      
+  
+  void set viewRender(ForceViewRender viewRender) 
+                      => ApplicationContext.setBean("viewRender", viewRender);
+  
+  ForceViewRender get viewRender 
+                      => ApplicationContext.getBean("viewRender");
+  
   void loadValues(String path) => this.registry.loadValues(path);
 }
 
