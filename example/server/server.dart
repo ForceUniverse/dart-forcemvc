@@ -23,6 +23,7 @@ part 'advice/text_advice.dart';
 part 'interceptors/random_interceptor.dart';
 part 'controllers/security/session_strategy.dart';
 
+
 void main() { 
   // Setup what port to listen to 
   var portEnv = Platform.environment['PORT'];
@@ -54,5 +55,15 @@ void main() {
   
   // Start serving force with a randomPortFallback 
   webApp.start(fallback: randomPortFallback);
+}
+
+@Config
+class OwnConfig {
+  
+  @Bean
+  LocaleResolver localeResolver() {
+     return new FixedLocaleResolver(Locale.ITALY);
+  }
+  
 }
 
