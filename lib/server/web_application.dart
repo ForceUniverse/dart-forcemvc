@@ -29,8 +29,12 @@ class WebApplication extends SimpleWebServer with ServingFiles {
                      clientFiles, clientServe) {
     if (startPage!=null) { static("/", startPage); };
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
+    
+    securityContext = new SecurityContextHolder(new NoSecurityStrategy());
+    localeResolver =  new AcceptHeaderLocaleResolver();
+    exceptionResolver = new SimpleExceptionResolver();
+    
     registry = new ForceRegistry(this);
-    // securityContext = new SecurityContextHolder(new NoSecurityStrategy());
   }
 
   void _scanning() {
@@ -44,8 +48,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
            if (checkSecurity(req, roles)) {
              _resolveRequest(req, controllerHandler);
            } else {
-             SecurityContextHolder sch = ApplicationContext.getBeanByType(SecurityContextHolder);
-             Uri location = sch.redirectUri(req);
+             
+             Uri location = securityContext.redirectUri(req);
              req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
            }
          });
@@ -105,8 +109,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     Model model = new Model();
     ForceRequest forceRequest = new ForceRequest(req);
     
-    // check locale 
-    LocaleResolver localeResolver = ApplicationContext.getBeanByType(LocaleResolver);
+    // check locale
     if (localeResolver != null) forceRequest.locale = localeResolver.resolveLocale(forceRequest);
     
     var result;
@@ -117,7 +120,6 @@ class WebApplication extends SimpleWebServer with ServingFiles {
       interceptors.postHandle(forceRequest, model, this);
     } catch (e) {
       // do proper exception handling 
-      HandlerExceptionResolver exceptionResolver = ApplicationContext.getBeanByType(HandlerExceptionResolver);
       if (e is Exception) {
         result = exceptionResolver.resolveException(forceRequest, model, e);
       } else if (e is Error) {
@@ -228,24 +230,32 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   
   // For Backwards compatibility
   void set strategy(SecurityStrategy strategy) {
-    SecurityContextHolder securityContext = ApplicationContext.getBeanByType(SecurityContextHolder);
     securityContext.strategy = strategy;
   }
   
   void set securityContext(SecurityContextHolder sch) 
                              => ApplicationContext.setBean("securityContextHolder", sch);
  
+  SecurityContextHolder get securityContext 
+                        => ApplicationContext.getBeanByType(SecurityContextHolder);
+  
   void set exceptionResolver(HandlerExceptionResolver handlerExceptionResolver) 
-                             => ApplicationContext.setBean("securityContextHolder", handlerExceptionResolver);
-    
+                             => ApplicationContext.setBean("exceptionResolver", handlerExceptionResolver);
+  
+  HandlerExceptionResolver get exceptionResolver 
+                          => ApplicationContext.getBeanByType(HandlerExceptionResolver);
+  
   void set localeResolver(LocaleResolver localeResolver) 
-                          => ApplicationContext.setBean("securityContextHolder", localeResolver);
+                          => ApplicationContext.setBean("localeResolver", localeResolver);
+  
+  LocaleResolver get localeResolver 
+                            => ApplicationContext.getBeanByType(LocaleResolver);
   
   void set viewRender(ForceViewRender viewRender) 
                       => ApplicationContext.setBean("viewRender", viewRender);
   
   ForceViewRender get viewRender 
-                      => ApplicationContext.getBean("viewRender");
+                      => ApplicationContext.getBeanByType(ForceViewRender);
   
   void loadValues(String path) => this.registry.loadValues(path);
 }
