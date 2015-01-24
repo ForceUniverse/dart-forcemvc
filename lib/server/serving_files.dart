@@ -6,7 +6,6 @@ class ServingFiles {
   Router router;
   
   var virDir;
-  ServingAssistent servingAssistent;
   
   List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html", "map"];
   
@@ -90,5 +89,11 @@ class ServingFiles {
                         : null;
     return pubServeUrl;
   }
+  
+  void set servingAssistent(ServingAssistent servingAssistent) 
+                           => ApplicationContext.setBean("ServingAssistent", servingAssistent);
+   
+  ServingAssistent get servingAssistent 
+                             => ApplicationContext.getBeanByType(ServingAssistent);
 }
 
