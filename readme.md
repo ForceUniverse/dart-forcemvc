@@ -147,11 +147,11 @@ And then add this strategy to the web application.
 
 You can also define authorize roles. This can be done as follow.
 
-@Controller
-@PreAuthorizeRoles(const ["ADMIN"])
-class AdminController {
-		
-}
+	@Controller
+	@PreAuthorizeRoles(const ["ADMIN"])
+	class AdminController {
+			
+	}
 
 ##### ExceptionHandler #####
 
@@ -187,6 +187,25 @@ In ForceMVC you have a locale resolver to handle locale.
 The implementation that is been used by default is the AcceptHeaderLocale Resolver, this resolver looks at the request header accept-language.
 
 You can choose for a fixed locale resolver implementation or a cookie locale resolver or just implement your own handling if need.
+
+#### View / Templating ####
+
+In forcemvc you can define view templates. ForceMvc will look into the viewfolder and in the client 'build' folder for a .html file with the viewname that you provide the system in the controller.
+
+	@RequestMapping(value: "/hello/")
+  	String redirect(req, Model model) {
+    	// do something
+    	model.addAttribute("text", "greetings");
+    	return "hello";
+  	}
+ 
+So in the example about we are returning a string with the value 'hello'. So the system will search in the view & build folder for a hello.html file.
+
+The default implementation in ForceMVC for templating is mustache. 
+
+In the html file {{text}} will be replaced by greetings.
+
+More info about creating your own viewrender implementation [here](https://github.com/ForceUniverse/dart-forcemvc/wiki/Create-your-own-viewrender)
 
 #### Development trick ####
 
