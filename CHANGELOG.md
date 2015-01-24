@@ -9,6 +9,7 @@ This file contains highlights of what changes on each version of the forcemvc pa
   * SecurityContextHolder
   * HandlerExceptionResolver
   * LocaleResolver 
+  * ServingAssistent
 
 #### Pub version 0.6.1+1 ####
 
