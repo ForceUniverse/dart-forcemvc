@@ -135,12 +135,12 @@ class WebApplication extends SimpleWebServer with ServingFiles {
           future.then((e) {
             if (e is String) {
               _resolveView(e, req, model);
-            } else {
+            } else if (!(e is HttpResponse)) {
               model.addAttributeObject(e);
               _send_json(model.getData(), req);
             }
           });
-       } else {
+       } else if (!(result is HttpResponse)) {
          model.addAttributeObject(result);
          _send_json(model.getData(), req);
        }
