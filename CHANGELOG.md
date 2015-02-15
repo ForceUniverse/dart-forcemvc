@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.7.1 ####
+
+- Allow completely handling the HttpResponse
+
 #### Pub version 0.7.0 ####
 
 - update forcemvc to wired 4.3
