@@ -10,15 +10,16 @@ class ServingFiles {
   List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html", "map"];
   
   void _serveClient(staticFiles, clientFiles, clientServe) {
+    Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
+    virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
+          
+    log.severe("initial serving assistent ...");
+    servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
     
-         log.severe("should I ?? ... $clientServe");
+    log.severe("should I ?? ... $clientServe");
     if(clientServe == true) {
       // Set up default handler. This will serve files from our 'build' directory.
-      Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
-      virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
       
-      log.severe("initial serving assistent ...");
-      servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
       
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
