@@ -43,16 +43,20 @@ class ServingFiles {
   }
   
   void serveFile(HttpRequest request, String root, String fileName) {
+    if (servingAssistent==null) {
+      log.warning("servingAssistent is not defined!");
+    } else {
       servingAssistent.serve(request, root, fileName).catchError((e) {
-        log.warning(e);
-        _notFoundHandling(request);
+          log.warning(e);
+          _notFoundHandling(request);
       });
+    }
   }
   
   void _serveTransformableFiles(clientFiles) {
     for (var fileType in staticFileTypes) {
-        String pats = '([/|.|\\-|\\w|\\W|\\s])*\\.(?:${fileType})';
-        var pattern = new UrlPattern(pats);
+        String parts = '([/|.|\\-|\\w|\\W|\\s])*\\.(?:${fileType})';
+        var pattern = new UrlPattern(parts);
 
         this._serveWithPatterns(clientFiles, pattern);
     }
