@@ -99,10 +99,15 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   }
   
   void _resolveStatic(HttpRequest req, String name) {
-    servingAssistent.serve(req, clientFiles, name).catchError((e) {
-       print(e);
-       _notFoundHandling(req);
-    });
+    log.severe("start with serving file!");
+    if (servingAssistent==null) {
+       log.warning("servingAssistent is not defined!");
+    } else {
+       servingAssistent.just_serve(req, clientFiles, name).catchError((e) {
+           print(e);
+           _notFoundHandling(req);
+       });
+    }
   }
 
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
