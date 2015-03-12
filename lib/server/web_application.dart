@@ -99,7 +99,6 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   }
   
   void _resolveStatic(HttpRequest req, String name) {
-    log.severe("start with serving file!");
     if (servingAssistent==null) {
        log.warning("servingAssistent is not defined!");
     } else {
