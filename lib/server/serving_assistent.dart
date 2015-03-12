@@ -92,6 +92,16 @@ class ServingAssistent {
     }
   }
   
+  Future just_serve(HttpRequest request, String root, String path) {
+      if (pubServeUrl != null) {
+        // path = normalize(path);
+        
+        return proxyToPub(request, path);
+      } else {
+        return serveFromFile(request, "${root}${path}");
+      }
+    }
+  
   Future<Stream<List<int>>> readFromFile(String root, String path) {
       path = normalize(path);
       return FileSystemEntity.isFile(root + path).then((exists) {

@@ -43,10 +43,11 @@ class ServingFiles {
   }
   
   void serveFile(HttpRequest request, String root, String fileName) {
+    log.warning("start with serving file!");
     if (servingAssistent==null) {
       log.warning("servingAssistent is not defined!");
     } else {
-      servingAssistent.serve(request, root, fileName).catchError((e) {
+      servingAssistent.just_serve(request, root, fileName).catchError((e) {
           log.warning(e);
           _notFoundHandling(request);
       });
