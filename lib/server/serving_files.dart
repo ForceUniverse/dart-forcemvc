@@ -10,16 +10,12 @@ class ServingFiles {
   List staticFileTypes = ["dart", "js", "css", "png", "gif", "jpeg", "jpg", "webp", "html", "map"];
   
   void _serveClient(staticFiles, clientFiles, clientServe) {
-    Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
-    virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
-          
-    log.severe("initial serving assistent ...");
-    servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
-    
-    log.severe("should I ?? ... $clientServe");
     if(clientServe == true) {
       // Set up default handler. This will serve files from our 'build' directory.
-      
+      Uri clientFilesAbsoluteUri = Platform.script.resolve(clientFiles);
+      virDir = new http_server.VirtualDirectory(clientFilesAbsoluteUri.toFilePath());
+                
+      servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
       
       // Disable jail-root, as packages are local sym-links.
       virDir..jailRoot = false
@@ -47,7 +43,7 @@ class ServingFiles {
   }
   
   void serveFile(HttpRequest request, String root, String fileName) {
-    log.warning("start with serving file!");
+    log.info("start with serving file!");
     if (servingAssistent==null) {
       log.warning("servingAssistent is not defined!");
     } else {
@@ -82,10 +78,12 @@ class ServingFiles {
       String path = request.uri.path;
       path = path.replaceAll('/static/', '');
       
-      servingAssistent.serveFromFile(request, "${clientFiles}${path}").catchError((e) {
-          print(e);
-          _notFoundHandling(request);
-      });
+      if (servingAssistent!=null) {
+        servingAssistent.serveFromFile(request, "${clientFiles}${path}").catchError((e) {
+            print(e);
+            _notFoundHandling(request);
+        });
+      }
     });
   }
   
