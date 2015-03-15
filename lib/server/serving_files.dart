@@ -34,6 +34,8 @@ class ServingFiles {
       
       // Start serving transformable files
       _serveTransformableFiles(clientFiles);
+    } else {
+      log.info("You are serving the clientside files your self! Force is not serving clientside files!");
     }
   }
   
