@@ -33,46 +33,38 @@ abstract class ForceViewRender {
     }
   }
   
-  Future<String> render(String view, model) {
-    Completer<String> completer = new Completer<String>();
+  Future<String> render(String view, model) async {
     var viewUri = new Uri.file(views).resolve("$view.html");
     var file = new File(viewUri.toFilePath());
-    
+    var result = "";
+       
     if (file.existsSync()) {
-      _readFile(file, completer, model);
+      result = await _readFile(file, model);
     } else {
       if (servingAssistent!=null) {
-        servingAssistent.read(clientFiles, "$view.html").then((Stream<List<int>> inputStream) {
-          inputStream
-            .transform(UTF8.decoder).listen((template) {
-               var result = _render_impl(template, model);       
-               completer.complete(result);
-          });
-        }).catchError((e) {
-          log.severe("The '$view' can't be resolved.");
-          completer.complete("");
-        });
+        try {
+           Stream<List<int>> inputStream = await servingAssistent.read(clientFiles, "$view.html");
+           var template = await inputStream.transform(UTF8.decoder).first;
+           result = _render_impl(template, model);       
+        } catch(e) {
+          log.severe("The '$view' can't be resolved."); 
+        }
       } else {
         viewUri = new Uri.file(clientFiles).resolve("$view.html");
         file = new File(viewUri.toFilePath());
         if (file.existsSync()) {
-          _readFile(file, completer, model);
-        } else {
-          completer.complete("");
+          result = await _readFile(file, model);
         }
       }
     }
     
-    return completer.future;
+    return result;
   }
   
-  void _readFile(File file, Completer<String> completer, model) {
-    file.readAsBytes().then((data) {
-      var template = new String.fromCharCodes(data);
-      var result = _render_impl(template, model);
-          
-      completer.complete(result);
-    });
+  Future<String> _readFile(File file, model) async {
+    var data = await file.readAsBytes();
+    var template = new String.fromCharCodes(data);
+    return _render_impl(template, model);
   }
   
   String _render_impl(String template, model);
