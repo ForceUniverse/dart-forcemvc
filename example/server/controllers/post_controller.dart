@@ -9,15 +9,12 @@ class PostController {
   }
   
   @RequestMapping(value: "/post/", method: "POST")
-  Future countMethod(req, Model model) {
-     req.getPostParams().then((map) {
-       model.addAttribute("email", map["email"]);
-       
-       req.async(null);
-     });
+  Future countMethod(req, Model model) async {
+     var map = await req.getPostParams();
+     model.addAttribute("email", map["email"]);
      model.addAttribute("status", "ok");
      
-     return req.asyncFuture;
+     return map;
   }
   
 }
