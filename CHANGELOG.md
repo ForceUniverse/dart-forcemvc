@@ -2,6 +2,11 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.7.2 ####
+
+- Adopt code to async/await
+- Extract locale to an other dependency
+
 #### Pub version 0.7.1+1 ####
 
 - Improve the flow of client serving

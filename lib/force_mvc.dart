@@ -17,6 +17,9 @@ import 'package:mustache4dart/mustache4dart.dart';
 import 'package:mirrorme/mirrorme.dart';
 import 'package:wired/wired.dart';
 
+import 'package:locale/locale.dart';
+export 'package:locale/locale.dart';
+
 export 'package:jsonify/jsonify.dart';
 
 part 'server/web_application.dart';
@@ -34,7 +37,6 @@ part 'server/response_hooks.dart';
 part 'server/http_request_streamer.dart';
 part 'server/serving_assistent.dart';
 
-part 'i18n/locale.dart';
 part 'i18n/locale_resolver.dart';
 part 'i18n/accept_header_locale_resolver.dart';
 part 'i18n/default_locale_resolver.dart';
