@@ -9,7 +9,7 @@ dependencies:
   route: '>=0.4.0 <0.5.0'
   mustache4dart: '>=1.0.0 <1.1.0'
   wired: '>=0.4.3 <0.4.4'
-  locale: '>=0.1.0 <0.1.1'
+  locale: '>=0.1.1+2 <0.1.2'
   jsonify: '>=0.0.1 <0.0.2'
 dev_dependencies:
   unittest: '>=0.11.0+2 <0.11.1'
