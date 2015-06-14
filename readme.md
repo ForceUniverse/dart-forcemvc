@@ -1,8 +1,8 @@
+![VERSION!](https://img.shields.io/pub/v/forcemvc.svg) [![Build Status](https://drone.io/github.com/ForceUniverse/dart-forcemvc/status.png)](https://drone.io/github.com/ForceUniverse/dart-forcemvc/latest)
+
 ### Dart Force MVC ###
 
 ![LOGO!](https://raw.github.com/ForceUniverse/dart-force/master/resources/dart_force_logo.jpg)
-
-Part of the Dart Force Framework.
 
 Serverside MVC based implementation for Dart. Easy to setup and part of the dart force framework!
 

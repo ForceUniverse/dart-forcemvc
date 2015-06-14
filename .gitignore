@@ -8,3 +8,4 @@ pubspec.lock
 .idea
 /dart-forcemvc.iml
 /.settings/
+.pub
