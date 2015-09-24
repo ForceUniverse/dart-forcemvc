@@ -6,6 +6,46 @@
 
 Serverside MVC based implementation for Dart. Easy to setup and part of the dart force framework!
 
+#### Introduction ####
+
+Dart ForceMVC is a dartlang webframework, with a lot of similarities to java spring mvc
+
+First of all you need to setup a webserver:
+
+```dart
+library x;
+import 'package:wired/wired.dart';
+import 'package:forcemvc/force_mvc.dart';
+
+part 'controllers/x_controller.dart';
+
+main() {
+  WebApplication app = new WebApplication(startPage: "start.html");
+  
+  app.start(); 
+}
+```
+
+And then ofcource we need to create our controller.
+
+```dart
+part of hello;
+
+@Controller
+class HomeController {
+
+  @RequestMapping(value: "/home", method: RequestMethod.GET)
+  String home(Locale locale, Model model) {
+    model.addAttribute("someprop", "value" );
+    
+    return "home";
+  }
+  
+}
+```
+
+In the web folder of your application you can create a home.html file. That will be your view.
+
 #### Walkthrough ####
 
 Use a Web Application Server with dart very easily, create controllers with annotations ... similar to java spring mvc.
