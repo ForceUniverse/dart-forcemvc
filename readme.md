@@ -29,10 +29,10 @@ main() {
 And then ofcource we need to create our controller.
 
 ```dart
-part of hello;
+part of x;
 
 @Controller
-class HomeController {
+class XController {
 
   @RequestMapping(value: "/home", method: RequestMethod.GET)
   String home(Locale locale, Model model) {
