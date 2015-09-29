@@ -138,3 +138,17 @@ class RequestParam {
   
 }
 
+/**
+ *
+ * Annotation for assigning the status code of the http response
+ *
+ **/
+class ResponseStatus {
+
+  final int value;
+
+  const ResponseStatus({this.value: ""});
+
+  String toString() => "Response statuscode: $value";
+
+}

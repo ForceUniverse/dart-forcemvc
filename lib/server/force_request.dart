@@ -29,6 +29,10 @@ class ForceRequest {
     cookie.value = Uri.decodeQueryComponent(cookie.value);
     return cookie;
   });
+
+  void statusCode(int statusCode) {
+    request.response.statusCode = statusCode;
+  }
   
   Future<dynamic> getPostData({ bool usejson: true }) {
     Completer<dynamic> completer = new Completer<dynamic>();

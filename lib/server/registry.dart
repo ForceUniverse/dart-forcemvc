@@ -89,6 +89,16 @@ class ForceRegistry {
             req.path_variables[variableName] = value;
           }
 
+          // Has ResponseStatus in metaData?
+          List otherMD = mvModel.getOtherMetadata();
+          for (var metaData in otherMD) {
+              if (otherMD is ResponseStatus) {
+                ResponseStatus responseStatus = otherMD;
+                // set response status
+                req.statusCode(responseStatus.value);
+              }
+          }
+
           List positionalArguments = _calculate_positionalArguments(mv, model, req);
           return _executeFunction(mv, positionalArguments);
         } catch (e) {
