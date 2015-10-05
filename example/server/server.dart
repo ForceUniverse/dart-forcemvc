@@ -15,6 +15,7 @@ part 'controllers/count_controller.dart';
 part 'controllers/secure_controller.dart';
 part 'controllers/about_controller.dart';
 part 'controllers/error_controller.dart';
+part 'controllers/status_controller.dart';
 
 part 'controllers/rest/rest_controller.dart'; 
 

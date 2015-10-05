@@ -147,7 +147,7 @@ class ResponseStatus {
 
   final int value;
 
-  const ResponseStatus({this.value: ""});
+  const ResponseStatus(this.value);
 
   String toString() => "Response statuscode: $value";
 
