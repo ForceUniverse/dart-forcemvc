@@ -81,22 +81,23 @@ class ForceRegistry {
             if (res != null && res.hasReflectee) {
               model.addAttribute(mvModel.object.value, res.reflectee);
             }
+
+            // Has ResponseStatus in metaData?
+            List otherMD = mvModel.getOtherMetadata();
+
+            for (var metaData in otherMD) {
+                if (otherMD is ResponseStatus) {
+                ResponseStatus responseStatus = otherMD;
+                // set response status
+                req.statusCode(responseStatus.value);
+                }
+            }
           }
           // search for path variables
           for (var i = 0; pathAnalyzer.variables.length > i; i++) {
             var variableName = pathAnalyzer.variables[i],
                 value = urlPattern.parse(req.request.uri.path)[i];
             req.path_variables[variableName] = value;
-          }
-
-          // Has ResponseStatus in metaData?
-          List otherMD = mvModel.getOtherMetadata();
-          for (var metaData in otherMD) {
-              if (otherMD is ResponseStatus) {
-                ResponseStatus responseStatus = otherMD;
-                // set response status
-                req.statusCode(responseStatus.value);
-              }
           }
 
           List positionalArguments = _calculate_positionalArguments(mv, model, req);
