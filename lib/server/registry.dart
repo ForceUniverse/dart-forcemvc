@@ -81,16 +81,15 @@ class ForceRegistry {
             if (res != null && res.hasReflectee) {
               model.addAttribute(mvModel.object.value, res.reflectee);
             }
+          }
+          // Has ResponseStatus in metaData?
+          List otherMetaData = mv.getOtherMetadata();
 
-            // Has ResponseStatus in metaData?
-            List otherMD = mvModel.getOtherMetadata();
-
-            for (var metaData in otherMD) {
-                if (otherMD is ResponseStatus) {
-                ResponseStatus responseStatus = otherMD;
-                // set response status
-                req.statusCode(responseStatus.value);
-                }
+          for (var metaData in otherMetaData) {
+            if (metaData is ResponseStatus) {
+              ResponseStatus responseStatus = metaData;
+              // set response status
+              req.statusCode(responseStatus.value);
             }
           }
           // search for path variables
