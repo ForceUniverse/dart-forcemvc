@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package. 
 
+#### Pub version 0.7.3 ####
+
+- Introducing a new annotation @ResponseStatus, so we can indicate status code of the response
+
 #### Pub version 0.7.2 ####
 
 - Adopt code to async/await
