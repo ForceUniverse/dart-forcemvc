@@ -84,12 +84,16 @@ class ForceRegistry {
           }
           // Has ResponseStatus in metaData?
           List otherMetaData = mv.getOtherMetadata();
+          boolean hasResponseBody = false;
 
           for (var metaData in otherMetaData) {
             if (metaData is ResponseStatus) {
               ResponseStatus responseStatus = metaData;
               // set response status
               req.statusCode(responseStatus.value);
+            }
+            if (metaData is _ResponseBody) {
+              hasResponseBody = true;
             }
           }
           // search for path variables
@@ -100,7 +104,14 @@ class ForceRegistry {
           }
 
           List positionalArguments = _calculate_positionalArguments(mv, model, req);
-          return _executeFunction(mv, positionalArguments);
+          Object obj = _executeFunction(mv, positionalArguments);
+
+          if (hasREsponseBody) {
+            model.addAttributeObject(obj);
+          } else {
+            return obj;
+          }
+
         } catch (e) {
           // Look for exceptionHandlers in this case
           List<MetaDataValue<ExceptionHandler>> mirrorExceptions = new MetaDataHelper<ExceptionHandler, MethodMirror>().from(obj);

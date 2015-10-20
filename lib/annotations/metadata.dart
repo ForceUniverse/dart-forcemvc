@@ -152,3 +152,15 @@ class ResponseStatus {
   String toString() => "Response statuscode: $value";
 
 }
+
+/**
+ * Annotation that will be used to set the response type as a json object
+ *
+ */
+const ResponseBody = const _ResponseBody();
+
+class _ResponseBody {
+
+  const _ResponseBody();
+
+}
