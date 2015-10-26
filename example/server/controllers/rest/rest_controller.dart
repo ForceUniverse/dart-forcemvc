@@ -51,6 +51,12 @@ class RestController {
       books.add(new Book("Tolkin", "Hobbit"));
       return books;
   }
+
+  @RequestMapping(value: '/book/1')
+  @ResponseBody
+  Book book() {
+    return new Book("JK Rowling", "Harry Potter");
+  }
   
   @RequestMapping(value: "/book", method: RequestMethod.POST)
   Future post(req, Model model) {

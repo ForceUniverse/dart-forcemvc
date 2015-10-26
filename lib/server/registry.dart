@@ -84,7 +84,7 @@ class ForceRegistry {
           }
           // Has ResponseStatus in metaData?
           List otherMetaData = mv.getOtherMetadata();
-          boolean hasResponseBody = false;
+          bool hasResponseBody = false;
 
           for (var metaData in otherMetaData) {
             if (metaData is ResponseStatus) {
@@ -106,7 +106,8 @@ class ForceRegistry {
           List positionalArguments = _calculate_positionalArguments(mv, model, req);
           Object obj = _executeFunction(mv, positionalArguments);
 
-          if (hasREsponseBody) {
+          if (hasResponseBody) {
+            model.getData().clear();
             model.addAttributeObject(obj);
           } else {
             return obj;
