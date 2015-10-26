@@ -107,7 +107,7 @@ class ForceRegistry {
           Object obj = _executeFunction(mv, positionalArguments);
 
           if (hasResponseBody) {
-            model.getData().clear();
+            // model.getData().clear();
             model.addAttributeObject(obj);
           } else {
             return obj;
