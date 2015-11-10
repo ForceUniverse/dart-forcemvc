@@ -7,8 +7,7 @@ client:
 - url: /web
   match: preregex
   dir: web
-  
+
 - url: /static
   match: preregex
   dir: static
-  
