@@ -7,7 +7,7 @@ class ForceRegistry {
 
   ForceRegistry(this.webApplication) {
     _basePath = new File(Platform.script.toFilePath());
-    
+
     ApplicationContext.bootstrap();
   }
 
@@ -37,7 +37,7 @@ class ForceRegistry {
     for (var obj in classes) {
       this._register(obj, adviserModels, adviserExc);
     }
-    
+
     // Search for interceptors
     ClassSearcher<HandlerInterceptor> searcher = new ClassSearcher<HandlerInterceptor>();
     List<HandlerInterceptor> interceptorList = searcher.scan();
@@ -57,8 +57,8 @@ class ForceRegistry {
     var _ref; //Variable to check null values
 
     // TODO: when issue 1236 and 41 in dart lang get resolved, change next code to use Coalesce or Elvis Operator.
-    PreAuthorizeFunc globalPreAuthorizeFunc = (_ref = new AnnotationScanner<PreAuthorizeIf>().instanceFrom(obj)) != null ? _ref.preAuthorizeFunc : null;
-    
+    // PreAuthorizeFunc globalPreAuthorizeFunc = (_ref = new AnnotationScanner<PreAuthorizeIf>().instanceFrom(obj)) != null ? _ref.preAuthorizeFunc : null;
+
     // first look if the controller has a @Authentication annotation
     var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))== null ? null : _ref.roles;
     // then look at PreAuthorizeRoles, when they are defined
@@ -74,28 +74,11 @@ class ForceRegistry {
       this.webApplication.use(urlPattern, (ForceRequest req, Model model) {
         try {
           // prepare model
-          for (MetaDataValue mvModel in mirrorModels) {
+          model = _prepareModel(model, mirrorModels);
 
-            InstanceMirror res = mvModel.invoke([]);
-
-            if (res != null && res.hasReflectee) {
-              model.addAttribute(mvModel.object.value, res.reflectee);
-            }
-          }
           // Has ResponseStatus in metaData?
-          List otherMetaData = mv.getOtherMetadata();
-          bool hasResponseBody = false;
+          bool hasResponseBody = _hasResponseBody(mv.getOtherMetadata(), req);
 
-          for (var metaData in otherMetaData) {
-            if (metaData is ResponseStatus) {
-              ResponseStatus responseStatus = metaData;
-              // set response status
-              req.statusCode(responseStatus.value);
-            }
-            if (metaData is _ResponseBody) {
-              hasResponseBody = true;
-            }
-          }
           // search for path variables
           for (var i = 0; pathAnalyzer.variables.length > i; i++) {
             var variableName = pathAnalyzer.variables[i],
@@ -124,6 +107,34 @@ class ForceRegistry {
     }
   }
 
+  Model _prepareModel(Model model, List<MetaDataValue<ModelAttribute>> mirrorModels) {
+    for (MetaDataValue mvModel in mirrorModels) {
+
+      InstanceMirror res = mvModel.invoke([]);
+
+      if (res != null && res.hasReflectee) {
+        model.addAttribute(mvModel.object.value, res.reflectee);
+      }
+    }
+    return model;
+  }
+
+  bool _hasResponseBody(List otherMetaData, req) {
+    bool hasResponseBody = false;
+
+    for (var metaData in otherMetaData) {
+      if (metaData is ResponseStatus) {
+        ResponseStatus responseStatus = metaData;
+        // set response status
+        req.statusCode(responseStatus.value);
+      }
+      if (metaData is _ResponseBody) {
+        hasResponseBody = true;
+      }
+    }
+    return hasResponseBody;
+  }
+
   _errorHandling(List<MetaDataValue<ExceptionHandler>> mirrorExceptions, Model model, ForceRequest req, e) {
     if (mirrorExceptions.length == 0) {
       throw e;
@@ -138,7 +149,7 @@ class ForceRegistry {
           mdvException = mdv;
         }
       }
-      
+
       if (mdvException!=null) {
         List positionalArguments = _calculate_positionalArguments(mdvException, model, req, e);
         return _executeFunction(mdvException, positionalArguments);
