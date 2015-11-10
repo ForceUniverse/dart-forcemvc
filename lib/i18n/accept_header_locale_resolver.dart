@@ -6,13 +6,13 @@ part of dart_force_mvc_lib;
  * the locale sent by the client browser, normally that of the client's OS).
  */
 class AcceptHeaderLocaleResolver implements LocaleResolver {
-    
+
   Locale resolveLocale(ForceRequest request) {
     List<Locale> locales = new List<Locale>();
     List<String> values = request.header(HttpHeaders.ACCEPT_LANGUAGE);
     if (values!=null && values.isNotEmpty) {
         values.forEach((value) {
-             locales.add(resolveLocaleWithHeader(value)); 
+             locales.add(resolveLocaleWithHeader(value));
             });
     }
     return locales.isNotEmpty? locales[0] : Locale.defaultLocale;
@@ -22,7 +22,7 @@ class AcceptHeaderLocaleResolver implements LocaleResolver {
     throw new UnsupportedError(
         "Cannot change HTTP accept header - use a different locale resolution strategy");
   }
-  
+
   Locale resolveLocaleWithHeader(String accept_header) {
     List<Locale> locales = new List<Locale>();
     for (String str in accept_header.split(",")){
@@ -37,18 +37,19 @@ class AcceptHeaderLocaleResolver implements LocaleResolver {
             default: locale = new Locale(l[0], ""); break;
         }
 
-      //Parse the q-value
-        double q = 1.0;
+        //Parse the q-value
+        // not been used
+        /*double q = 1.0;
         for (String s in arr){
             s = s.trim();
             if (s.startsWith("q=")){
                 q = double.parse(s.substring(2).trim());
                 break;
             }
-        }
-        
+        }*/
+
         locales.add(locale);
     }
-    return locales.isNotEmpty? locales[0] : null; 
+    return locales.isNotEmpty? locales[0] : null;
   }
 }
