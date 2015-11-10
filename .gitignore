@@ -1,6 +1,7 @@
 /dart-forcemvc2.iml
 # Dart excludes
 packages
+.packages
 .project
 .children
 *.js
