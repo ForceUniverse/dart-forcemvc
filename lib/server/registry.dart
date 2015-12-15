@@ -60,10 +60,10 @@ class ForceRegistry {
     // PreAuthorizeFunc globalPreAuthorizeFunc = (_ref = new AnnotationScanner<PreAuthorizeIf>().instanceFrom(obj)) != null ? _ref.preAuthorizeFunc : null;
 
     // first look if the controller has a @Authentication annotation
-    var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))?.role;
-    // then look at PreAuthorizeRoles, when they are defined
-    _ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj);
-    roles ??= _ref?.role;
+    // first look if the controller has a @Authentication annotation		     // first look if the controller has a @Authentication annotation
+    var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))== null ? null : _ref.roles;
+    // then look at PreAuthorizeRoles, when they are defined		     // then look at PreAuthorizeRoles, when they are defined
+    roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? roles : _ref.roles;
 
     String startPath = (_ref = new AnnotationScanner<RequestMapping>().instanceFrom(obj)) != null ? _ref.value : "";
 
