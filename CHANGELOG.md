@@ -1,6 +1,11 @@
 ### Changelog ###
 
-This file contains highlights of what changes on each version of the forcemvc package. 
+This file contains highlights of what changes on each version of the forcemvc package.
+
+#### Pub version 0.8.0 ####
+
+- Updating dependencies on logging
+- Clean up code
 
 #### Pub version 0.7.3 ####
 
@@ -26,7 +31,7 @@ This file contains highlights of what changes on each version of the forcemvc pa
 - add web config and an easy change towards core components with di
   * SecurityContextHolder
   * HandlerExceptionResolver
-  * LocaleResolver 
+  * LocaleResolver
   * ServingAssistent
 
 #### Pub version 0.6.1+1 ####
@@ -35,8 +40,8 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 #### Pub version 0.6.1 ####
 
-- remove start page and use this instead! 
- 
+- remove start page and use this instead!
+
 app.static("/", "index.html");
 
 #### Pub Version 0.6.0+1 ####
@@ -66,13 +71,13 @@ app.static("/", "index.html");
 
 - Make the default value to startpage empty.
   It is better to use:
-  
+
   app.use('/', (req, model) {
     return "index";
   });
-  
+
   then startPage: "index.html"
-  
+
   Be aware that then it becomes a template and that when you use polymer or angular you need to use another delimiter.
 
 #### Pub version 0.5.7+1 ####
@@ -144,7 +149,7 @@ app.static("/", "index.html");
 
 #### Pub version 0.4.0 ####
 
-- Remove parentheses from annotations. 
+- Remove parentheses from annotations.
 - Update to the latest version (0.2.0) of force_it
 - Add example folder to the git repository
 
@@ -171,7 +176,7 @@ app.static("/", "index.html");
 
 #### Pub version 0.3.5 ####
 
-- Provide a class MockForceRequest to mock more easily ForceRequest in unittests 
+- Provide a class MockForceRequest to mock more easily ForceRequest in unittests
 - Upgrade of the unittest package and introducing of the mock package
 
 #### Pub version 0.3.4+1 & 0.3.4+2 & 0.3.4+3 ####
@@ -212,7 +217,7 @@ Fix a bug with passing by the startPage.
 
 #### Pub version 0.3.0 ####
 
-Add 'force it' package into this new version of the forcemvc so you can use @Autowired in the @Controller classes. 
+Add 'force it' package into this new version of the forcemvc so you can use @Autowired in the @Controller classes.
 
 #### Pub version 0.2.4 ####
 
@@ -264,7 +269,7 @@ Small improvement on the view rendering part!
 
 #### Pub version 0.1.12+1 ####
 
-Changed ../build/ folder to ../build/web/ 
+Changed ../build/ folder to ../build/web/
 
 #### Pub version 0.1.12 ####
 
@@ -272,7 +277,7 @@ Check also view, template files in the build folder, so after pub build in the w
 
 #### Pub version 0.1.11+3 ####
 
-Better logging for view rendering! 
+Better logging for view rendering!
 
 #### Pub version 0.1.11+2 ####
 
@@ -381,7 +386,7 @@ Adding an abstraction ForceRequest, a wrapper around httprequest.
 
 #### Pub version 0.1.0 ####
 
-Adding renderer and model to the mvc part of it. 
+Adding renderer and model to the mvc part of it.
 Adding mustache as a new dependency for the rendering part.
 
 #### Pub version 0.0.6 & 0.0.7 ####
