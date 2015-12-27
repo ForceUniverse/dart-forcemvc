@@ -5,6 +5,7 @@ import 'dart:mirrors';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'dart:collection';
 
 import 'package:http_server/http_server.dart' as http_server;
 import 'package:route/server.dart' show Router, UrlPattern;
@@ -60,3 +61,13 @@ part 'annotations/helpers.dart';
 // exception handling
 part 'error/handler_exception_resolver.dart';
 part 'error/simple_exception_resolver.dart';
+
+// converters
+part 'converters/http_message_converter.dart';
+
+// converters
+part 'http/media_type.dart';
+part 'http/mime_type.dart';
+part 'http/invalid_mime_type_error.dart';
+
+part 'utils/mime_type_utils.dart';
