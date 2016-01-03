@@ -73,11 +73,10 @@ class MimeType {
     this.charset = charset;
 		if (parameters.length > 0) {
 			Map<String, String> map = new LinkedHashMap<String, String>();
-			for (Map.Entry<String, String> entry in parameters.entrySet()) {
-				String attribute = entry.getKey();
-				String value = entry.getValue();
+			for (var attribute in parameters) {
+				String value = parameters[attribute];
 				checkParameters(attribute, value);
-				map.put(attribute, value);
+				map[attribute] = value;
 			}
 
 			this.parameters = map;

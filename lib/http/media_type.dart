@@ -227,4 +227,13 @@ class MediaType extends MimeType {
 		return result;
 	}
 
+	/**
+	 * Return a string representation of the given list of MediaType objects.
+	 * <p>This method can be used to for an Accept or Content-Type header.
+	 * @param mediaTypes the media types to create a string representation for
+	 * @return the string representation
+	 */
+	static String toStringify(Iterable<MediaType> mediaTypes) {
+		return MimeTypeUtils.toStringify(mediaTypes);
+	}
 }

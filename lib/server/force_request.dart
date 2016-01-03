@@ -1,19 +1,19 @@
 part of dart_force_mvc_lib;
 
-class ForceRequest {
-  
+class ForceRequest implements HttpInputMessage {
+
   HttpRequest request;
   Map<String, String> path_variables;
   Completer _asyncCallCompleter;
   Locale locale;
-  
+
   ForceRequest._();
-  
+
   ForceRequest(this.request) {
-    path_variables = new Map<String, String>(); 
+    path_variables = new Map<String, String>();
     _asyncCallCompleter = new Completer();
   }
-  
+
   List<String> header(String name) => request.headers[name.toLowerCase()];
 
   bool accepts(String type) =>
@@ -33,31 +33,41 @@ class ForceRequest {
   void statusCode(int statusCode) {
     request.response.statusCode = statusCode;
   }
-  
+
+  // HTTPInputMessage
+  Stream getBody() {
+    return this.request.transform(const AsciiDecoder());
+  }
+
+  HttpHeadersWrapper getHeaders() {
+    return new HttpHeadersWrapper(this.request.headers);
+  }
+
+  // All about getting post data
   Future<dynamic> getPostData({ bool usejson: true }) {
     Completer<dynamic> completer = new Completer<dynamic>();
     this.request.listen((List<int> buffer) {
       // Return the data back to the client.
       String dataOnAString = new String.fromCharCodes(buffer);
       print(dataOnAString);
-      
+
       var package = usejson ? JSON.decode(dataOnAString) : dataOnAString;
       completer.complete(package);
     });
     return completer.future;
   }
-  
+
   Future<Map<String, String>> getPostRawData() {
       Completer c = new Completer();
-      this.request.transform(const AsciiDecoder()).listen((content) {
+      this.getBody().listen((content) {
         c.complete(content);
       });
       return c.future;
     }
-  
+
   Future<Map<String, String>> getPostParams({ Encoding enc: UTF8 }) {
     Completer c = new Completer();
-    this.request.transform(const AsciiDecoder()).listen((content) {
+    this.getBody().listen((content) {
       final postParams = new Map.fromIterable(
           content.split("&").map((kvs) => kvs.split("=")),
           key: (kv) => Uri.decodeQueryComponent(kv[0], encoding: enc),
@@ -67,11 +77,11 @@ class ForceRequest {
     });
     return c.future;
   }
-  
+
   void async(value) {
     _asyncCallCompleter.complete(value);
   }
-  
+
   Future get asyncFuture => _asyncCallCompleter.future;
-  
+
 }

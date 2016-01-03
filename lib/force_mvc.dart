@@ -69,5 +69,11 @@ part 'converters/http_message_converter.dart';
 part 'http/media_type.dart';
 part 'http/mime_type.dart';
 part 'http/invalid_mime_type_error.dart';
+part 'http/http_message.dart';
+part 'http/http_input_message.dart';
+part 'http/http_output_message.dart';
+// part 'http/http_headers.dart';
+part 'http/http_headers_wrapper.dart';
+part 'http/http_method.dart';
 
 part 'utils/mime_type_utils.dart';

@@ -47,4 +47,24 @@ class MimeTypeUtils {
 		return new MimeType(type, subtype: subtype, parameters: parameters);
 	}
 
+	/**
+	 * Return a string representation of the given list of MimeType objects.
+	 * @param mimeTypes the string to parse
+	 * @return the list of mime types
+	 * @throws IllegalArgumentException if the String cannot be parsed
+	 */
+	static String toStringify(Iterable<MimeType> mimeTypes) {
+		String builder = "";
+		bool hasNext = true;
+		for (Iterator<MimeType> iterator = mimeTypes.iterator; hasNext;) {
+			MimeType mimeType = iterator.current;
+			builder = "$builder${mimeType.toString()}";
+			hasNext = iterator.moveNext();
+			if (hasNext) {
+				builder = "$builder, ";
+			}
+		}
+		return builder;
+	}
+
 }
