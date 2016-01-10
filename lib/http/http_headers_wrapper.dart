@@ -17,7 +17,7 @@ class HttpHeadersWrapper {
 	/**
 	 * Return the list of acceptable MediaType media types,
 	 * as specified by the Accept header.
-	 * <p>Returns an empty list when the acceptable media types are unspecified.
+	 * Returns an empty list when the acceptable media types are unspecified.
 	 */
 	List<MediaType> getAccept() {
 		String value = getFirst(HttpHeaders.ACCEPT);
@@ -44,6 +44,21 @@ class HttpHeadersWrapper {
 	MediaType getContentType() {
 		String value = getFirst(HttpHeaders.CONTENT_TYPE);
 		return (hasLength(value) ? new MediaType.parseMediaType(value) : null);
+	}
+
+  /**
+	 * Set the (new) value of the Content-Disposition header
+	 * for form-data.
+	 */
+	void setContentDispositionFormData(String name, String filename) {
+		// Assert.notNull(name, "'name' must not be null");
+		String builder = "form-data; name=\"";
+		builder = "$builder$name\"";
+		if (filename != null) {
+			builder = "$builder; filename=\"";
+			builder = "$builder$filename\"";
+		}
+		set(CONTENT_DISPOSITION, builder);
 	}
 
   bool hasLength(String value) {
