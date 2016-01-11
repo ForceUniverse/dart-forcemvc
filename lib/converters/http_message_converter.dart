@@ -2,7 +2,7 @@ part of dart_force_mvc_lib;
 
 abstract class HttpMessageConverter<T> {
 
-  canRead(MediaType mediaType) {}
+  bool canRead(MediaType mediaType) { return false; }
 
   bool	canWrite(MediaType mediaType) { return false; }
 
