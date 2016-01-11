@@ -18,7 +18,7 @@ class MockForceRequest implements ForceRequest {
    Map<String, String> path_variables;
    Completer _asyncCallCompleter;
    Locale locale;
-
+ 
    MockForceRequest({this.postData: "test"}) {
      path_variables = new Map<String, String>();
      _asyncCallCompleter = new Completer();
@@ -36,7 +36,16 @@ class MockForceRequest implements ForceRequest {
    List<Cookie> get cookies => mockCookies;
 
    void statusCode(int statusCode) {}
-   
+
+   // HTTPInputMessage
+   Stream getBody() {
+     return this.request.transform(const AsciiDecoder());
+   }
+
+   HttpHeadersWrapper getHeaders() {
+     return new HttpHeadersWrapper(this.request.headers);
+   }
+
    Future<dynamic> getPostData({ bool usejson: true }) {
      Completer<dynamic> completer = new Completer<dynamic>();
      completer.complete(postData);
