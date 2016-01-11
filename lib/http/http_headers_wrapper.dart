@@ -2,6 +2,8 @@ part of dart_force_mvc_lib;
 
 class HttpHeadersWrapper {
 
+  static final String CONTENT_DISPOSITION = "Content-Disposition";
+
   HttpHeaders httpHeaders;
 
   HttpHeadersWrapper(this.httpHeaders);
@@ -58,7 +60,7 @@ class HttpHeadersWrapper {
 			builder = "$builder; filename=\"";
 			builder = "$builder$filename\"";
 		}
-		set(CONTENT_DISPOSITION, builder);
+		this.httpHeaders.set(CONTENT_DISPOSITION, builder);
 	}
 
   bool hasLength(String value) {
