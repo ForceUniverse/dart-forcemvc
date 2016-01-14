@@ -33,8 +33,9 @@ class HttpHeadersWrapper {
 	 * as specified by the Content-Type header.
 	 */
 	void setContentType(MediaType mediaType) {
-		// Assert.isTrue(!mediaType.isWildcardType(), "'Content-Type' cannot contain wildcard type '*'");
-		// Assert.isTrue(!mediaType.isWildcardSubtype(), "'Content-Type' cannot contain wildcard subtype '*'");
+		assert(!mediaType.isWildcardType());
+		assert(!mediaType.isWildcardSubtype());
+    
 		this.httpHeaders.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
 	}
 
@@ -53,7 +54,8 @@ class HttpHeadersWrapper {
 	 * for form-data.
 	 */
 	void setContentDispositionFormData(String name, String filename) {
-		// Assert.notNull(name, "'name' must not be null");
+		assert(name != null);
+
 		String builder = "form-data; name=\"";
 		builder = "$builder$name\"";
 		if (filename != null) {
