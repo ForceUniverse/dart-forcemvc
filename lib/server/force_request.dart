@@ -1,6 +1,6 @@
 part of dart_force_mvc_lib;
 
-class ForceRequest implements HttpInputMessage {
+class ForceRequest implements HttpInputMessage, HttpOutputMessage {
 
   HttpRequest request;
   Map<String, String> path_variables;
@@ -37,6 +37,10 @@ class ForceRequest implements HttpInputMessage {
   // HTTPInputMessage
   Stream getBody() {
     return this.request.transform(const AsciiDecoder());
+  }
+
+  IOSink getOutputBody() {
+    return request.response;
   }
 
   HttpHeadersWrapper getHeaders() {
