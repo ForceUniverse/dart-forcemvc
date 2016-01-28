@@ -92,7 +92,8 @@ class ForceRegistry {
           if (hasResponseBody) {
             // model.getData().clear();
             // model.addAttributeObject(obj);
-            loopOverMessageConverters(req, obj)
+            loopOverMessageConverters(req, obj);
+            return null;
           } else {
             return obj;
           }
