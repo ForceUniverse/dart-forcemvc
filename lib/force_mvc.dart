@@ -64,6 +64,8 @@ part 'error/simple_exception_resolver.dart';
 
 // converters
 part 'converters/http_message_converter.dart';
+part 'converters/json_http_message_converter.dart';
+part 'converters/text_http_message_converter.dart';
 
 // converters
 part 'http/media_type.dart';
