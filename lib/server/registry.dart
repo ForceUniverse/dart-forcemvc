@@ -4,11 +4,14 @@ class ForceRegistry {
 
   WebApplication webApplication;
   File _basePath;
+  List<HttpMessageConverter> messageConverters = new List();
 
   ForceRegistry(this.webApplication) {
     _basePath = new File(Platform.script.toFilePath());
 
     ApplicationContext.bootstrap();
+
+    messageConverters.add(new JsonHttpMessageConverter());
   }
 
   void loadValues(String path) {
@@ -56,11 +59,7 @@ class ForceRegistry {
 
     var _ref; //Variable to check null values
 
-    // TODO: when issue 1236 and 41 in dart lang get resolved, change next code to use Coalesce or Elvis Operator.
-    // PreAuthorizeFunc globalPreAuthorizeFunc = (_ref = new AnnotationScanner<PreAuthorizeIf>().instanceFrom(obj)) != null ? _ref.preAuthorizeFunc : null;
-
     // first look if the controller has a @Authentication annotation
-    // first look if the controller has a @Authentication annotation		     // first look if the controller has a @Authentication annotation
     var roles = (_ref = new AnnotationScanner<_Authentication>().instanceFrom(obj))== null ? null : _ref.roles;
     // then look at PreAuthorizeRoles, when they are defined		     // then look at PreAuthorizeRoles, when they are defined
     roles = (_ref = new AnnotationScanner<PreAuthorizeRoles>().instanceFrom(obj))== null ? roles : _ref.roles;
@@ -92,7 +91,8 @@ class ForceRegistry {
 
           if (hasResponseBody) {
             // model.getData().clear();
-            model.addAttributeObject(obj);
+            // model.addAttributeObject(obj);
+            loopOverMessageConverters(req, obj)
           } else {
             return obj;
           }
@@ -106,6 +106,10 @@ class ForceRegistry {
         }
       }, method: mv.object.method, roles: roles);
     }
+  }
+
+  loopOverMessageConverters(ForceRequest req, Object obj) {
+
   }
 
   Model _prepareModel(Model model, List<MetaDataValue<ModelAttribute>> mirrorModels) {
