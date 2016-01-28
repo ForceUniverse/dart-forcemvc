@@ -15,11 +15,9 @@ class JsonHttpMessageConverter<T> extends HttpMessageConverter<T> {
   T	read(HttpInputMessage inputMessage) { return null; }
 
   void	write(T t, MediaType contentType, HttpOutputMessage outputMessage) {
-    if (canWrite(contentType)) {
       // write things to the response ... outputMessage.getBody().
       String data = JSON.encode(t);
       outputMessage.getBody().add(data);
-    }
   }
 
 }
