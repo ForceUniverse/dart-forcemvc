@@ -18,7 +18,7 @@ class MockForceRequest implements ForceRequest {
    Map<String, String> path_variables;
    Completer _asyncCallCompleter;
    Locale locale;
- 
+
    MockForceRequest({this.postData: "test"}) {
      path_variables = new Map<String, String>();
      _asyncCallCompleter = new Completer();
@@ -40,6 +40,10 @@ class MockForceRequest implements ForceRequest {
    // HTTPInputMessage
    Stream getBody() {
      return this.request.transform(const AsciiDecoder());
+   }
+
+   IOSink getOutputBody() {
+     return request.response;
    }
 
    HttpHeadersWrapper getHeaders() {
