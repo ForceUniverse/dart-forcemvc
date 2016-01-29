@@ -17,7 +17,8 @@ part 'controllers/about_controller.dart';
 part 'controllers/error_controller.dart';
 part 'controllers/status_controller.dart';
 
-part 'controllers/rest/rest_controller.dart'; 
+part 'controllers/rest/rest_controller.dart';
+part 'controllers/rest/response_body_controller.dart';  
 
 part 'advice/text_advice.dart';
 
@@ -25,15 +26,15 @@ part 'interceptors/random_interceptor.dart';
 part 'controllers/security/session_strategy.dart';
 
 
-void main() { 
-  // Setup what port to listen to 
+void main() {
+  // Setup what port to listen to
   var portEnv = Platform.environment['PORT'];
   var port = portEnv == null ? 8080 : int.parse(portEnv);
   var serveClient = portEnv == null ? true : false;
-  
-  // Create a force server 
+
+  // Create a force server
   WebApplication webApp = new WebApplication(host: "127.0.0.1",
-                                   port: port,  
+                                   port: port,
                                    staticFiles: '../client/static/',
                                    clientFiles: '../client/build/web/',
                                    clientServe: serveClient,
@@ -44,27 +45,26 @@ void main() {
   webApp.notFound((ForceRequest req, Model model) {
     return "notfound";
   });
-  
+
   // Set up logger.
   webApp.setupConsoleLog(Level.FINEST);
-  
+
   // Setup session strategy
   webApp.strategy = new SessionStrategy();
-  
-  // Serve the view called index as default 
+
+  // Serve the view called index as default
   webApp.static("/", "index.html");
-  
-  // Start serving force with a randomPortFallback 
+
+  // Start serving force with a randomPortFallback
   webApp.start(fallback: randomPortFallback);
 }
 
 @Config
 class OwnConfig {
-  
+
   @Bean
   LocaleResolver localeResolver() {
      return new FixedLocaleResolver(Locale.ITALY);
   }
-  
-}
 
+}

@@ -111,8 +111,8 @@ class ForceRegistry {
 
   loopOverMessageConverters(ForceRequest req, Object obj) {
     List<MediaType> mediaTypes = req.getHeaders().getAccept();
-    for (MediaType mediaType : mediaTypes) {
-      for (HttpMessageConverter messageConverter : messageConverters) {
+    for (MediaType mediaType in mediaTypes) {
+      for (HttpMessageConverter messageConverter in messageConverters) {
           if (messageConverter.canWrite(mediaType)) {
              messageConverter.write(obj, mediaType, req);
           }
