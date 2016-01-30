@@ -8,11 +8,10 @@ class MimeTypeUtils {
 	 * @return the mime type
 	 */
 	static MimeType parseMimeType(String mimeType) {
-		if (mimeType.length != 0) {
+		if (mimeType.length == 0) {
 			throw new InvalidMimeTypeError(mimeType, "'mimeType' must not be empty");
 		}
 		List parts = mimeType.split(";");
-
 		String fullType = parts[0].trim();
 
 		if (MimeType.WILDCARD_TYPE == fullType) {

@@ -93,7 +93,7 @@ class ForceRegistry {
             // model.getData().clear();
             // model.addAttributeObject(obj);
             loopOverMessageConverters(req, obj);
-            return null;
+            return new ResponseDone();
           } else {
             return obj;
           }
@@ -239,3 +239,8 @@ class RequiredError extends Error {
   RequiredError(this.message);
   String toString() => "Required: $message";
 }
+
+/**
+ * When a response is already done by a responseBody or RestController.
+ */
+class ResponseDone {}

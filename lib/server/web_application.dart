@@ -2,18 +2,18 @@ part of dart_force_mvc_lib;
 
 class WebApplication extends SimpleWebServer with ServingFiles {
   final Logger log = new Logger('WebApplication');
-  
+
   bool cors=false;
   Router router;
   String views;
   ForceRegistry registry;
 
   InterceptorsCollection interceptors = new InterceptorsCollection();
-  
+
   List<ResponseHook> responseHooks = new List<ResponseHook>();
   HttpRequestStreamer requestStreamer;
   Map<Pattern, String> _staticResources = new Map<Pattern, String>();
-  
+
   ControllerHandler _notFound;
 
   WebApplication({host: "127.0.0.1",
@@ -29,11 +29,11 @@ class WebApplication extends SimpleWebServer with ServingFiles {
                      clientFiles, clientServe) {
     if (startPage!=null) { static("/", startPage); };
     if(cors==true){ this.responseHooks.add(response_hook_cors); }
-    
+
     securityContext = new SecurityContextHolder(new NoSecurityStrategy());
     localeResolver =  new AcceptHeaderLocaleResolver();
     exceptionResolver = new SimpleExceptionResolver();
-    
+
     registry = new ForceRegistry(this);
   }
 
@@ -41,26 +41,26 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     this.registry.scanning();
   }
 
-  void use(Pattern url, ControllerHandler controllerHandler, 
+  void use(Pattern url, ControllerHandler controllerHandler,
           {method: RequestMethod.GET, List<String> roles}) {
     _completer.future.whenComplete(() {
          this.router.serve(url, method: method).listen((HttpRequest req) {
            if (checkSecurity(req, roles)) {
              _resolveRequest(req, controllerHandler);
            } else {
-             
+
              Uri location = securityContext.redirectUri(req);
              req.response.redirect(location, status: HttpStatus.MOVED_PERMANENTLY);
            }
          });
        });
   }
-  
-  void static(Pattern url, String name, 
+
+  void static(Pattern url, String name,
             {method: RequestMethod.GET, List<String> roles}) {
     bool containsAlreadyStatic = _staticResources.containsKey(url);
-    _staticResources[url] = name;  
-    
+    _staticResources[url] = name;
+
     _completer.future.whenComplete(() {
       if (!containsAlreadyStatic) {
            this.router.serve(url, method: method).listen((HttpRequest req) {
@@ -75,11 +75,11 @@ class WebApplication extends SimpleWebServer with ServingFiles {
       }
     });
   }
-  
+
   void notFound(ControllerHandler controllerHandler) {
     this._notFound = controllerHandler;
   }
-  
+
   void _notFoundHandling(HttpRequest request) {
      super._notFoundHandling(request);
      if (_notFound!=null) {
@@ -97,7 +97,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
       return true;
     }
   }
-  
+
   void _resolveStatic(HttpRequest req, String name) {
     if (servingAssistent==null) {
        log.warning("servingAssistent is not defined!");
@@ -112,18 +112,18 @@ class WebApplication extends SimpleWebServer with ServingFiles {
   void _resolveRequest(HttpRequest req, ControllerHandler controllerHandler) {
     Model model = new Model();
     ForceRequest forceRequest = new ForceRequest(req);
-    
+
     // check locale
     if (localeResolver != null) forceRequest.locale = localeResolver.resolveLocale(forceRequest);
-    
+
     var result;
-    
+
     try {
       interceptors.preHandle(forceRequest, model, this);
       result = controllerHandler(forceRequest, model);
       interceptors.postHandle(forceRequest, model, this);
     } catch (e) {
-      // do proper exception handling 
+      // do proper exception handling
       if (e is Exception) {
         result = exceptionResolver.resolveException(forceRequest, model, e);
       } else if (e is Error) {
@@ -144,6 +144,8 @@ class WebApplication extends SimpleWebServer with ServingFiles {
               _send_json(model.getData(), req);
             }
           });
+       } else if (result is ResponseDone) {
+          req.response.close();
        } else if (result is! HttpResponse) {
          model.addAttributeObject(result);
          _send_json(model.getData(), req);
@@ -153,7 +155,7 @@ class WebApplication extends SimpleWebServer with ServingFiles {
     }
     interceptors.afterCompletion(forceRequest, model, this);
   }
-  
+
   void _send_json(rawData, HttpRequest req) {
     String data = JSON.encode(rawData);
     _send_response(req.response, new ContentType("application", "json", charset: "utf-8"), data);
@@ -187,11 +189,11 @@ class WebApplication extends SimpleWebServer with ServingFiles {
         ..write(result)
           ..close();
   }
-   
+
   /**
    * This requestHandler can be used to hook into the system without having to start a server.
    * You need to use this method for example with Google App Engine runtime.
-   * 
+   *
    * @param request is the current HttpRequest that needs to be handled by the system.
    * @param optional parameter to handle webSockets
    */
@@ -231,36 +233,35 @@ class WebApplication extends SimpleWebServer with ServingFiles {
         viewRender = new MustacheRender(servingAssistent, views, clientFiles, clientServe);
     }
   }
-  
+
   // For Backwards compatibility
   void set strategy(SecurityStrategy strategy) {
     securityContext.strategy = strategy;
   }
-  
-  void set securityContext(SecurityContextHolder sch) 
+
+  void set securityContext(SecurityContextHolder sch)
                              => ApplicationContext.setBean("securityContextHolder", sch);
- 
-  SecurityContextHolder get securityContext 
+
+  SecurityContextHolder get securityContext
                         => ApplicationContext.getBeanByType(SecurityContextHolder);
-  
-  void set exceptionResolver(HandlerExceptionResolver handlerExceptionResolver) 
+
+  void set exceptionResolver(HandlerExceptionResolver handlerExceptionResolver)
                              => ApplicationContext.setBean("exceptionResolver", handlerExceptionResolver);
-  
-  HandlerExceptionResolver get exceptionResolver 
+
+  HandlerExceptionResolver get exceptionResolver
                           => ApplicationContext.getBeanByType(HandlerExceptionResolver);
-  
-  void set localeResolver(LocaleResolver localeResolver) 
+
+  void set localeResolver(LocaleResolver localeResolver)
                           => ApplicationContext.setBean("localeResolver", localeResolver);
-  
-  LocaleResolver get localeResolver 
+
+  LocaleResolver get localeResolver
                             => ApplicationContext.getBeanByType(LocaleResolver);
-  
-  void set viewRender(ForceViewRender viewRender) 
+
+  void set viewRender(ForceViewRender viewRender)
                       => ApplicationContext.setBean("viewRender", viewRender);
-  
-  ForceViewRender get viewRender 
+
+  ForceViewRender get viewRender
                       => ApplicationContext.getBeanByType(ForceViewRender);
-  
+
   void loadValues(String path) => this.registry.loadValues(path);
 }
-

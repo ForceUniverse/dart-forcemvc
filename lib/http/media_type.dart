@@ -180,6 +180,11 @@ class MediaType extends MimeType {
 		return super.isCompatibleWith(other);
 	}
 
+	bool hasSame(MediaType other) {
+		return this.getType() == other.getType()
+				&& this.getSubtype() == other.getSubtype();
+	}
+
 	/*
 	 * Return a replica of this instance with the quality value of the given MediaType.
 	 * @return the same instance if the given MediaType doesn't have a quality value, or a new one otherwise
@@ -209,18 +214,16 @@ class MediaType extends MimeType {
 	}
 
 	/*
-	 * Parse the given, comma-separated string into a list of {@code MediaType} objects.
-	 * <p>This method can be used to parse an Accept or Content-Type header.
+	 * Parse the given, comma-separated string into a list of MediaType objects.
+	 * This method can be used to parse an Accept or Content-Type header.
 	 * @param mediaTypes the string to parse
 	 * @return the list of media types
 	 * @throws IllegalArgumentException if the string cannot be parsed
 	 */
 	static List<MediaType> parseMediaTypes(String mediaTypes) {
-		if (mediaTypes.length > 0) {
-			return new List();
-		}
 		var tokens = mediaTypes.split(",\\s*");
-		List<MediaType> result = new List<MediaType>(tokens.length);
+		print('tokens ... ${tokens.length}');
+		List<MediaType> result = new List<MediaType>();
 		for (String token in tokens) {
 			result.add(new MediaType.parseMediaType(token));
 		}

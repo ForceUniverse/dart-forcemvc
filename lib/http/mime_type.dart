@@ -24,39 +24,6 @@ class MimeType {
 	Map<String, String> parameters;
 
   String charset;
-		// variable names refer to RFC 2616, section 2.2
-	/*static	BitSet ctl = new BitSet(128);
-		for (int i = 0; i <= 31; i++) {
-			ctl.set(i);
-		}
-		ctl.set(127);
-
-		BitSet separators = new BitSet(128);
-		separators.set('(');
-		separators.set(')');
-		separators.set('<');
-		separators.set('>');
-		separators.set('@');
-		separators.set(',');
-		separators.set(';');
-		separators.set(':');
-		separators.set('\\');
-		separators.set('\"');
-		separators.set('/');
-		separators.set('[');
-		separators.set(']');
-		separators.set('?');
-		separators.set('=');
-		separators.set('{');
-		separators.set('}');
-		separators.set(' ');
-		separators.set('\t');
-
-		TOKEN = new BitSet(128);
-		TOKEN.set(0, 128);
-		TOKEN.andNot(ctl);
-		TOKEN.andNot(separators);
-	}*/
 
   MimeType._();
 
@@ -71,8 +38,11 @@ class MimeType {
 		this.type = type.toLowerCase();
 		this.subtype = subtype.toLowerCase();
     this.charset = charset;
-		if (parameters.length > 0) {
+		print("constructor mimeType");
+		if (parameters != null && parameters.length > 0) {
+			print("constructor mimeType 2");
 			Map<String, String> map = new LinkedHashMap<String, String>();
+			print("constructor mimeType 3");
 			for (var attribute in parameters) {
 				String value = parameters[attribute];
 				checkParameters(attribute, value);
@@ -82,7 +52,9 @@ class MimeType {
 			this.parameters = map;
 		}
 		else {
+			print("constructor mimeType alt 1");
 			this.parameters = new LinkedHashMap();
+			print("constructor mimeType alt 2");
 		}
   }
 
@@ -180,7 +152,7 @@ class MimeType {
 
 	/**
 	 * Indicate whether this {@code MediaType} includes the given media type.
-   * <p>For instance, {@code text} includes {@code text/plain} and {@code text/html},
+   * For instance, {@code text} includes {@code text/plain} and {@code text/html},
 	 * and {@code application+xml} includes {@code application/soap+xml}, etc. This
 	 * method is <b>not</b> symmetric.
 	 * @param other the reference media type with which to compare
