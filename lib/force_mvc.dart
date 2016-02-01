@@ -74,6 +74,7 @@ part 'http/invalid_mime_type_error.dart';
 part 'http/http_message.dart';
 part 'http/http_input_message.dart';
 part 'http/http_output_message.dart';
+part 'http/http_message_regulator.dart';
 // part 'http/http_headers.dart';
 part 'http/http_headers_wrapper.dart';
 part 'http/http_method.dart';
