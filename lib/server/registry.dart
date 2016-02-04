@@ -4,14 +4,13 @@ class ForceRegistry {
 
   WebApplication webApplication;
   File _basePath;
-  List<HttpMessageConverter> messageConverters = new List();
+  HttpMessageRegulator messageRegulator = new HttpMessageRegulator();
 
   ForceRegistry(this.webApplication) {
     _basePath = new File(Platform.script.toFilePath());
 
     ApplicationContext.bootstrap();
 
-    messageConverters.add(new JsonHttpMessageConverter());
   }
 
   void loadValues(String path) {
@@ -92,7 +91,7 @@ class ForceRegistry {
           if (hasResponseBody) {
             // model.getData().clear();
             // model.addAttributeObject(obj);
-            loopOverMessageConverters(req, obj);
+            messageRegulator.loopOverMessageConverters(req, obj);
             return new ResponseDone();
           } else {
             return obj;
@@ -106,17 +105,6 @@ class ForceRegistry {
           return _errorHandling(mirrorExceptions, model, req, e);
         }
       }, method: mv.object.method, roles: roles);
-    }
-  }
-
-  loopOverMessageConverters(ForceRequest req, Object obj) {
-    List<MediaType> mediaTypes = req.getHeaders().getAccept();
-    for (MediaType mediaType in mediaTypes) {
-      for (HttpMessageConverter messageConverter in messageConverters) {
-          if (messageConverter.canWrite(mediaType)) {
-             messageConverter.write(obj, mediaType, req);
-          }
-      }
     }
   }
 
