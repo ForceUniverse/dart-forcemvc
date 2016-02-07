@@ -11,6 +11,7 @@ class ForceRegistry {
 
     ApplicationContext.bootstrap();
 
+    ApplicationContext.setBean("HttpMessageRegulator", messageRegulator);
   }
 
   void loadValues(String path) {
