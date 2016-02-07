@@ -6,6 +6,8 @@ This file contains highlights of what changes on each version of the forcemvc pa
 
 - Updating dependencies on logging
 - Clean up code
+- introduce @ResponceBody
+- HttpMessageConverters and HttpMessageRegulator are also available in this release with a JsonHttpMessageConverter implementation
 
 #### Pub version 0.7.3 ####
 
