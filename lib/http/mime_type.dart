@@ -4,10 +4,9 @@ part of dart_force_mvc_lib;
  * Represents a MIME Type, as originally defined in RFC 2046 and subsequently used in
  * other Internet protocols including HTTP.
  *
- * <p>This class, however, does not contain support for the q-parameters used
+ * This class, however, does not contain support for the q-parameters used
  * in HTTP content negotiation. Those can be found in the sub-class
  * MediaType in the http folder.
- *
  */
 class MimeType {
 
@@ -84,17 +83,16 @@ class MimeType {
 	}
 
 	/**
-	 * Indicates whether the {@linkplain #getType() type} is the wildcard character
-	 * <code>&#42;</code> or not.
+	 * Indicates whether the getType is the wildcard character
+	 * or not.
 	 */
 	bool isWildcardType() {
 		return WILDCARD_TYPE == getType();
 	}
 
 	/**
-	 * Indicates whether the {@linkplain #getSubtype() subtype} is the wildcard
-	 * character <code>&#42;</code> or the wildcard character followed by a suffix
-	 * (e.g. <code>&#42;+xml</code>).
+	 * Indicates whether the subtype is the wildcard
+	 * character or the wildcard character followed by a suffix.
 	 * @return whether the subtype is a wildcard
 	 */
 	bool isWildcardSubtype() {
@@ -103,7 +101,7 @@ class MimeType {
 
 	/**
 	 * Indicates whether this media type is concrete, i.e. whether neither the type
-	 * nor the subtype is a wildcard character <code>&#42;</code>.
+	 * nor the subtype is a wildcard character.
 	 * @return whether this media type is concrete
 	 */
 	bool isConcrete() {
@@ -125,8 +123,8 @@ class MimeType {
 	}
 
 	/**
-	 * Return the character set, as indicated by a {@code charset} parameter, if any.
-	 * @return the character set, or {@code null} if not available
+	 * Return the character set, as indicated by a charset parameter, if any.
+	 * @return the character set, or null if not available
 	 */
 	String getCharSet() {
 		String charSet = getParameter(PARAM_CHARSET);
@@ -136,7 +134,7 @@ class MimeType {
 	/**
 	 * Return a generic parameter value, given a parameter name.
 	 * @param name the parameter name
-	 * @return the parameter value, or {@code null} if not present
+	 * @return the parameter value, or null if not present
 	 */
 	String getParameter(String name) {
 		return this.parameters[name];
@@ -144,20 +142,20 @@ class MimeType {
 
 	/*
 	 * Return all generic parameter values.
-	 * @return a read-only map (possibly empty, never {@code null})
+	 * @return a read-only map (possibly empty, never null)
 	 */
 	Map getParameters() {
 		return this.parameters;
 	}
 
 	/**
-	 * Indicate whether this {@code MediaType} includes the given media type.
-   * For instance, {@code text} includes {@code text/plain} and {@code text/html},
-	 * and {@code application+xml} includes {@code application/soap+xml}, etc. This
+	 * Indicate whether this MediaType includes the given media type.
+   * For instance, text includes text/plain and text/html,
+	 * and application+xml includes application/soap+xml, etc. This
 	 * method is <b>not</b> symmetric.
 	 * @param other the reference media type with which to compare
-	 * @return {@code true} if this media type includes the given media type;
-	 * {@code false} otherwise
+	 * @return true if this media type includes the given media type;
+	 * false otherwise
 	 */
 	bool includes(MimeType other) {
 		if (other == null) {
