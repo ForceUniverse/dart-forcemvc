@@ -232,7 +232,7 @@ class MediaType extends MimeType {
 
 	/**
 	 * Return a string representation of the given list of MediaType objects.
-	 * <p>This method can be used to for an Accept or Content-Type header.
+	 * This method can be used to for an Accept or Content-Type header.
 	 * @param mediaTypes the media types to create a string representation for
 	 * @return the string representation
 	 */
