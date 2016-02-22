@@ -26,6 +26,9 @@ class ForceRegistry {
     // scan for controllers
     var classes = ApplicationContext.addComponents(new Scanner<_Controller>().scan());
 
+    // scan for restcontrollers
+    var rest_classes = ApplicationContext.addComponents(new Scanner<_RestController>().scan());
+
     // scan for controllerAdvicers classes
     var advisers = ApplicationContext.addComponents(new Scanner<_ControllerAdvice>().scan());
 
@@ -38,6 +41,11 @@ class ForceRegistry {
 
     /* now register all the controller classes */
     for (var obj in classes) {
+      this._register(obj, adviserModels, adviserExc);
+    }
+
+    /* now register all the controller classes */
+    for (var obj in rest_classes) {
       this._register(obj, adviserModels, adviserExc);
     }
 
