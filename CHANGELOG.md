@@ -2,6 +2,10 @@
 
 This file contains highlights of what changes on each version of the forcemvc package.
 
+#### Pub version 0.8.1 ####
+
+- Introducing @RestController
+
 #### Pub version 0.8.0 ####
 
 - Updating dependencies on logging
