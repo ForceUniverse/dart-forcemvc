@@ -46,7 +46,7 @@ class ForceRegistry {
 
     /* now register all the controller classes */
     for (var obj in rest_classes) {
-      this._register(obj, adviserModels, adviserExc);
+      this._register(obj, adviserModels, adviserExc, isRest: true);
     }
 
     // Search for interceptors
@@ -60,7 +60,7 @@ class ForceRegistry {
     _register(obj, new List<MetaDataValue<ModelAttribute>>(), new List<MetaDataValue<ExceptionHandler>>());
   }
 
-  void _register(Object obj, List<MetaDataValue<ModelAttribute>> adviserModels, List<MetaDataValue<ExceptionHandler>> adviserExc) {
+  void _register(Object obj, List<MetaDataValue<ModelAttribute>> adviserModels, List<MetaDataValue<ExceptionHandler>> adviserExc, {bool isRest: false}) {
     List<MetaDataValue<RequestMapping>> mirrorValues = new MetaDataHelper<RequestMapping, MethodMirror>().from(obj);
     List<MetaDataValue<ModelAttribute>> mirrorModels = new MetaDataHelper<ModelAttribute, MethodMirror>().from(obj);
     mirrorModels.addAll(adviserModels);
@@ -85,7 +85,7 @@ class ForceRegistry {
           model = _prepareModel(model, mirrorModels);
 
           // Has ResponseStatus in metaData?
-          bool hasResponseBody = _hasResponseBody(mv.getOtherMetadata(), req);
+          bool hasResponseBody = _hasResponseBody(mv.getOtherMetadata(), req)  || isRest;
 
           // search for path variables
           for (var i = 0; pathAnalyzer.variables.length > i; i++) {
