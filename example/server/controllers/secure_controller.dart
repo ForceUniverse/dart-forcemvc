@@ -13,12 +13,12 @@ bool hasAdminRole(user, [List methodArguments]) => user.role == "ADMIN";
 @PreAuthorizeRoles(const ["ADMIN"])
 @PreAuthorizeIf(hasAdminRole) // Not yet implemented
 class AdminController {
-  
+
   int redirect = 0;
-  
+
   @RequestMapping(value: "/admin/info/")
   String variable(req, Model model) {
     return "info";
   }
-  
+
 }

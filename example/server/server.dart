@@ -17,7 +17,8 @@ part 'controllers/about_controller.dart';
 part 'controllers/error_controller.dart';
 part 'controllers/status_controller.dart';
 
-part 'controllers/rest/rest_controller.dart';
+part 'controllers/rest/just_a_rest_controller.dart';
+part 'controllers/rest/api_controller.dart';
 part 'controllers/rest/response_body_controller.dart';  
 
 part 'advice/text_advice.dart';

@@ -8,26 +8,26 @@ class Book extends Object with Jsonify {
 
 @Controller
 @RequestMapping(value: "/api")
-class RestController {
+class ApiController {
   int count = 0;
-  
-  RestController() {
+
+  ApiController() { 
     count = 1;
   }
-  
+
   @ModelAttribute("datetime")
   String addDateTime() {
     DateTime now = new DateTime.now();
     return now.toString();
   }
-  
+
   @RequestMapping(value: "/count")
   void countJson(req, Model model) {
     count++;
     model.addAttribute("count", "$count");
     model.addAttribute("bla", "hallo");
   }
-  
+
   @RequestMapping(value: "/map")
   Map mapJson() {
       Map map = new Map();
@@ -35,7 +35,7 @@ class RestController {
       map["bla"] = "hallo";
       return map;
   }
-  
+
   @RequestMapping(value: "/list")
   List lists() {
       List<String> books = new List<String>();
@@ -43,7 +43,7 @@ class RestController {
       books.add("another entry");
       return books;
   }
-  
+
   @RequestMapping(value: "/books")
   List books() {
       List<Book> books = new List<Book>();
@@ -57,11 +57,11 @@ class RestController {
   Book book() {
     return new Book("JK Rowling", "Harry Potter");
   }
-  
+
   @RequestMapping(value: "/book", method: RequestMethod.POST)
   Future post(req, Model model) {
      model.addAttribute("post", "ok");
-        
+
      req.getPostParams().then((data) {
                req.async(data);
              });

@@ -5,7 +5,7 @@ part of example_forcedart;
 class ResponseBodyController {
   int count = 0;
 
-  RestController() {
+  ResponseBodyController() {
     count = 1;
   }
 
