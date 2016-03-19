@@ -122,6 +122,16 @@ class MediaType extends MimeType {
 	static final String IMAGE_PNG_VALUE = "image/png";
 
 	/**
+	 * Public constant media type for {@code image/webp}.
+	 */
+	static final MediaType IMAGE_WEBP = new MediaType.parseMediaType(IMAGE_WEBP_VALUE);
+
+	/**
+	 * A String equivalent of {@link MediaType#IMAGE_WEBP}.
+	 */
+	static final String IMAGE_WEBP_VALUE = "image/webp";
+
+	/**
 	 * Public constant media type for {@code multipart/form-data}.
 	 *  */
 	static final MediaType MULTIPART_FORM_DATA = new MediaType.parseMediaType(MULTIPART_FORM_DATA_VALUE);

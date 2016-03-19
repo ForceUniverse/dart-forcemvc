@@ -3,7 +3,7 @@ part of dart_force_mvc_lib;
 class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
 
   canRead(MediaType mediaType) {
-    return mediaType.hasSame(MediaType.TEXT_PLAIN);
+    return mediaType.hasSame(MediaType.TEXT_PLAIN) || mediaType.hasSame(MediaType.TEXT_HTML);
   }
 
   bool	canWrite(MediaType mediaType) {
