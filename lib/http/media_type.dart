@@ -231,7 +231,7 @@ class MediaType extends MimeType {
 	 * @throws IllegalArgumentException if the string cannot be parsed
 	 */
 	static List<MediaType> parseMediaTypes(String mediaTypes) {
-		var tokens = mediaTypes.split(",\\s*");
+		var tokens = mediaTypes.split(",");
 		print('tokens ... ${tokens.length}');
 		List<MediaType> result = new List<MediaType>();
 		for (String token in tokens) {

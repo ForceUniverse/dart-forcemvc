@@ -7,7 +7,7 @@ class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
   }
 
   bool	canWrite(MediaType mediaType) {
-    return mediaType.hasSame(MediaType.TEXT_PLAIN);
+    return mediaType.hasSame(MediaType.TEXT_PLAIN) || mediaType.hasSame(MediaType.TEXT_HTML);
   }
 
   List<MediaType>	getSupportedMediaTypes() { return [MediaType.TEXT_PLAIN_VALUE]; }
@@ -16,8 +16,13 @@ class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
 
   void	write(T t, MediaType contentType, HttpOutputMessage outputMessage) {
       // write things to the response ... outputMessage.getBody().
-      String text = t.toString();
-      outputMessage.getOutputBody().write(text);
+      try {
+        String text = t.toString();
+        outputMessage.getOutputBody().write(text);
+      } catch(exception, stackTrace) {
+        outputMessage.getOutputBody().write("N/P");
+      }
+
   }
 
 }

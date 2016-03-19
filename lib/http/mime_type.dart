@@ -37,23 +37,18 @@ class MimeType {
 		this.type = type.toLowerCase();
 		this.subtype = subtype.toLowerCase();
     this.charset = charset;
-		print("constructor mimeType");
+		
 		if (parameters != null && parameters.length > 0) {
-			print("constructor mimeType 2");
 			Map<String, String> map = new LinkedHashMap<String, String>();
-			print("constructor mimeType 3");
-			for (var attribute in parameters) {
+			for (var attribute in parameters.keys) {
 				String value = parameters[attribute];
 				checkParameters(attribute, value);
 				map[attribute] = value;
 			}
-
 			this.parameters = map;
 		}
 		else {
-			print("constructor mimeType alt 1");
 			this.parameters = new LinkedHashMap();
-			print("constructor mimeType alt 2");
 		}
   }
 
