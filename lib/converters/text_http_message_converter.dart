@@ -10,7 +10,7 @@ class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
     return mediaType.hasSame(MediaType.TEXT_PLAIN) || mediaType.hasSame(MediaType.TEXT_HTML);
   }
 
-  List<MediaType>	getSupportedMediaTypes() { return [MediaType.TEXT_PLAIN_VALUE]; }
+  List<MediaType>	getSupportedMediaTypes() { return [MediaType.TEXT_PLAIN_VALUE, MediaType.TEXT_HTML_VALUE]; }
 
   T	read(HttpInputMessage inputMessage) { return null; }
 
