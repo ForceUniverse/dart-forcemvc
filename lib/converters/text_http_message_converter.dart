@@ -7,6 +7,8 @@ class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
   }
 
   bool	canWrite(MediaType mediaType) {
+    var hasSame = mediaType.hasSame(MediaType.TEXT_PLAIN) || mediaType.hasSame(MediaType.TEXT_HTML);
+    print('tell me can you $hasSame');
     return mediaType.hasSame(MediaType.TEXT_PLAIN) || mediaType.hasSame(MediaType.TEXT_HTML);
   }
 

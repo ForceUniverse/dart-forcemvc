@@ -1,20 +1,20 @@
 part of dart_force_mvc_lib;
 
 class PathAnalyzer {
-  
+
   String _path;
   String route = "";
-  String expression = "(\\w+)";
-  
+  String expression = "([^/]+?)";
+
   List<String> variables;
-  
+
   PathAnalyzer(this._path) {
     analyze();
   }
-  
+
   void analyze() {
     variables = new List<String>();
-    
+
     bool capture = false;
     String variable = "";
     var chars_raw = this._path.split("");
@@ -33,5 +33,5 @@ class PathAnalyzer {
       }
     }
   }
-  
+
 }
