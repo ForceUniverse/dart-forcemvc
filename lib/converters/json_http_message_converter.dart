@@ -7,7 +7,6 @@ class JsonHttpMessageConverter<T> extends HttpMessageConverter<T> {
   }
 
   bool canWrite(MediaType mediaType) {
-    print(mediaType.hasSame(MediaType.APPLICATION_JSON));
     return mediaType.hasSame(MediaType.APPLICATION_JSON);
   }
 
@@ -18,7 +17,6 @@ class JsonHttpMessageConverter<T> extends HttpMessageConverter<T> {
   void	write(T t, MediaType contentType, HttpOutputMessage outputMessage) {
       // write things to the response ... outputMessage.getBody().
       String data = JSON.encode(t);
-      print(data);
       outputMessage.getOutputBody().write(data);
   }
 
