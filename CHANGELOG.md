@@ -5,12 +5,14 @@ This file contains highlights of what changes on each version of the forcemvc pa
 #### Pub version 0.8.1 ####
 
 - Introducing @RestController
+- improve @ResponseBody
+- solve path variables with dash, issue #32
 
 #### Pub version 0.8.0 ####
 
 - Updating dependencies on logging
 - Clean up code
-- introduce @ResponceBody
+- introduce @ResponseBody
 - HttpMessageConverters and HttpMessageRegulator are also available in this release with a JsonHttpMessageConverter implementation
 
 #### Pub version 0.7.3 ####
