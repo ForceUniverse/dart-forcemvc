@@ -53,7 +53,6 @@ class ForceRequest implements HttpInputMessage, HttpOutputMessage {
     this.request.listen((List<int> buffer) {
       // Return the data back to the client.
       String dataOnAString = new String.fromCharCodes(buffer);
-      print(dataOnAString);
 
       var package = usejson ? JSON.decode(dataOnAString) : dataOnAString;
       completer.complete(package);

@@ -23,7 +23,6 @@ class HttpHeadersWrapper {
 	 */
 	List<MediaType> getAccept() {
 		String value = getFirst(HttpHeaders.ACCEPT);
-    print("Give me the value of ... $value");
 		List<MediaType> result = (value != null ? MediaType.parseMediaTypes(value) : new List());
 
 		return result;
@@ -71,7 +70,6 @@ class HttpHeadersWrapper {
   }
 
   String getFirst(name) {
-    print(this.httpHeaders);
     return this.httpHeaders.value(name);
   }
 }
