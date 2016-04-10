@@ -19,7 +19,7 @@ class TextHttpMessageConverter<T> extends HttpMessageConverter<T> {
       try {
         String text = t.toString();
         outputMessage.getOutputBody().write(text);
-      } catch(exception, stackTrace) {
+      } catch(exception) {
         outputMessage.getOutputBody().write("N/P");
       }
 

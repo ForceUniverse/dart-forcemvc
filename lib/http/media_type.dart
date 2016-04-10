@@ -87,6 +87,17 @@ class MediaType extends MimeType {
 	static final MediaType APPLICATION_XML = new MediaType.parseMediaType(APPLICATION_XML_VALUE);
 
 	/**
+	 * A Text CSV mediatype.
+	 */
+	static final String TEXT_CSV_VALUE = "text/csv";
+
+	/**
+	 *  constant media type for {@code text/csv}.
+	 */
+	static final MediaType TEXT_CSV = new MediaType.parseMediaType(TEXT_CSV_VALUE);
+
+
+	/**
 	 * A String equivalent of {@link MediaType#APPLICATION_XML}.
 	 */
 	static final String APPLICATION_XML_VALUE = "application/xml";
