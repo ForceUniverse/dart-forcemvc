@@ -1,22 +1,19 @@
 part of dart_force_mvc_lib;
 
-class CsvMessageConverter<T> extends HttpMessageConverter<T> {
+class CsvMessageConverter<T> extends AbstractHttpMessageConverter<T> {
 
-  canRead(MediaType mediaType) {
-    return mediaType.hasSame(MediaType.TEXT_CSV);
+  CsvMessageConverter() {
+    setSupportedMediaTypes([MediaType.TEXT_CSV]);
   }
 
-  bool	canWrite(MediaType mediaType) {
-    return mediaType.hasSame(MediaType.TEXT_CSV);
-  }
+  T	readInternal(HttpInputMessage inputMessage) { return null; }
 
-  List<MediaType>	getSupportedMediaTypes() { return [MediaType.TEXT_CSV]; }
-
-  T	read(HttpInputMessage inputMessage) { return null; }
-
-  void	write(T t, MediaType contentType, HttpOutputMessage outputMessage) {
+  void	writeInternal(T t, HttpOutputMessage output) {
       // write things to the response ... outputMessage.getBody().
+      String name = "response.csv";
+      output.getHeaders().set("Content-Disposition", "attachment; filename=\"" + name + "\"");
 
+      // doing some mirror stuff on the T class
   }
 
 }

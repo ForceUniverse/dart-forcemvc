@@ -13,7 +13,7 @@ class HttpHeadersWrapper {
 	 * as specified by the Accept Header.
 	 */
 	void setAccept(List<MediaType> acceptableMediaTypes) {
-    this.httpHeaders.set(HttpHeaders.ACCEPT, MediaType.toStringify(acceptableMediaTypes));
+    this.set(HttpHeaders.ACCEPT, MediaType.toStringify(acceptableMediaTypes));
 	}
 
 	/**
@@ -36,7 +36,7 @@ class HttpHeadersWrapper {
 		assert(!mediaType.isWildcardType());
 		assert(!mediaType.isWildcardSubtype());
 
-		this.httpHeaders.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
+		this.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
 	}
 
 	/**
@@ -62,7 +62,7 @@ class HttpHeadersWrapper {
 			builder = "$builder; filename=\"";
 			builder = "$builder$filename\"";
 		}
-		this.httpHeaders.set(CONTENT_DISPOSITION, builder);
+		this.set(CONTENT_DISPOSITION, builder);
 	}
 
   bool hasLength(String value) {
@@ -71,5 +71,9 @@ class HttpHeadersWrapper {
 
   String getFirst(name) {
     return this.httpHeaders.value(name);
+  }
+
+  void set(name, value) {
+    this.httpHeaders.set(name, value);
   }
 }
