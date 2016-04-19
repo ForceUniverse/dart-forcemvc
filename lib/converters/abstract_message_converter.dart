@@ -123,7 +123,7 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 			}
 		}
 		/* if (headers.getContentLength() < 0) {
-			Long contentLength = getContentLength(t, headers.getContentType());
+			var contentLength = getContentLength(t, headers.getContentType());
 			if (contentLength != null) {
 				headers.setContentLength(contentLength);
 			}
