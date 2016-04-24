@@ -1,30 +1,36 @@
 part of dart_force_mvc_lib;
 
-class CsvMessageConverter<T> extends AbstractHttpMessageConverter<T> {
+class CsvMessageConverter<List> extends AbstractHttpMessageConverter<List> {
 
   CsvMessageConverter() {
     setSupportedMediaTypes([MediaType.TEXT_CSV]);
   }
 
-  T	readInternal(HttpInputMessage inputMessage) { return null; }
+  List	readInternal(HttpInputMessage inputMessage) { return null; }
 
-  void	writeInternal(T t, HttpOutputMessage output) {
+  void	writeInternal(List list, HttpOutputMessage output) {
       // write things to the response ... outputMessage.getBody().
-      InstanceMirror myClassInstanceMirror = reflect(t);
-      ClassMirror nameOfCsv = myClassInstanceMirror.type;
+      String name;
+      String outputFile;
 
-      String name = "$nameOfCsv.csv";
+      for (var obj in list) {
+        InstanceMirror myClassInstanceMirror = reflect(obj);
+        ClassMirror classMirror = myClassInstanceMirror.type;
+
+        name = "$classMirror.csv";
+        /* for (var key in myClassInstanceMirror.) {
+
+        }*/
+        outputFile = "$outputFile \n";
+        for (var v in classMirror.declarations.values) {
+          var value = classMirror.invokeGetter(v.simpleName);
+
+          outputFile = "$outputFile${value};";
+        }
+
+      }
       output.getHeaders().set("Content-Disposition", "attachment; filename=\"" + name + "\"");
 
-      // doing some mirror stuff on the T class
-      /* classMirror.variables.keys.forEach((key) {
-        var futureField = instanceMirror.getField(key); // <-- works ok
-            futureField.then((imField) => print("Field: $key=${imField.reflectee}"));
-        });
-      }
-      classMirror.getters.keys.forEach((key) {
-        var futureValue = instanceMirror.getField(key); // <-- now works ok
-        futureValue.then((imValue) => print("Field: $key=${imValue.reflectee}"));
-      }); */
+      outputMessage.getOutputBody().write(outputFile);
    }
 }
