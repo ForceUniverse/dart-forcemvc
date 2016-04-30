@@ -6,6 +6,7 @@ class HttpMessageRegulator {
 
   HttpMessageRegulator() {
      add(new JsonHttpMessageConverter());
+     add(new CsvMessageConverter());
   }
 
   add(HttpMessageConverter messageConverter) {
