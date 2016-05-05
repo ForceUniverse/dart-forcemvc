@@ -33,10 +33,10 @@ class HttpHeadersWrapper {
 	 * as specified by the Content-Type header.
 	 */
 	void setContentType(MediaType mediaType) {
-		assert(!mediaType.isWildcardType());
-		assert(!mediaType.isWildcardSubtype());
+		// assert(!mediaType.isWildcardType());
+		// assert(!mediaType.isWildcardSubtype());
 
-		this.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
+		// this.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
 	}
 
 	/**
@@ -75,5 +75,9 @@ class HttpHeadersWrapper {
 
   void set(name, value) {
     this.httpHeaders.set(name, value);
+  }
+
+  void add(name, value) {
+    this.httpHeaders.add(name, value);
   }
 }

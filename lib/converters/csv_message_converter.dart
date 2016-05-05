@@ -8,26 +8,28 @@ class CsvMessageConverter<List> extends AbstractHttpMessageConverter<List> {
 
   List	readInternal(HttpInputMessage inputMessage) { return null; }
 
-  void	writeInternal(List list, HttpOutputMessage output) {
+  void	writeInternal(List list, HttpOutputMessage outputMessage) {
       // write things to the response ... outputMessage.getBody().
-      String name, outputFile;
+      String name, outputFile = "";
 
       for (var obj in list) {
         InstanceMirror myClassInstanceMirror = reflect(obj);
         ClassMirror classMirror = myClassInstanceMirror.type;
-
         name = "$classMirror.csv";
-        
-        outputFile = "$outputFile \n";
+
         for (var v in classMirror.declarations.values) {
-          var value = classMirror.invokeGetter(v.simpleName);
-
-          outputFile = "$outputFile${value};";
+          if (v is VariableMirror) {
+            var value = myClassInstanceMirror.getField(v.simpleName);
+            outputFile = "${outputFile}${value.reflectee};";
+          }
         }
-
+        outputFile = "$outputFile \n";
       }
-      output.getHeaders().set("Content-Disposition", "attachment; filename=\"" + name + "\"");
-
+      try {
+        outputMessage.getHeaders().set("Content-Disposition", "attachment; filename=\"$name\"");
+      } catch (e) {
+        print(e);
+      }
       outputMessage.getOutputBody().write(outputFile);
    }
 }
