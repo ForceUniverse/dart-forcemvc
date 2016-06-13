@@ -37,7 +37,7 @@ class MimeType {
 		this.type = type.toLowerCase();
 		this.subtype = subtype.toLowerCase();
     this.charset = charset;
-		
+
 		if (parameters != null && parameters.length > 0) {
 			Map<String, String> map = new LinkedHashMap<String, String>();
 			for (var attribute in parameters.keys) {
@@ -225,7 +225,8 @@ class MimeType {
 	}
 
 	String toString() {
-		return "${type} / ${subtype} -> ${parameters}";
+		// return "${type}/${subtype} -> ${parameters}";
+		return "${type}/${subtype}";
 	}
 
 	/**

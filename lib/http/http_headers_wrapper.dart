@@ -62,7 +62,7 @@ class HttpHeadersWrapper {
 			builder = "$builder; filename=\"";
 			builder = "$builder$filename\"";
 		}
-		// this.set(CONTENT_DISPOSITION, builder);
+		this.set(CONTENT_DISPOSITION, builder);
 	}
 
   bool hasLength(String value) {

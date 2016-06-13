@@ -109,7 +109,6 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 	 * #getContentLength, and sets the corresponding headers.
 	 */
 	void addDefaultHeaders(HttpHeadersWrapper headers, T t, MediaType contentType) {
-		if (headers.getContentType() == null) {
 			MediaType contentTypeToUse = contentType;
 			if (contentType == null || contentType.isWildcardType() || contentType.isWildcardSubtype()) {
 				contentTypeToUse = getDefaultContentType(t);
@@ -121,7 +120,6 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 			if (contentTypeToUse != null) {
 				headers.setContentType(contentTypeToUse);
 			}
-		}
 		/*if (headers.getContentLength() < 0) {
 			var contentLength = getContentLength(t, headers.getContentType());
 			if (contentLength != null) {
