@@ -36,7 +36,7 @@ class HttpHeadersWrapper {
 		// assert(!mediaType.isWildcardType());
 		// assert(!mediaType.isWildcardSubtype());
 
-		// this.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
+		this.set(HttpHeaders.CONTENT_TYPE, mediaType.toString());
 	}
 
 	/**
@@ -62,7 +62,7 @@ class HttpHeadersWrapper {
 			builder = "$builder; filename=\"";
 			builder = "$builder$filename\"";
 		}
-		this.set(CONTENT_DISPOSITION, builder);
+		// this.set(CONTENT_DISPOSITION, builder);
 	}
 
   bool hasLength(String value) {

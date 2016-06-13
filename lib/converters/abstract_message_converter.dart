@@ -75,7 +75,7 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 	 * and then calls #writeInternal.
 	 */
 	void write(final T t, MediaType contentType, HttpOutputMessage outputMessage) {
-		final HttpHeadersWrapper headers = outputMessage.getHeaders();
+		final HttpHeadersWrapper headers = outputMessage.getResponseHeaders();
 		addDefaultHeaders(headers, t, contentType);
 
 		/* if (outputMessage is StreamingHttpOutputMessage) {
@@ -122,12 +122,12 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 				headers.setContentType(contentTypeToUse);
 			}
 		}
-		/* if (headers.getContentLength() < 0) {
+		/*if (headers.getContentLength() < 0) {
 			var contentLength = getContentLength(t, headers.getContentType());
 			if (contentLength != null) {
 				headers.setContentLength(contentLength);
 			}
-		}*/
+		} */
 	}
 
 	/**

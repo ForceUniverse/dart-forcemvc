@@ -106,8 +106,9 @@ class ForceRegistry {
             return obj;
           }
 
-        } catch (e) {
+        } catch (e, stackTrace) {
           // Look for exceptionHandlers in this case
+          print(stackTrace);
           List<MetaDataValue<ExceptionHandler>> mirrorExceptions = new MetaDataHelper<ExceptionHandler, MethodMirror>().from(obj);
           mirrorExceptions.addAll(adviserExc);
 

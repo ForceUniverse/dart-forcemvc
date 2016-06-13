@@ -12,6 +12,12 @@ part of dart_force_mvc_lib;
 abstract class HttpOutputMessage extends HttpMessage {
 
 	/**
+	 * Return the headers of this message.
+	 * @return a corresponding HttpHeaders object (never null)
+	 */
+	HttpHeadersWrapper getResponseHeaders() { return null; }
+
+	/**
 	 * Return the body of the message as an output stream.
 	 */
 	IOSink getOutputBody();

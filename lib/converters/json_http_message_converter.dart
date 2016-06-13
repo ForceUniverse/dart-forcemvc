@@ -12,6 +12,8 @@ class JsonHttpMessageConverter<T> extends AbstractHttpMessageConverter<T> {
 
   void	writeInternal(T t, HttpOutputMessage outputMessage) {
       // write things to the response ... outputMessage.getBody().
+      print('Convert this to JSON');
+
       String data = JSON.encode(t);
       outputMessage.getOutputBody().write(data);
   }

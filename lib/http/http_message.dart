@@ -8,10 +8,4 @@ part of dart_force_mvc_lib;
  */
 abstract class HttpMessage {
 
-	/**
-	 * Return the headers of this message.
-	 * @return a corresponding HttpHeaders object (never null)
-	 */
-	HttpHeadersWrapper getHeaders() { return null; }
-
 }

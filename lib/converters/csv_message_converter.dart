@@ -26,7 +26,7 @@ class CsvMessageConverter<List> extends AbstractHttpMessageConverter<List> {
         outputFile = "$outputFile \n";
       }
       try {
-        outputMessage.getHeaders().set("Content-Disposition", "attachment; filename=\"$name\"");
+        outputMessage.getResponseHeaders().add("Content-Disposition", "attachment; filename=\"$name\"");
       } catch (e) {
         print(e);
       }

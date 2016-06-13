@@ -14,7 +14,7 @@ class HttpMessageRegulator {
   }
 
   loopOverMessageConverters(ForceRequest req, Object obj) {
-    List<MediaType> mediaTypes = req.getHeaders().getAccept();
+    List<MediaType> mediaTypes = req.getRequestHeaders().getAccept();
     for (MediaType mediaType in mediaTypes) {
       for (HttpMessageConverter messageConverter in messageConverters) {
           if (messageConverter.canWrite(mediaType)) {

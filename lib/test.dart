@@ -46,7 +46,11 @@ class MockForceRequest implements ForceRequest {
      return request.response;
    }
 
-   HttpHeadersWrapper getHeaders() {
+   HttpHeadersWrapper getResponseHeaders() {
+     return new HttpHeadersWrapper(this.request.response.headers);
+   }
+
+   HttpHeadersWrapper getRequestHeaders() {
      return new HttpHeadersWrapper(this.request.headers);
    }
 
