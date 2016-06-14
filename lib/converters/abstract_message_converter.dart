@@ -120,12 +120,12 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 			if (contentTypeToUse != null) {
 				headers.setContentType(contentTypeToUse);
 			}
-		/*if (headers.getContentLength() < 0) {
+		 if (headers.getContentLength() == null) {
 			var contentLength = getContentLength(t, headers.getContentType());
 			if (contentLength != null) {
 				headers.setContentLength(contentLength);
 			}
-		} */
+		}
 	}
 
 	/**

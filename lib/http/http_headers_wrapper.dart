@@ -50,6 +50,24 @@ class HttpHeadersWrapper {
 	}
 
   /**
+	 * Set the MediaType media type of the body,
+	 * as specified by the Content-Type header.
+	 */
+	void setContentLength(length) {
+		this.set(HttpHeaders.CONTENT_LENGTH, length);
+	}
+
+	/**
+	 * Return the MediaType media type of the body, as specified
+	 * by the Content-Type header.
+	 * Returns null when the content-type is unknown.
+	 */
+	dynamic getContentLength() {
+		return getFirst(HttpHeaders.CONTENT_LENGTH);
+	}
+
+
+  /**
 	 * Set the (new) value of the Content-Disposition header
 	 * for form-data.
 	 */

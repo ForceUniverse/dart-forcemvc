@@ -15,7 +15,9 @@ class CsvMessageConverter<List> extends AbstractHttpMessageConverter<List> {
       for (var obj in list) {
         InstanceMirror myClassInstanceMirror = reflect(obj);
         ClassMirror classMirror = myClassInstanceMirror.type;
-        name = "$classMirror.csv";
+
+        String className = MirrorSystem.getName(classMirror.simpleName);
+        name = "${className}.csv";
 
         for (var v in classMirror.declarations.values) {
           if (v is VariableMirror) {
