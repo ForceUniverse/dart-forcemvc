@@ -2,7 +2,7 @@
 
 This file contains highlights of what changes on each version of the forcemvc package.
 
-#### Pub version 0.8.2 & version 0.8.3 ####
+#### Pub version 0.8.2 & version 0.8.5 ####
 
 - Update version of wired to v0.4.5
 - improve @ResponseBody & httpmessageconverter logic
