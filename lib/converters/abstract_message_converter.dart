@@ -77,29 +77,7 @@ abstract class AbstractHttpMessageConverter<T> implements HttpMessageConverter<T
 	void write(final T t, MediaType contentType, HttpOutputMessage outputMessage) {
 		final HttpHeadersWrapper headers = outputMessage.getResponseHeaders();
 		addDefaultHeaders(headers, t, contentType);
-
-		/* if (outputMessage is StreamingHttpOutputMessage) {
-			StreamingHttpOutputMessage streamingOutputMessage = outputMessage;
-			streamingOutputMessage.setBody(new StreamingHttpOutputMessage.Body() {
-				@Override
-				void writeTo(final OutputStream outputStream) {
-					writeInternal(t, new HttpOutputMessage() {
-						@Override
-						OutputStream getBody() throws IOException {
-							return outputStream;
-						}
-						@Override
-						HttpHeaders getHeaders() {
-							return headers;
-						}
-					});
-				}
-			});
-		}
-		else { */
-			writeInternal(t, outputMessage);
-			// outputMessage.getOutputBody().flush();
-		// }
+		writeInternal(t, outputMessage);
 	}
 
 	/**
